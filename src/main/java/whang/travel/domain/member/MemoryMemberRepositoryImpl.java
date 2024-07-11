@@ -37,7 +37,7 @@ public class MemoryMemberRepositoryImpl implements MemberRepository {
     public Optional<Member> findByLoginId(String loginId) {
         // 람다식 사용
         return findAll().stream()
-                .filter(m -> m.getLoginId().equals(loginId))
+                .filter(m -> m.getMemberId().equals(loginId))
                 .findFirst();
     }
 }

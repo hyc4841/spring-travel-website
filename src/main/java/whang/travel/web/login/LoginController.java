@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import whang.travel.domain.login.LoginService;
 import whang.travel.domain.member.Member;
 import whang.travel.web.SessionConst;
@@ -26,38 +27,35 @@ import java.io.IOException;
 public class LoginController {
 
     private final LoginService loginService;
-    private final SessionManager sessionManager;
 
     @GetMapping("/login")
-    public String LoginForm(@ModelAttribute("loginForm") LoginForm loginForm, @ModelAttribute("member") Member member) {
-        return "login/login-signup";
+    public String LoginForm(@ModelAttribute("loginForm") LoginForm loginForm) {
+        return "login/loginForm";
     }
 
-    @ResponseBody
     @PostMapping("/login")
-    public String Login(@RequestBody LoginForm Form, BindingResult bindingResult,
+    public String Login(@Validated @ModelAttribute("loginForm") LoginForm loginForm, BindingResult bindingResult,
                         @RequestParam(defaultValue = "/") String redirectURL,
-                        HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
-        log.info("loginId={}, password={}", Form.getLoginId(), Form.getPassword());
-        if (bindingResult.hasErrors()) {
-            model.addAttribute(Form);
-            return "Bad Request";
+                        HttpServletRequest request) throws IOException {
+
+        if (bindingResult.hasErrors()) { // 필드 오류가 있으면 입력했던 정보 가지고 다시 로그인 화면으로 감.
+            log.info("BindingResult={}", bindingResult);
+            return "login/loginForm";
         }
-        Member loginMember = loginService.Login(Form.getLoginId(), Form.getPassword());
-        if (loginMember == null) {
+        Member loginMember = loginService.Login(loginForm.getLoginId(), loginForm.getPassword()); // 실제 로그인 로직이 돌아가는곳.
+
+        if (loginMember == null) { // 로그인 요청 정보로 유저 찾았는데 없으면
             log.info("로그인 실패");
-            model.addAttribute(Form);
-            response.sendRedirect("/login");
-            bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");
-            return "Bad Request";
+            bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다."); // 글로벌 오류로 보냄
+            return "login/loginForm";
         }
 
         // 로그인 성공
         log.info("로그인 성공");
+        // HttpSession에서 세션 등록해주면 이름이 JSESSION이고 값은 예측 불가능한 값을 넣어준다.
         HttpSession session = request.getSession(); // 세션이 있으면 세션을 반환하고, 세션이 없으면 새로운 세션을 만든다.
         session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
-        response.sendRedirect(redirectURL);
-        return "ok";
+        return "redirect:" + redirectURL; // post 요청의 경우 성공하면 redirect 시켜주는게 낫다. 새로고침하면 post 요청이 다시 갈 수 있기 때문
     }
 
     @PostMapping("/logout")
@@ -70,21 +68,4 @@ public class LoginController {
         return "redirect:/";
     }
 
-
-
-    @GetMapping("/test")
-    public String LoginFormTest() {
-        return "login/loginFormTest"; // /templates/login/loginFormTest.html
-    }
-
-    @GetMapping("/test2")
-    public String LoginFormTest2() {
-        return "login/loginFormTest2";
-    }
-
-    @GetMapping("/test3")
-    public String LoginFormTest3()
-    {
-        return "login/loginFormTest3";
-    }
 }

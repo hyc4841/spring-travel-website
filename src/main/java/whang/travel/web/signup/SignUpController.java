@@ -26,10 +26,6 @@ public class SignUpController { // 회원 가입 컨트롤러
     public String signupForm(@ModelAttribute("member") Member member, @ModelAttribute("loginForm") LoginForm loginForm) {
         return "login/login-signup";
     }
-    @GetMapping("/signup/add/test")
-    public String signupFormTest(@ModelAttribute("member") Member member, @ModelAttribute("loginForm") LoginForm loginForm) {
-        return "login/login-signup2";
-    }
 
     // post : 회원 가입
     @ResponseBody
