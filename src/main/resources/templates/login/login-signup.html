@@ -13,30 +13,37 @@
 <!--th:src="@{/script/loginForm.js}" -->
 
 <div id="container" class="container">
+
     <!-- FORM SECTION -->
     <div class="row">
 
         <!-- SIGN UP -->
         <div class="col align-items-center flex-col sign-up">
             <div class="form-wrapper align-items-center">
-                <div class="form sign-up">
+                
+                <div class="form sign-up" th:object="${member}">
+
                     <div class="input-group">
                         <i class='bx bxs-user'></i>
-                        <input type="text" placeholder="Username">
+                        <input type="text" id="signupId" th:field="*{loginId}"
+                                th:errorclass="field-error" placeholder="Id">
+                    </div>
+                    <div class="input-group">
+                        <i class='bx bxs-user'></i>
+                        <input type="text" id="name" th:field="*{name}"
+                                th:errorclass="field-error" placeholder="Username">
                     </div>
                     <div class="input-group">
                         <i class='bx bx-mail-send'></i>
-                        <input type="email" placeholder="Email">
+                        <input type="email" id="email" th:field="*{email}"
+                                th:errorclass="field-error" placeholder="Email">
                     </div>
                     <div class="input-group">
                         <i class='bx bxs-lock-alt'></i>
-                        <input type="password" placeholder="Password">
+                        <input type="password" id="password" th:field="*{password}"
+                                th:errorclass="field-error" placeholder="Password">
                     </div>
-                    <div class="input-group">
-                        <i class='bx bxs-lock-alt'></i>
-                        <input type="password" placeholder="Confirm password">
-                    </div>
-                    <button>
+                    <button id="signupBtn">
                         Sign up
                     </button>
                     <p>
@@ -57,16 +64,21 @@
         <!-- SIGN IN -->
         <div class="col align-items-center flex-col sign-in">
             <div class="form-wrapper align-items-center">
-                <div class="form sign-in">
+
+                <div class="form sign-in" th:object="${loginForm}">
                     <div class="input-group">
                         <i class='bx bxs-user'></i>
-                        <input type="text" placeholder="Username">
+                        <input id="loginId" type="text" th:field="*{loginId}"
+                        th:errorclass="field-error" placeholder="Username">
+                        <div class="field-error" th:errors="*{loginId}" />
                     </div>
                     <div class="input-group">
                         <i class='bx bxs-lock-alt'></i>
-                        <input type="password" placeholder="Password">
+                        <input id="loginPassword" type="password" th:field="*{loginId}"
+                        th:errorclass="field-error" placeholder="Password">
+                        <div class="field-error" th:errors="*{loginId}" />
                     </div>
-                    <button>
+                    <button id="loginBtn">
                         Sign in
                     </button>
                     <p>
