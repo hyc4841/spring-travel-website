@@ -1,0 +1,157 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>sign up Form</title>
+
+    <!-- <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/checkout/"> -->
+
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../../static/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+      .container {
+      max-width: 960px;
+      }
+    </style>
+
+  </head>
+  <body class="bg-light">
+  <script th:src="@{/script/form-validation.js}" 
+          src="../../static/script/form-validation.js" defer></script>
+    
+<div class="container">
+  <main>
+    <div class="py-5 text-center">
+      <h1>회원 가입</h1>
+    </div>
+
+    <hr class="my-4"> <!-- 줄 -->
+
+    <div class="row">
+      <div class="col">
+
+
+        <form class="needs-validation" novalidate th:action th:object="${member}" method="post">
+          <div class="row g-3">
+
+            <!-- 성 -->
+            <div class="col-sm-6">
+              <label for="firstName" class="form-label" th:text="#{member.signup.firstName}">성</label>
+              <input type="text" class="form-control" id="firstName" placeholder="" value=""
+                     th:field="*{firstName}" required>
+              <div class="invalid-feedback">
+                Valid first name is required.
+              </div>
+            </div>
+
+            <!-- 이름 -->
+            <div class="col-sm-6">
+              <label for="lastName" class="form-label" th:text="#{member.signup.lastName}">이름</label>
+              <input type="text" class="form-control" id="lastName" placeholder="" value=""
+                     th:field="*{lastName}" required>
+              <div class="invalid-feedback">
+                Valid last name is required.
+              </div>
+            </div>
+
+            <!-- 아이디 -->
+            <div class="col-12">
+              <label for="username" class="form-label" th:text="#{member.signup.userId}">아이디</label>
+              <div class="input-group has-validation">
+                <span class="input-group-text">@</span>
+                <input type="text" class="form-control" id="username" placeholder="Username"
+                       th:field="*{memberId}" required>
+              <div class="invalid-feedback">
+                  Your id is required.
+                </div>
+              </div>
+            </div>
+
+            <!-- 비밀번호 -->
+            <div class="col-sm-6">
+              <label for="password" class="form-label" th:text="#{member.signup.password}">비밀번호</label>
+              <div class="input-group has-validation">
+                <input type="password" class="form-control" id="password" placeholder="password"
+                       th:field="*{password}" required>
+                <div class="invalid-feedback">
+                  Your password is required.
+                </div>
+              </div>
+            </div>
+
+            <!-- 비밀번호 확인 -->
+            <div class="col-sm-6">
+              <label for="passwordcheck" class="form-label" th:text="#{member.signup.passwordcheck}">비밀번호 확인</label>
+              <div class="input-group has-validation">
+                <input type="password" class="form-control" id="passwordcheck" placeholder="" required>
+                <div class="valid-feedback" th:text="#{member.signup.password.match}">
+                  일치합니다
+                </div>
+                <div class="invalid-feedback" th:text="#{member.signup.password.missmatch}">
+                  두 비밀번호가 틀립니다
+                </div>
+              </div>
+            </div>
+
+            <!-- 이메일 -->
+            <div class="col-12">
+              <label for="email" class="form-label" th:text="#{member.signup.email}">이메일 <span class="text-muted">(Optional)</span></label>
+              <input type="email" class="form-control" id="email" placeholder="you@example.com"
+                     th:field="*{email}">
+              <div class="invalid-feedback">
+                Please enter a valid email address for shipping updates.
+              </div>
+            </div>
+
+            <!-- 주소 -->
+            <div class="col-12">
+              <label for="address" class="form-label">주소</label>
+              <input type="text" class="form-control" id="address" placeholder="1234 Main St"
+                     th:field="*{address}" required>
+              <div class="invalid-feedback">
+                Please enter your shipping address.
+              </div>
+            </div>
+
+            <!-- 상세주소
+            <div class="col-12">
+              <label for="address2" class="form-label">상세주소<span class="text-muted">(Optional)</span></label>
+              <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
+            </div> -->
+
+          <hr class="my-4">
+
+          <button class="w-100 btn btn-primary btn-lg" type="submit">확인</button>
+
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <footer class="my-5 pt-5 text-muted text-center text-small">
+    <p class="mb-1">&copy; 2017–2021 Company Name</p>
+    <ul class="list-inline">
+      <li class="list-inline-item"><a href="#">Privacy</a></li>
+      <li class="list-inline-item"><a href="#">Terms</a></li>
+      <li class="list-inline-item"><a href="#">Support</a></li>
+    </ul>
+  </footer>
+</div>
+  </body>
+</html>
