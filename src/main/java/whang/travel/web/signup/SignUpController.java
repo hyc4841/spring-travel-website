@@ -23,8 +23,8 @@ public class SignUpController { // 회원 가입 컨트롤러
 
     // get : 회원 가입 폼 이동. 지금 로그인 화면하고 회원가입 화면이 합쳐져 있음
     @GetMapping("/signup/add")
-    public String signupForm(@ModelAttribute("member") Member member, @ModelAttribute("loginForm") LoginForm loginForm) {
-        return "login/login-signup";
+    public String signupForm(@ModelAttribute("member") Member member) {
+        return "login/checkout";
     }
 
     // post : 회원 가입
