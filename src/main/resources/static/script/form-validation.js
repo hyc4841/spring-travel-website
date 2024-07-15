@@ -20,3 +20,41 @@
       }, false)
     })
 })()
+    
+/*
+var passwordCheck = document.getElementById('passwordcheckBtn');
+
+passwordCheck.addEventListener('click', function() {
+
+  let password1 = document.getElementById('password').value;
+  let password2 = document.getElementById('passwordcheck').value;
+
+
+  if (password1 == password2) {
+    password2.classList.remove('is-invalid');
+    password2.classList.add('is-valid');
+  }
+  else {
+    password2.classList.remove('is-valid');
+    password2.classList.add('is-invalid');
+  }
+});
+*/
+
+let passwordValid = false;
+
+document.getElementById('passwordcheck').addEventListener('input', function() {
+  let password1 = document.getElementById("password").value;
+  let inputpassword = this.value;
+
+  passwordValid = password1 == inputpassword;
+
+  if (passwordValid) {
+    this.classList.remove("is-invalid");
+    this.classList.add("is-valid")
+  }
+  else {
+    this.classList.remove("is-valid");
+    this.classList.add("is-invalid");
+  }
+});

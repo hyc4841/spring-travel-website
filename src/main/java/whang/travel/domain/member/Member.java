@@ -1,6 +1,6 @@
 package whang.travel.domain.member;
 
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
@@ -8,14 +8,20 @@ public class Member {
 
     private Long id;
 
-    @NotEmpty
+    @NotBlank
+    private String firstName;
+    @NotBlank
+    private String lastName;
+    @NotBlank
     private String memberId;
-    @NotEmpty
-    private String name;
-    @NotEmpty
-    private String email;
-    @NotEmpty
+    @NotBlank
     private String password;
+    @NotBlank
+    private String email;
+    @NotBlank
+    private String address;
+
+
 
 
 }
