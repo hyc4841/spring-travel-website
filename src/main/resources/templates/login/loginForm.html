@@ -40,7 +40,6 @@
           </div>
       </div>
 
-
       <div th:if="${#fields.hasGlobalErrors()}">
         <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">로그인 오류 메시지</p>
       </div>
