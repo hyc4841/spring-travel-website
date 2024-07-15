@@ -14,7 +14,6 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * 세션 관리
  */
-@Component
 public class SessionManager {
 
     public static final String SESSION_COOKIE_NAME = "loginSessionId";

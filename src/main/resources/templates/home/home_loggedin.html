@@ -159,7 +159,9 @@
             <li>
               <a href="#" class="nav-link text-white">
                 <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#people-circle"/></svg>
-                Customers
+                <span th:text="|${member.firstName}${member.lastName} 님|">
+                  로그인한 사용자 이름
+                </span>
               </a>
             </li>
           </ul>
@@ -173,9 +175,12 @@
         </form>
 
         <div class="text-end">
-          <button type="button" class="btn btn-light text-dark me-2" th:onclick="|location.href='@{/login}'|">Login</button>
-          <button type="button" class="btn btn-primary" th:onclick="|location.href='@{/signup/add}'|">Sign-up</button>
+          <form th:action="@{/logout}" method="post">
+            <button type="submit" class="btn btn-dark">로그아웃</button>
+          </form>
+
         </div>
+
       </div>
     </div>
   </header>

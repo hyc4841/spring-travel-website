@@ -10,9 +10,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import whang.travel.domain.member.Member;
 import whang.travel.domain.member.MemberRepository;
-import whang.travel.web.login.form.LoginForm;
-
-import java.io.IOException;
 
 @Slf4j
 @Controller
@@ -25,11 +22,7 @@ public class SignUpController { // 회원 가입 컨트롤러
     // get : 회원 가입 폼 이동. 지금 로그인 화면하고 회원가입 화면이 합쳐져 있음
     @GetMapping("/signup/add")
     public String signupForm(@ModelAttribute("member") Member member) {
-<<<<<<< HEAD
-        return "login/checkout";
-=======
         return "/signup/signup";
->>>>>>> 1c0ce37b59d8abe626cbb14c6e726a4afdbe5879
     }
 
     // post : 회원 가입
@@ -48,15 +41,7 @@ public class SignUpController { // 회원 가입 컨트롤러
         memberRepository.save(member);
         log.info("회원가입 성공={}", member);
 
-
         return "redirect:" + redirectURL; // 회원가입 성공하면 홈 화면으로 이동.
     }
-
-    @GetMapping("/home")
-    public String homeTest() {
-
-        return "/home/home";
-    }
-
 
 }

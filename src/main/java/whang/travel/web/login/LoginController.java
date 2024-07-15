@@ -35,7 +35,7 @@ public class LoginController {
 
     @PostMapping("/login")
     public String Login(@Validated @ModelAttribute("loginForm") LoginForm loginForm, BindingResult bindingResult,
-                        @RequestParam(defaultValue = "/") String redirectURL,
+                        @RequestParam(defaultValue = "/home") String redirectURL,
                         HttpServletRequest request) throws IOException {
 
         if (bindingResult.hasErrors()) { // 필드 오류가 있으면 입력했던 정보 가지고 다시 로그인 화면으로 감.
@@ -59,14 +59,14 @@ public class LoginController {
         return "redirect:" + redirectURL; // post 요청의 경우 성공하면 redirect 시켜주는게 낫다. 새로고침하면 post 요청이 다시 갈 수 있기 때문
     }
 
-    @GetMapping("/logout")
+    @PostMapping("/logout")
     public String logout(HttpServletRequest request) {
         HttpSession session = request.getSession(false); // 로그아웃은 세션을 제거해주면 된다.
         if (session != null) {
             session.invalidate(); // invalidate()은 세션을 지워준다.
         }
 
-        return "redirect:/";
+        return "redirect:/home";
     }
 
 }

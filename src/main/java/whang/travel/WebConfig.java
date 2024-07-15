@@ -15,6 +15,6 @@ public class WebConfig implements WebMvcConfigurer { // 인터셉터를 등록�
                 .order(1)
                 .addPathPatterns("/**") // 모든 경로에 적용
                 .excludePathPatterns("/", "/signup/add", "/login", "/logout", "/css/**", "/static/**" ,
-                                    "/script/**", "/*.ico", "/error"); // 적용하지 않을 경로 설정
+                                    "/script/**", "/*.ico", "/error", "/home"); // 적용하지 않을 경로 설정
     }
 }
