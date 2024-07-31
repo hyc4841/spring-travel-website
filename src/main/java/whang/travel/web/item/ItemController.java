@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import whang.travel.domain.item.Item;
@@ -44,12 +45,19 @@ public class ItemController {
     }
 
     @GetMapping("/add") // 아이템 추가 폼으로 이동
-    public String addItemForm() {
+    public String addItemForm(Model model) {
+        model.addAttribute("item", new Item());
         return "/items/addForm";
     }
 
     @PostMapping("/add") // 아이템 추가하기
-    public String addItem(@ModelAttribute ItemSaveForm item, RedirectAttributes redirectAttributes) {
+    public String addItem(@ModelAttribute ItemSaveForm item, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+
+        if (bindingResult.hasErrors()) {
+            log.info("errors={}", bindingResult);
+            return "/items/addForm";
+        }
+
         Item saveitem = itemService.save(item);
         redirectAttributes.addAttribute("itemId", saveitem.getId());
         redirectAttributes.addAttribute("status", true);
