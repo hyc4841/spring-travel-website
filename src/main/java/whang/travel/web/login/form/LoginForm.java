@@ -8,7 +8,6 @@ public class LoginForm {
 
     @NotBlank
     private String loginId;
-
     @NotBlank
     private String password;
 }

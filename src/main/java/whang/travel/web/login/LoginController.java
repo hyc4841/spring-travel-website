@@ -1,23 +1,17 @@
 package whang.travel.web.login;
 
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import whang.travel.domain.login.LoginService;
 import whang.travel.domain.member.Member;
 import whang.travel.web.SessionConst;
 import whang.travel.web.login.form.LoginForm;
-import whang.travel.web.session.SessionManager;
-
 import java.io.IOException;
 
 @Slf4j

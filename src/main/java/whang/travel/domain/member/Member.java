@@ -10,18 +10,20 @@ public class Member {
 
     @NotBlank
     private String firstName;
+
     @NotBlank
     private String lastName;
+
     @NotBlank
     private String memberId;
+
     @NotBlank
     private String password;
+
     @NotBlank
     private String email;
+
     @NotBlank
     private String address;
-
-
-
 
 }

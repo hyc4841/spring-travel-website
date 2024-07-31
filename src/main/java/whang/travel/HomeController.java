@@ -16,6 +16,12 @@ import whang.travel.web.SessionConst;
 @RequestMapping
 public class HomeController {
 
+    @GetMapping("/")
+    public String GoToHome() {
+
+        return "redirect:/home";
+    }
+
     @GetMapping("/home")
     public String LoggedInHome(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member loginMember,
                                Model model) {
