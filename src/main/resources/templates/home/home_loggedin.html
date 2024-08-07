@@ -148,9 +148,9 @@
             </li>
 
             <li>
-              <a href="#" class="nav-link text-white">
+              <a th:href="@{/order/orderList/{memberId}(memberId=${member.memberId})}" href="#" class="nav-link text-white">
                 <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#table"/></svg>
-                Orders
+                  Orders
               </a>
             </li>
             <li>
@@ -211,8 +211,8 @@
       <h1 class="display-3 fw-bold">Designed for engineers</h1>
       <h3 class="fw-normal text-muted mb-3">Build anything you want with Aperture</h3>
       <div class="d-flex gap-3 justify-content-center lead fw-normal">
-        <a class="icon-link" href="#">
-          Learn more
+        <a class="icon-link" th:href="@{/item/items}" href="#">
+          아이템 목록
           <svg class="bi"><use xlink:href="#chevron-right"/></svg>
         </a>
         <a class="icon-link" href="#">
@@ -336,7 +336,7 @@
     </div>
   </div>
 </footer>
-<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../../static/script/bootstrap.bundle.min.js"></script>
 
     </body>
 </html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="../../static/css/bootstrap.min.css"
+          th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <title>주문 성공 페이지</title>
+
+    <style>
+        .container {
+            max-width: 600px;
+        }
+    </style>
+</head>
+
+
+<body>
+<div class="container">
+    <div class="py-5 text-center">
+        <h1>주문 성공</h1>
+    </div>
+    <hr class="my-4">
+    <form action="addOrderForm.html" th:action method="post">
+        <div>
+            <label for="orderNum">주문 번호</label>
+            <input type="text" name="orderNum" id="orderNum" class="form-control" th:value="${saveOrder.orderNum}" readonly>
+        </div>
+        <div>
+            <label for="orderMemberID">주문자</label>
+            <input type="text" name="orderMemberID" id="orderMemberID" class="form-control" th:value="${saveOrder.orderMemberID}" readonly>
+        </div>
+        <div>
+            <label for="orderItemId">상품ID</label>
+            <input type="text" name="orderItemId" id="orderItemId" class="form-control" th:value="${saveOrder.orderItemId}" readonly>
+        </div>
+
+        <div>
+            <label for="orderItem">상품명</label>
+            <input type="text" name="orderItem" id="orderItem" class="form-control" th:value="${saveOrder.orderItem}" readonly>
+        </div>
+        <div>
+            <label for="orderItemPrice">상품 가격</label>
+            <input type="text" name="orderItemPrice" id="orderItemPrice" class="form-control" th:value="${saveOrder.orderItemPrice}" readonly>
+        </div>
+        <div>
+            <label for="orderItemQuantity">주문 수량</label>
+            <input type="text" name="orderItemQuantity" id="orderItemQuantity" th:value="${saveOrder.orderItemQuantity}" class="form-control" readonly>
+        </div>
+        <div>
+            <label for="totalPrice">주문 금액</label>
+            <input type="text" name="totalPrice" id="totalPrice" th:value="${saveOrder.totalPrice}" class="form-control" readonly>
+        </div>
+        <div>
+            <label for="address">배송지</label>
+            <input type="text" name="address" id="address" class="form-control" th:value="${saveOrder.address}" readonly>
+        </div>
+        <div>
+            <label for="orderDate">주문 날짜</label>
+            <input type="text" name="orderDate" id="orderDate" class="form-control" th:value="${saveOrder.orderDate}" readonly>
+        </div>
+
+        <hr class="my-4">
+
+        <div class="row">
+            <div class="col">
+                <button class="w-100 btn btn-secondary btn-lg"
+                        onclick="location.href='items.html'"
+                        th:onclick="|location.href='@{/item/{itemId}(itemId=${saveOrder.orderItemId})}'|"
+                        type="button">돌아가기</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

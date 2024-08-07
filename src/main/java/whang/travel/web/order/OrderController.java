@@ -6,13 +6,19 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import whang.travel.domain.item.Item;
+import whang.travel.domain.item.ItemService;
 import whang.travel.domain.member.Member;
+import whang.travel.domain.order.Order;
 import whang.travel.domain.order.OrderService;
 import whang.travel.web.SessionConst;
+import whang.travel.web.order.form.SaveOrderForm;
+import whang.travel.web.order.form.UpdateOrderForm;
+
+import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Controller
@@ -21,12 +27,13 @@ import whang.travel.web.SessionConst;
 public class OrderController {
     // 상품 화면 -> 주문 화면 -> 주문
     private final OrderService orderService;
+    private final ItemService itemService;
 
     // 항상 로그인한 유저를 확인해야한다.
 
     // 주문 확인 화면
-    @GetMapping("/addOrder")
-    public String addOrderForm(HttpServletRequest request, Model model) {
+    @GetMapping("/addOrder/{orderItemId}")
+    public String addOrderForm(@PathVariable Long orderItemId, HttpServletRequest request, Model model) {
         // 현재 유저가 누구인지 확인
         HttpSession session = request.getSession();
         Member loginMember = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
@@ -35,37 +42,76 @@ public class OrderController {
             return "/login";
         }
 
-        model.addAttribute("loginMember", loginMember);
+        Item orderItem = itemService.findById(orderItemId).get();
+
+        model.addAttribute("orderItem", orderItem); // 현재 주문 상품
+        model.addAttribute("loginMember", loginMember); // 현재 멤버
+
         return "/order/addOrderForm";
     }
 
     // 주문
     @PostMapping("/addOrder")
-    public String createOrder() {
+    public String createOrder(@ModelAttribute SaveOrderForm saveOrderForm, RedirectAttributes redirectAttributes) {
+        Order order = orderService.createOrder(saveOrderForm);
 
+        redirectAttributes.addAttribute("orderNum", order.getOrderNum());
+
+        return "redirect:/order/success/{orderNum}";
+    }
+
+    @GetMapping("/success/{orderNum}")
+    public String orderSuccessForm(@PathVariable Long orderNum, Model model) {
+        Order order = orderService.findOrderByOrderNum(orderNum);
+
+        model.addAttribute("saveOrder", order);
+        return "/order/orderSubmitSuccess";
     }
 
     // 주문 목록 화면(멤버 id로 조회)
     @GetMapping("/orderList/{memberId}")
-    public String orderList() {
+    public String orderList(@PathVariable String memberId, Model model) {
+        List<Order> orderList = orderService.findOrderByMemberId(memberId);
 
+        model.addAttribute("orderList", orderList);
+
+        return "/order/orderList";
+    }
+
+    @GetMapping("/orderDetail/{orderNum}")
+    public String orderDetail(@PathVariable Long orderNum, Model model) {
+        Order orderDetail = orderService.findOrderByOrderNum(orderNum);
+
+        model.addAttribute("order", orderDetail);
+
+        return "/order/orderDetail";
     }
 
     // 주문 수정 화면
     @GetMapping("/editOrder/{orderNum}")
-    public String editOrderForm() {
+    public String editOrderForm(@PathVariable Long orderNum, Model model) {
+        Order editOrder = orderService.findOrderByOrderNum(orderNum);
 
+        model.addAttribute("editOrder", editOrder);
+
+        return "/order/editOrder";
     }
 
     // 주문 수정
     @PostMapping("/editOrder/{orderNum}")
-    public String editOrder() {
+    public String editOrder(@PathVariable Long orderNum, RedirectAttributes redirectAttributes) {
 
+        redirectAttributes.addAttribute("orderNum", orderNum);
+
+        return "redirect:/orderDetail/{orderNum}";
     }
 
     //
-    @DeleteMapping("/deleteOrder")
-    public String deleteOrder() {
+    @DeleteMapping("/deleteOrder/{orderNum}")
+    public String deleteOrder(@PathVariable Long orderNum, RedirectAttributes redirectAttributes) {
 
+        // redirectAttributes.addAttribute("memberId")
+
+        return "redirect:/order/orderList/{memberId}";
     }
 }

@@ -1,5 +1,6 @@
 package whang.travel.domain.order;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 import whang.travel.web.order.form.SaveOrderForm;
 import whang.travel.web.order.form.UpdateOrderForm;
@@ -8,6 +9,7 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+@Slf4j
 @Repository
 public class MemoryOrderRepository implements OrderRepository{
 
@@ -17,14 +19,18 @@ public class MemoryOrderRepository implements OrderRepository{
     @Override // SaveForm으로 데이터 받아서 저장하기
     public Order orderSave(SaveOrderForm saveOrder) {
         Order order = new Order();
-        order.setOrderNum(++sequence);
-        order.setOrderItem(saveOrder.getOrderItem());
-        order.setOrderItemPrice(saveOrder.getOrderItemPrice());
-        order.setOrderItemQuantity(saveOrder.getOrderItemQuantity());
-        order.setOrderMemberID(saveOrder.getOrderMemberID());
-        order.setOrderDate(saveOrder.getOrderDate());
-        order.setOrderFinish(false);
+        order.setOrderNum(++sequence); // 주문 번호 자동 증가
+        order.setOrderItem(saveOrder.getOrderItem()); // 주문 상품 이름
+        order.setOrderItemId(saveOrder.getOrderItemId()); // 주문 상품 ID
+        order.setOrderItemPrice(saveOrder.getOrderItemPrice()); // 가격
+        order.setOrderItemQuantity(saveOrder.getOrderItemQuantity()); // 수량
+        order.setOrderMemberID(saveOrder.getOrderMemberID()); // 주문자 ID
+        order.setOrderDate(new Date()); // 주문 날짜
+        order.setAddress(saveOrder.getAddress()); // 주소
+        order.setTotalPrice(saveOrder.getOrderItemPrice() * saveOrder.getOrderItemQuantity()); // 총 주문 금액
         store.put(order.getOrderNum(), order);
+
+        log.info("주문 저장 성공={}", order);
 
         return order;
     }
@@ -32,10 +38,7 @@ public class MemoryOrderRepository implements OrderRepository{
     @Override // updateForm으로 데이터 업데이트 하기
     public void orderUpdate(Long orderNum, UpdateOrderForm updateOrder) {
         Order order = store.get(orderNum);
-        order.setOrderItemPrice(updateOrder.getOrderItemPrice());
         order.setOrderItemQuantity(updateOrder.getOrderItemQuantity());
-        order.setOrderMemberID(updateOrder.getOrderMemberID());
-        order.setOrderFinish(updateOrder.getOrderFinish());
     }
 
     @Override //

@@ -27,6 +27,9 @@ public class MemoryItemRepositoryImpl implements ItemRepository{
         item.setPrice(saveItem.getPrice());
         item.setQuantity(saveItem.getQuantity());
         store.put(item.getId(), item);
+
+        log.info("상품 등록 성공={}", item);
+
         return item;
     }
     @Override

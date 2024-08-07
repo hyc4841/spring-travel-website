@@ -1,10 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link href="../../static/css/bootstrap.min.css"
+          th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <title>나의 주문 리스트</title>
+
 </head>
+
 <body>
+    <div class="container" style="max-width: 800px">
+        <div class="py-5 text-center">
+            <h2>주문 리스트</h2>
+        </div>
+
+        <hr class="my-4">
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>주문 번호</th>
+                <th>상품명</th>
+                <th>가격</th>
+                <th>수량</th>
+                <th>총 금액</th>
+                <th>배송지</th>
+                <th>주문 날짜</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="order : ${orderList}">
+                <td><a href="orderList.html" th:href="@{/order/orderDetail/{orderNum}(orderNum=${order.orderNum})}" th:text="${order.orderNum}">주문 번호</a></td>
+                <td><a href="item.html" th:href="@{/item/{itemId}(itemId=${order.orderItemId})}" th:text="${order.orderItem}">상품명</a></td>
+                <td th:text="${order.orderItemPrice}">가격</td>
+                <td th:text="${order.orderItemQuantity}">수량</td>
+                <td th:text="${order.totalPrice}">총 금액</td>
+                <td th:text="${order.address}">배송지</td>
+                <td th:text="${order.orderDate}">주문 날짜</td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
 
 </body>
 </html>

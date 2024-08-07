@@ -1,10 +1,70 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link href="../../static/css/bootstrap.min.css"
+        th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <title>주문 추가 페이지</title>
+
+    <style>
+        .container {
+            max-width: 600px;
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <div class="py-5 text-center">
+            <h1>주문 화면</h1>
+        </div>
+        <hr class="my-4">
+        <form action="addOrderForm.html" th:action="@{/order/addOrder}" method="post">
+            <div>
+                <label for="orderMemberID">주문자</label>
+                <input type="text" name="orderMemberID" id="orderMemberID" class="form-control" th:value="${loginMember.memberId}" placeholder="주문자" readonly>
+            </div>
+            <div>
+                <label for="orderItemId">상품ID</label>
+                <input type="text" name="orderItemId" id="orderItemId" class="form-control" th:value="${orderItem.id}" placeholder="주문 상품 ID" readonly>
+            </div>
 
+            <div>
+                <label for="orderItem">상품명</label>
+                <input type="text" name="orderItem" id="orderItem" class="form-control" th:value="${orderItem.itemName}" placeholder="주문 상품명" readonly>
+            </div>
+            <div>
+                <label for="orderItemPrice">상품 가격</label>
+                <input type="text" name="orderItemPrice" id="orderItemPrice" class="form-control" th:value="${orderItem.price}" placeholder="주문 상품 가격" readonly>
+            </div>
+            <div>
+                <label for="orderItemQuantity">주문 수량</label>
+                <input type="text" name="orderItemQuantity" id="orderItemQuantity" class="form-control" placeholder="주문 수량">
+            </div>
+            <div>
+                <label for="address">배송지</label>
+                <input type="text" name="address" id="address" class="form-control" placeholder="주소를 입력해주세요">
+            </div>
+
+
+            
+    
+            <hr class="my-4">
+
+            <div class="row">
+                <div class="col">
+                    <button class="w-100 btn btn-primary btn-lg" type="submit">주문 하기</button>
+                </div>
+
+                <div class="col">
+                    <button class="w-100 btn btn-secondary btn-lg"
+                    onclick="location.href='items.html'"
+                    th:onclick="|location.href='@{/item/{itemId}(itemId=${orderItem.id})}'|"
+                    type="button">취소</button>
+                </div>
+
+            </div>
+
+        </form>
+    </div>
 </body>
 </html>

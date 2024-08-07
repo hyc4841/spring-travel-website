@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <link href="../../static/css/bootstrap.min.css"
           th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
-    <title>주문 수정 페이지</title>
+    <title>주문 상세 페이지</title>
 
     <style>
         .container {
@@ -17,46 +17,46 @@
 <body>
 <div class="container">
     <div class="py-5 text-center">
-        <h1>주문 수정</h1>
+        <h1>주문 상세</h1>
     </div>
     <hr class="my-4">
     <form action="addOrderForm.html" th:action method="post">
         <div>
             <label for="orderNum">주문 번호</label>
-            <input type="text" name="orderNum" id="orderNum" class="form-control" th:value="${editOrder.orderNum}" readonly>
+            <input type="text" name="orderNum" id="orderNum" class="form-control" th:value="${order.orderNum}" readonly>
         </div>
         <div>
             <label for="orderMemberID">주문자</label>
-            <input type="text" name="orderMemberID" id="orderMemberID" class="form-control" th:value="${editOrder.orderMemberID}" readonly>
+            <input type="text" name="orderMemberID" id="orderMemberID" class="form-control" th:value="${order.orderMemberID}" readonly>
         </div>
         <div>
             <label for="orderItemId">상품ID</label>
-            <input type="text" name="orderItemId" id="orderItemId" class="form-control" th:value="${editOrder.orderItemId}" readonly>
+            <input type="text" name="orderItemId" id="orderItemId" class="form-control" th:value="${order.orderItemId}" readonly>
         </div>
 
         <div>
             <label for="orderItem">상품명</label>
-            <input type="text" name="orderItem" id="orderItem" class="form-control" th:value="${editOrder.orderItem}" readonly>
+            <input type="text" name="orderItem" id="orderItem" class="form-control" th:value="${order.orderItem}" readonly>
         </div>
         <div>
             <label for="orderItemPrice">상품 가격</label>
-            <input type="text" name="orderItemPrice" id="orderItemPrice" class="form-control" th:value="${editOrder.orderItemPrice}" readonly>
+            <input type="text" name="orderItemPrice" id="orderItemPrice" class="form-control" th:value="${order.orderItemPrice}" readonly>
         </div>
         <div>
             <label for="orderItemQuantity">주문 수량</label>
-            <input type="text" name="orderItemQuantity" id="orderItemQuantity" th:value="${editOrder.orderItemQuantity}" class="form-control" readonly>
+            <input type="text" name="orderItemQuantity" id="orderItemQuantity" th:value="${order.orderItemQuantity}" class="form-control" readonly>
         </div>
         <div>
             <label for="totalPrice">주문 금액</label>
-            <input type="text" name="totalPrice" id="totalPrice" th:value="${editOrder.totalPrice}" class="form-control" readonly>
+            <input type="text" name="totalPrice" id="totalPrice" th:value="${order.totalPrice}" class="form-control" readonly>
         </div>
         <div>
             <label for="address">배송지</label>
-            <input type="text" name="address" id="address" class="form-control" th:value="${editOrder.address}" readonly>
+            <input type="text" name="address" id="address" class="form-control" th:value="${order.address}" readonly>
         </div>
         <div>
             <label for="orderDate">주문 날짜</label>
-            <input type="text" name="orderDate" id="orderDate" class="form-control" th:value="${editOrder.orderDate}" readonly>
+            <input type="text" name="orderDate" id="orderDate" class="form-control" th:value="${order.orderDate}" readonly>
         </div>
 
         <hr class="my-4">
