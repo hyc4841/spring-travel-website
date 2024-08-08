@@ -38,11 +38,16 @@
                 <td th:text="${order.totalPrice}">총 금액</td>
                 <td th:text="${order.address}">배송지</td>
                 <td th:text="${order.orderDate}">주문 날짜</td>
-                <td><button type="button" th:onclick="|location.href='@{/order/orderDetail/{orderNum}(orderNum=${order.orderNum})}'|">상세 보기</button></td>
+                <td><button class="btn btn-dark" type="button"
+                            th:onclick="|location.href='@{/order/orderDetail/{orderNum}(orderNum=${order.orderNum})}'|">상세 보기</button></td>
 
             </tr>
             </tbody>
         </table>
+        <hr class="my-4">
+        <div class="text-center">
+            <button class="btn btn-primary btn-lg" type="button" th:onclick="|location.href='@{/home}'|">홈으로</button>
+        </div>
 
     </div>
 

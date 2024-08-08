@@ -60,7 +60,7 @@ public class TestData {
         itemRepository.save(itemD);
 
         SaveOrderForm saveOrder1 = new SaveOrderForm();
-        saveOrder1.setOrderMemberID("test");
+        saveOrder1.setOrderMemberId("test");
         saveOrder1.setOrderItemId(1L);
         saveOrder1.setOrderItem("itemA");
         saveOrder1.setOrderItemPrice(1000);
@@ -69,7 +69,7 @@ public class TestData {
         orderService.createOrder(saveOrder1);
 
         SaveOrderForm saveOrder2 = new SaveOrderForm();
-        saveOrder2.setOrderMemberID("test");
+        saveOrder2.setOrderMemberId("test");
         saveOrder2.setOrderItemId(2L);
         saveOrder2.setOrderItem("itemB");
         saveOrder2.setOrderItemPrice(2000);
@@ -78,7 +78,7 @@ public class TestData {
         orderService.createOrder(saveOrder2);
 
         SaveOrderForm saveOrder3 = new SaveOrderForm();
-        saveOrder3.setOrderMemberID("test");
+        saveOrder3.setOrderMemberId("test");
         saveOrder3.setOrderItemId(3L);
         saveOrder3.setOrderItem("뭔데");
         saveOrder3.setOrderItemPrice(4000);
@@ -87,7 +87,7 @@ public class TestData {
         orderService.createOrder(saveOrder3);
 
         SaveOrderForm saveOrder4 = new SaveOrderForm();
-        saveOrder4.setOrderMemberID("test");
+        saveOrder4.setOrderMemberId("test");
         saveOrder4.setOrderItemId(4L);
         saveOrder4.setOrderItem("왜안되는데?");
         saveOrder4.setOrderItemPrice(5000);

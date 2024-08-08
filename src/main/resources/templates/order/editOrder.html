@@ -76,8 +76,8 @@
     </form>
 
     <form action="deleteOrder.html" th:action="@{/order/deleteOrder/{orderNum}(orderNum=${editOrder.orderNum})}" method="#" th:method="delete">
-        <div class="row">
-            <div class="col">
+        <div class="row gy-5">
+            <div class="col p-3">
                 <button class="w-100 btn btn-dark btn-lg" type="submit">주문 취소하기</button>
             </div>
         </div>

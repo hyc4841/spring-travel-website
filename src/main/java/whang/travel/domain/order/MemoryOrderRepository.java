@@ -24,7 +24,7 @@ public class MemoryOrderRepository implements OrderRepository{
         order.setOrderItemId(saveOrder.getOrderItemId()); // 주문 상품 ID
         order.setOrderItemPrice(saveOrder.getOrderItemPrice()); // 가격
         order.setOrderItemQuantity(saveOrder.getOrderItemQuantity()); // 수량
-        order.setOrderMemberID(saveOrder.getOrderMemberID()); // 주문자 ID
+        order.setOrderMemberID(saveOrder.getOrderMemberId()); // 주문자 ID
         order.setOrderDate(new Date()); // 주문 날짜
         order.setAddress(saveOrder.getAddress()); // 주소
         order.setTotalPrice(saveOrder.getOrderItemPrice() * saveOrder.getOrderItemQuantity()); // 총 주문 금액

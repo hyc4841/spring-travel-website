@@ -11,7 +11,7 @@ import java.util.Date;
 public class SaveOrderForm {
 
     @NotBlank
-    private String orderMemberID; // 주문한 맴버
+    private String orderMemberId; // 주문한 맴버
     @NotNull
     private Long orderItemId; // 주문 상품 id
     @NotBlank

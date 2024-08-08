@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import whang.travel.domain.item.Item;
@@ -32,7 +34,7 @@ public class OrderController {
 
     // 주문 확인 화면
     @GetMapping("/addOrder/{orderItemId}")
-    public String addOrderForm(@PathVariable Long orderItemId, HttpServletRequest request, Model model) {
+    public String addOrderForm(@ModelAttribute("saveOrderForm") SaveOrderForm saveOrderForm, @PathVariable Long orderItemId, HttpServletRequest request, Model model) {
         // 현재 유저가 누구인지 확인
         HttpSession session = request.getSession();
         Member loginMember = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
@@ -41,17 +43,25 @@ public class OrderController {
             return "/login";
         }
 
-        Item orderItem = itemService.findById(orderItemId).get();
+        Item orderItem = itemService.findById(orderItemId).get(); // 주문하려고 하는 상품 가져오기
 
-        model.addAttribute("orderItem", orderItem); // 현재 주문 상품
-        model.addAttribute("loginMember", loginMember); // 현재 멤버
+        saveOrderForm.setOrderMemberId(loginMember.getMemberId());
+        saveOrderForm.setOrderItemId(orderItem.getId());
+        saveOrderForm.setOrderItem(orderItem.getItemName());
+        saveOrderForm.setOrderItemPrice(orderItem.getPrice());
 
         return "/order/addOrderForm";
     }
 
-    // 주문
-    @PostMapping("/addOrder")
-    public String createOrder(@ModelAttribute SaveOrderForm saveOrderForm, RedirectAttributes redirectAttributes) {
+
+    @PostMapping("/addOrder")  // 주문
+    public String createOrder(@Validated @ModelAttribute("saveOrderForm") SaveOrderForm saveOrderForm, BindingResult bindingResult,
+                              RedirectAttributes redirectAttributes) {
+
+        if (bindingResult.hasErrors()) {
+            log.info("bindingResult={}", bindingResult);
+            return "/order/addOrderForm"; // 오류 정보를 가지고 addOrderForm으로 돌아간다.
+        }
         Order order = orderService.createOrder(saveOrderForm);
 
         redirectAttributes.addAttribute("orderNum", order.getOrderNum());

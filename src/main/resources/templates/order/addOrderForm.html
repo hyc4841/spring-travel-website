@@ -10,6 +10,10 @@
         .container {
             max-width: 600px;
         }
+        .field-error {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
     </style>
 </head>
 <body>
@@ -18,36 +22,52 @@
             <h1>주문 화면</h1>
         </div>
         <hr class="my-4">
-        <form action="addOrderForm.html" th:action="@{/order/addOrder}" method="post">
+        <form action="addOrderForm.html" th:action="@{/order/addOrder}" th:object="${saveOrderForm}" method="post">
             <div>
-                <label for="orderMemberID">주문자</label>
-                <input type="text" name="orderMemberID" id="orderMemberID" class="form-control" th:value="${loginMember.memberId}" placeholder="주문자" readonly>
+                <label for="orderMemberId">주문자</label>
+                <input type="text" name="orderMemberId" id="orderMemberId"
+                       th:field="*{orderMemberId}" th:errorclass="field-error"
+                       class="form-control" placeholder="주문자" readonly>
             </div>
             <div>
                 <label for="orderItemId">상품ID</label>
-                <input type="text" name="orderItemId" id="orderItemId" class="form-control" th:value="${orderItem.id}" placeholder="주문 상품 ID" readonly>
+                <input type="text" name="orderItemId" id="orderItemId"
+                       th:field="*{orderItemId}" th:errorclass="field-error"
+                       class="form-control" placeholder="주문 상품 ID" readonly>
             </div>
 
             <div>
                 <label for="orderItem">상품명</label>
-                <input type="text" name="orderItem" id="orderItem" class="form-control" th:value="${orderItem.itemName}" placeholder="주문 상품명" readonly>
+                <input type="text" name="orderItem" id="orderItem"
+                       th:field="*{orderItem}" th:errorclass="field-error"
+                       class="form-control" placeholder="주문 상품명" readonly>
             </div>
             <div>
                 <label for="orderItemPrice">상품 가격</label>
-                <input type="text" name="orderItemPrice" id="orderItemPrice" class="form-control" th:value="${orderItem.price}" placeholder="주문 상품 가격" readonly>
+                <input type="text" name="orderItemPrice" id="orderItemPrice"
+                       th:field="*{orderItemPrice}" th:errorclass="field-error"
+                       class="form-control" placeholder="주문 상품 가격" readonly>
             </div>
             <div>
                 <label for="orderItemQuantity">주문 수량</label>
-                <input type="text" name="orderItemQuantity" id="orderItemQuantity" class="form-control" placeholder="주문 수량">
+                <input type="text" name="orderItemQuantity" id="orderItemQuantity"
+                       th:field="*{orderItemQuantity}" th:errorclass="field-error"
+                       class="form-control" placeholder="주문 수량">
+                <div class="field-error" th:errors="*{orderItemQuantity}">
+                    주문 수량 오류
+                </div>
             </div>
             <div>
                 <label for="address">배송지</label>
-                <input type="text" name="address" id="address" class="form-control" placeholder="주소를 입력해주세요">
+                <input type="text" name="address" id="address"
+                       th:field="*{address}" th:errorclass="field-error"
+                       class="form-control" placeholder="주소를 입력해주세요">
+                <div class="field-error" th:errors="*{address}">
+                    주소 오류
+                </div>
             </div>
 
 
-            
-    
             <hr class="my-4">
 
             <div class="row">
@@ -58,7 +78,7 @@
                 <div class="col">
                     <button class="w-100 btn btn-secondary btn-lg"
                     onclick="location.href='items.html'"
-                    th:onclick="|location.href='@{/item/{itemId}(itemId=${orderItem.id})}'|"
+                    th:onclick="|location.href='@{/item/{itemId}(itemId=${saveOrderForm.orderItemId})}'|"
                     type="button">취소</button>
                 </div>
 
