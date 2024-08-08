@@ -10,15 +10,13 @@ public class ItemUpdateForm {
 
     @NotNull
     private Long id;
-
     @NotBlank
     private String itemName;
-
     @NotNull
     @Range(min = 100, max = 1000000)
     private Integer price;
-
     // 수량 자유로 설정
+    @NotNull
     private Integer quantity;
 
 }

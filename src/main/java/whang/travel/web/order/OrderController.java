@@ -34,13 +34,14 @@ public class OrderController {
 
     // 주문 확인 화면
     @GetMapping("/addOrder/{orderItemId}")
-    public String addOrderForm(@ModelAttribute("saveOrderForm") SaveOrderForm saveOrderForm, @PathVariable Long orderItemId, HttpServletRequest request, Model model) {
+    public String addOrderForm(@ModelAttribute("saveOrderForm") SaveOrderForm saveOrderForm, @PathVariable Long orderItemId,
+                               HttpServletRequest request) {
         // 현재 유저가 누구인지 확인
         HttpSession session = request.getSession();
         Member loginMember = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
         if (loginMember == null) {
             log.info("현재 로그인 멤버 없음 로그인 하시오");
-            return "/login";
+            return "/login/loginForm";
         }
 
         Item orderItem = itemService.findById(orderItemId).get(); // 주문하려고 하는 상품 가져오기
@@ -98,18 +99,32 @@ public class OrderController {
 
     // 주문 수정 화면
     @GetMapping("/editOrder/{orderNum}")
-    public String editOrderForm(@PathVariable Long orderNum, Model model) {
-
+    public String editOrderForm(@ModelAttribute("updateOrder") UpdateOrderForm updateOrder, @PathVariable Long orderNum, Model model) {
         Order editOrder = orderService.findOrderByOrderNum(orderNum);
 
-        model.addAttribute("editOrder", editOrder);
+        updateOrder.setOrderNum(editOrder.getOrderNum());
+        updateOrder.setOrderMemberID(editOrder.getOrderMemberID());
+        updateOrder.setOrderItemId(editOrder.getOrderItemId());
+        updateOrder.setOrderItem(editOrder.getOrderItem());
+        updateOrder.setOrderItemPrice(editOrder.getOrderItemPrice());
+        updateOrder.setOrderItemQuantity(editOrder.getOrderItemQuantity());
+        updateOrder.setAddress(editOrder.getAddress());
+        updateOrder.setOrderDate(String.valueOf(editOrder.getOrderDate()));
+        updateOrder.setTotalPrice(editOrder.getTotalPrice());
 
         return "/order/editOrder";
     }
 
     // 주문 수정
     @PostMapping("/editOrder/{orderNum}")
-    public String editOrder(@ModelAttribute UpdateOrderForm updateOrder, @PathVariable Long orderNum, RedirectAttributes redirectAttributes) {
+    public String editOrder(@Validated @ModelAttribute("updateOrder") UpdateOrderForm updateOrder, BindingResult bindingResult, @PathVariable Long orderNum,
+                            RedirectAttributes redirectAttributes) {
+
+        if (bindingResult.hasErrors()) {
+            log.info("errors={}", bindingResult);
+            return "/order/editOrder";
+        }
+
         orderService.updateOrder(orderNum, updateOrder);
 
         redirectAttributes.addAttribute("orderNum", orderNum);

@@ -10,6 +10,10 @@
         .container {
             max-width: 600px;
         }
+        .field-error {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
     </style>
 </head>
 
@@ -20,43 +24,64 @@
         <h1>주문 수정</h1>
     </div>
     <hr class="my-4">
-    <form action="addOrderForm.html" th:action method="post">
+    <form action="addOrderForm.html" th:action th:object="${updateOrder}" method="post">
         <div>
             <label for="orderNum">주문 번호</label>
-            <input type="text" name="orderNum" id="orderNum" class="form-control" th:value="${editOrder.orderNum}" readonly>
+            <input type="text" name="orderNum" id="orderNum"
+                   th:field="*{orderNum}" th:errorclass="field-error"
+                   class="form-control" readonly>
         </div>
         <div>
             <label for="orderMemberID">주문자</label>
-            <input type="text" name="orderMemberID" id="orderMemberID" class="form-control" th:value="${editOrder.orderMemberID}" readonly>
+            <input type="text" name="orderMemberID" id="orderMemberID"
+                   th:field="*{orderMemberID}" th:errorclass="field-error"
+                   class="form-control" readonly>
         </div>
         <div>
             <label for="orderItemId">상품ID</label>
-            <input type="text" name="orderItemId"    id="orderItemId" class="form-control" th:value="${editOrder.orderItemId}" readonly>
+            <input type="text" name="orderItemId" id="orderItemId"
+                   th:field="*{orderItemId}" th:errorclass="field-error"
+                   class="form-control" readonly>
         </div>
 
         <div>
             <label for="orderItem">상품명</label>
-            <input type="text" name="orderItem" id="orderItem" class="form-control" th:value="${editOrder.orderItem}" readonly>
+            <input type="text" name="orderItem" id="orderItem"
+                   th:field="*{orderItem}" th:errorclass="field-error"
+                   class="form-control" readonly>
         </div>
         <div>
             <label for="orderItemPrice">상품 가격</label>
-            <input type="text" name="orderItemPrice" id="orderItemPrice" class="form-control" th:value="${editOrder.orderItemPrice}" readonly>
+            <input type="text" name="orderItemPrice" id="orderItemPrice"
+                   th:field="*{orderItemPrice}" th:errorclass="field-error"
+                   class="form-control" readonly>
         </div>
         <div>
             <label for="orderItemQuantity">주문 수량</label>
-            <input type="text" name="orderItemQuantity" id="orderItemQuantity" th:value="${editOrder.orderItemQuantity}" class="form-control">
+            <input type="text" name="orderItemQuantity" id="orderItemQuantity"
+                   th:field="*{orderItemQuantity}" th:errorclass="field-error"
+                   class="form-control">
+            <div class="field-error" th:errors="*{orderItemQuantity}">
+                주문 수량 오류
+            </div>
         </div>
         <div>
             <label for="totalPrice">주문 금액</label>
-            <input type="text" name="totalPrice" id="totalPrice" th:value="${editOrder.totalPrice}" class="form-control" readonly>
+            <input type="text" name="totalPrice" id="totalPrice"
+                   th:field="*{totalPrice}" th:errorclass="field-error"
+                   class="form-control" readonly>
         </div>
         <div>
             <label for="address">배송지</label>
-            <input type="text" name="address" id="address" class="form-control" th:value="${editOrder.address}" readonly>
+            <input type="text" name="address" id="address"
+                   th:field="*{address}" th:errorclass="field-error"
+                   class="form-control" readonly>
         </div>
         <div>
             <label for="orderDate">주문 날짜</label>
-            <input type="text" name="orderDate" id="orderDate" class="form-control" th:value="${editOrder.orderDate}" readonly>
+            <input type="text" name="orderDate" id="orderDate"
+                   th:field="*{orderDate}" th:errorclass="field-error"
+                   class="form-control" readonly>
         </div>
 
         <hr class="my-4">
@@ -69,13 +94,13 @@
             <div class="col">
                 <button class="w-100 btn btn-secondary btn-lg"
                         onclick="location.href='items.html'"
-                        th:onclick="|location.href='@{/order/orderList/{memberId}(memberId=${editOrder.orderMemberID})}'|"
+                        th:onclick="|location.href='@{/order/orderList/{memberId}(memberId=${updateOrder.orderMemberID})}'|"
                         type="button">돌아가기</button>
             </div>
         </div>
     </form>
 
-    <form action="deleteOrder.html" th:action="@{/order/deleteOrder/{orderNum}(orderNum=${editOrder.orderNum})}" method="#" th:method="delete">
+    <form action="deleteOrder.html" th:action="@{/order/deleteOrder/{orderNum}(orderNum=${updateOrder.orderNum})}" method="#" th:method="delete">
         <div class="row gy-5">
             <div class="col p-3">
                 <button class="w-100 btn btn-dark btn-lg" type="submit">주문 취소하기</button>

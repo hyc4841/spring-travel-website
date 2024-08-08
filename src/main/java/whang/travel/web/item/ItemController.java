@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import whang.travel.domain.item.Item;
@@ -45,13 +46,13 @@ public class ItemController {
     }
 
     @GetMapping("/add") // 아이템 추가 폼으로 이동
-    public String addItemForm(Model model) {
-        model.addAttribute("item", new Item());
+    public String addItemForm(@ModelAttribute("itemSaveForm") ItemSaveForm itemSaveForm) {
+
         return "/items/addForm";
     }
 
     @PostMapping("/add") // 아이템 추가하기
-    public String addItem(@ModelAttribute ItemSaveForm item, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String addItem(@Validated @ModelAttribute("itemSaveForm") ItemSaveForm item, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
             log.info("errors={}", bindingResult);
@@ -68,12 +69,19 @@ public class ItemController {
     @GetMapping("/{itemId}/edit")
     public String editForm(@PathVariable Long itemId, Model model) {
         Item item = itemService.findById(itemId).get();
-        model.addAttribute("item", item);
+        model.addAttribute("itemUpdateForm", item);
         return "/items/editForm";
     }
 
     @PostMapping("/{itemId}/edit")
-    public String editItem(@PathVariable Long itemId, @ModelAttribute ItemUpdateForm updateForm, RedirectAttributes redirectAttributes) {
+    public String editItem(@Validated @ModelAttribute("itemUpdateForm") ItemUpdateForm updateForm, BindingResult bindingResult, @PathVariable Long itemId,
+                           RedirectAttributes redirectAttributes) {
+
+        if (bindingResult.hasErrors()) {
+            log.info("errors={}", bindingResult);
+            return "/items/editForm";
+        }
+
         itemService.update(itemId, updateForm);
 
         redirectAttributes.addAttribute("itemId", itemId);
