@@ -9,14 +9,14 @@
 </head>
 
 <body>
-    <div class="container" style="max-width: 800px">
+    <div class="container" style="max-width: 1000px">
         <div class="py-5 text-center">
             <h2>주문 리스트</h2>
         </div>
 
         <hr class="my-4">
 
-        <table class="table">
+        <table class="table text-center">
             <thead>
             <tr>
                 <th>주문 번호</th>
@@ -38,6 +38,8 @@
                 <td th:text="${order.totalPrice}">총 금액</td>
                 <td th:text="${order.address}">배송지</td>
                 <td th:text="${order.orderDate}">주문 날짜</td>
+                <td><button type="button" th:onclick="|location.href='@{/order/orderDetail/{orderNum}(orderNum=${order.orderNum})}'|">상세 보기</button></td>
+
             </tr>
             </tbody>
         </table>

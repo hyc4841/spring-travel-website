@@ -18,7 +18,6 @@ import whang.travel.web.order.form.SaveOrderForm;
 import whang.travel.web.order.form.UpdateOrderForm;
 
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Controller
@@ -90,6 +89,7 @@ public class OrderController {
     // 주문 수정 화면
     @GetMapping("/editOrder/{orderNum}")
     public String editOrderForm(@PathVariable Long orderNum, Model model) {
+
         Order editOrder = orderService.findOrderByOrderNum(orderNum);
 
         model.addAttribute("editOrder", editOrder);
@@ -99,18 +99,22 @@ public class OrderController {
 
     // 주문 수정
     @PostMapping("/editOrder/{orderNum}")
-    public String editOrder(@PathVariable Long orderNum, RedirectAttributes redirectAttributes) {
+    public String editOrder(@ModelAttribute UpdateOrderForm updateOrder, @PathVariable Long orderNum, RedirectAttributes redirectAttributes) {
+        orderService.updateOrder(orderNum, updateOrder);
 
         redirectAttributes.addAttribute("orderNum", orderNum);
 
-        return "redirect:/orderDetail/{orderNum}";
+        return "redirect:/order/orderDetail/{orderNum}";
     }
 
     //
     @DeleteMapping("/deleteOrder/{orderNum}")
-    public String deleteOrder(@PathVariable Long orderNum, RedirectAttributes redirectAttributes) {
+    public String cancelOrder(@PathVariable Long orderNum, RedirectAttributes redirectAttributes) {
+        Order findOrder = orderService.findOrderByOrderNum(orderNum);
+        orderService.cancelOrder(orderNum);
 
-        // redirectAttributes.addAttribute("memberId")
+        String memberId = findOrder.getOrderMemberID();
+        redirectAttributes.addAttribute("memberId", memberId);
 
         return "redirect:/order/orderList/{memberId}";
     }

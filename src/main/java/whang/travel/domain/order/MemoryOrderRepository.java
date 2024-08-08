@@ -37,8 +37,10 @@ public class MemoryOrderRepository implements OrderRepository{
 
     @Override // updateForm으로 데이터 업데이트 하기
     public void orderUpdate(Long orderNum, UpdateOrderForm updateOrder) {
+        // 주문 수정은 상품의 수량과 수량 변화에 따른 총 금액 변화를 업데이트 한다
         Order order = store.get(orderNum);
         order.setOrderItemQuantity(updateOrder.getOrderItemQuantity());
+        order.setTotalPrice(updateOrder.getOrderItemPrice() * updateOrder.getOrderItemQuantity());
     }
 
     @Override //
@@ -60,7 +62,7 @@ public class MemoryOrderRepository implements OrderRepository{
     }
 
     @Override
-    public void deleteOrder(Long orderNum) {
+    public void deleteOrder(Long orderNum) { // 주문 번호로 주문을 삭제한다.
         store.remove(orderNum);
     }
 

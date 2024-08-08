@@ -31,7 +31,7 @@
         </div>
         <div>
             <label for="orderItemId">상품ID</label>
-            <input type="text" name="orderItemId" id="orderItemId" class="form-control" th:value="${editOrder.orderItemId}" readonly>
+            <input type="text" name="orderItemId"    id="orderItemId" class="form-control" th:value="${editOrder.orderItemId}" readonly>
         </div>
 
         <div>
@@ -44,7 +44,7 @@
         </div>
         <div>
             <label for="orderItemQuantity">주문 수량</label>
-            <input type="text" name="orderItemQuantity" id="orderItemQuantity" th:value="${editOrder.orderItemQuantity}" class="form-control" readonly>
+            <input type="text" name="orderItemQuantity" id="orderItemQuantity" th:value="${editOrder.orderItemQuantity}" class="form-control">
         </div>
         <div>
             <label for="totalPrice">주문 금액</label>
@@ -64,18 +64,25 @@
         <div class="row">
             <div class="col">
                 <button class="w-100 btn btn-primary btn-lg"
-                        onclick="location.href='items.html'"
-                        th:onclick="|location.href='@{/order/editOrder/{orderNum}(orderNum=${order.orderNum})}'|"
-                        type="button">주문 수정</button>
+                        type="submit">주문 수정</button>
             </div>
             <div class="col">
                 <button class="w-100 btn btn-secondary btn-lg"
                         onclick="location.href='items.html'"
-                        th:onclick="|location.href='@{/order/orderList/{memberId}(memberId=${order.orderMemberID})}'|"
+                        th:onclick="|location.href='@{/order/orderList/{memberId}(memberId=${editOrder.orderMemberID})}'|"
                         type="button">돌아가기</button>
             </div>
         </div>
     </form>
+
+    <form action="deleteOrder.html" th:action="@{/order/deleteOrder/{orderNum}(orderNum=${editOrder.orderNum})}" method="#" th:method="delete">
+        <div class="row">
+            <div class="col">
+                <button class="w-100 btn btn-dark btn-lg" type="submit">주문 취소하기</button>
+            </div>
+        </div>
+    </form>
+
 </div>
 </body>
 </html>
