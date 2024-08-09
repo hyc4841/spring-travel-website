@@ -2,6 +2,7 @@ package whang.travel.domain.member;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
+import whang.travel.web.member.form.MemberUpdateForm;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,15 +18,29 @@ public class MemoryMemberRepositoryImpl implements MemberRepository {
     private static Long sequence = 0L;
 
     @Override
-    public void save(Member member) {
+    public Member save(Member member) {
         member.setId(++sequence);
         store.put(member.getId(), member);
         log.info("멤버 저장 : member={}", member);
+
+        return member;
     }
 
     @Override
-    public Member findById(Long id) {
-        return store.get(id);
+    public void update(Long id, MemberUpdateForm updateMember) {
+        Member findMember = store.get(id);
+        findMember.setFirstName(updateMember.getFirstName());
+        findMember.setLastName(updateMember.getLastName());
+        findMember.setMemberId(updateMember.getMemberId());
+        findMember.setEmail(updateMember.getEmail());
+        findMember.setAddress(updateMember.getAddress());
+        findMember.setAddress(updateMember.getPassword());
+    }
+
+
+    @Override
+    public Optional<Member> findById(Long id) {
+        return Optional.ofNullable(store.get(id));
     }
 
     @Override

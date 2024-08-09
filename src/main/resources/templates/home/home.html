@@ -151,7 +151,7 @@
               </a>
             </li>
             <li>
-              <a href="#" class="nav-link text-white">
+              <a href="#" th:href="@{/item/items}" class="nav-link text-white">
                 <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#grid"/></svg>
                 Products
               </a>
@@ -169,23 +169,26 @@
 
 `
     <div class="px-3 py-2 border-bottom mb-3">
-      <div class="container d-flex flex-wrap justify-content-center">
+      <div class="container d-flex justify-content-between">
 
-        <form class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto" th:action="@{/search}" method="get">
-            <div class="col d-flex">
-              <input type="search" class="form-control me-2" placeholder="Search..." aria-label="Search">
-              <button type="submit" class="btn btn-primary">검색</button>
-            </div>
+        <!-- 상단 검색바 수정이 필요  -->
+             <form class="col-lg-auto me-lg-auto" th:action="@{/search}" method="get">
+                  <div class="col d-flex">
+                    <input type="search" class="form-control me-2" placeholder="Search..." aria-label="Search">
+                    <button type="submit" class="btn btn-primary">검색</button>
+                  </div>
+              </form>
 
-        </form>
-
-
+        <!-- 회원가입, 로그인 버튼 -->
         <div class="text-end">
           <button type="button" class="btn btn-light text-dark me-2" th:onclick="|location.href='@{/login}'|">Login</button>
           <button type="button" class="btn btn-primary" th:onclick="|location.href='@{/signup/add}'|">Sign-up</button>
         </div>
+
+
       </div>
     </div>
+
   </header>
 
 

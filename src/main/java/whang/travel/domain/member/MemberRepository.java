@@ -1,15 +1,19 @@
 package whang.travel.domain.member;
 
+import whang.travel.web.member.form.MemberUpdateForm;
+
 import java.util.List;
 import java.util.Optional;
 
 public interface MemberRepository { // 회원 저장소가 해야하는 기능
 
     // 회원 저장
-    void save(Member member);
+    Member save(Member member);
+
+    void update(Long id, MemberUpdateForm updateMember);
 
     // 회원 조회
-    Member findById(Long id);
+    Optional<Member> findById(Long id);
 
     // 모든 회원 찾기
     List<Member> findAll();

@@ -3,6 +3,8 @@ package whang.travel.domain.member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService{
@@ -15,7 +17,7 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public Member findMember(Long id) {
+    public Optional<Member> findMember(Long id) {
         return memberRepository.findById(id);
     }
 
