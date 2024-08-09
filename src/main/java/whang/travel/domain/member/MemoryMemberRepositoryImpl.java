@@ -20,7 +20,7 @@ public class MemoryMemberRepositoryImpl implements MemberRepository {
     public void save(Member member) {
         member.setId(++sequence);
         store.put(member.getId(), member);
-        log.info("save : member={}", member);
+        log.info("멤버 저장 : member={}", member);
     }
 
     @Override

@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Profile;
 import whang.travel.domain.item.ItemRepository;
 import whang.travel.domain.item.mybatis.MybatisItemRepository;
+import whang.travel.domain.member.MemberRepository;
 
 @Import(MybatisItemRepository.class)
 @SpringBootApplication
@@ -18,7 +19,7 @@ public class TravelApplication {
 
 	@Bean
 	@Profile("local")
-	public TestData testData(ItemRepository itemRepository) {
-		return new TestData(itemRepository);
+	public TestData testData(ItemRepository itemRepository, MemberRepository memberRepository) {
+		return new TestData(itemRepository, memberRepository);
 	}
 }

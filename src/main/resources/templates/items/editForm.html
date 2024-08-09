@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <link th:href="@{/css/bootstrap.min.css}"
-          href="css/bootstrap.min.css" rel="stylesheet">
+          href="../../static/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .container {
             max-width: 560px;
@@ -24,36 +24,32 @@
 
     <form action="item.html" th:action th:object="${itemUpdateForm}" method="post">
         <div>
-            <label for="id">상품 ID</label>
-            <input type="text" id="id" name="id"
-                   th:field="*{id}" th:errorclass="field-error"
-                   class="form-control" value="1"readonly>
-            <div class="field-error" th:errors="*{id}">
+            <label for="itemId">상품 ID</label>
+            <input type="text" id="itemId" th:field="*{itemId}" th:errorclass="field-error"
+                   class="form-control" readonly>
+            <div class="field-error" th:errors="*{itemId}">
                 수량 오류
             </div>
         </div>
         <div>
             <label for="itemName">상품명</label>
-            <input type="text" id="itemName" name="itemName"
-                   th:field="*{itemName}" th:errorclass="field-error"
+            <input type="text" id="itemName" th:field="*{itemName}" th:errorclass="field-error"
                    class="form-control" value="상품A">
             <div class="field-error" th:errors="*{itemName}">
-                수량 오류
+                상품명 오류
             </div>
         </div>
         <div>
             <label for="price">가격</label>
-            <input type="text" id="price" name="price"
-                   th:field="*{price}" th:errorclass="field-error"
+            <input type="text" id="price" th:field="*{price}" th:errorclass="field-error"
                    class="form-control" value="10000">
             <div class="field-error" th:errors="*{price}">
-                수량 오류
+                가격 오류
             </div>
         </div>
         <div>
             <label for="quantity">수량</label>
-            <input type="text" id="quantity" name="quantity"
-                   th:field="*{quantity}" th:errorclass="field-error"
+            <input type="text" id="quantity" th:field="*{quantity}" th:errorclass="field-error"
                    class="form-control" value="10">
             <div class="field-error" th:errors="*{quantity}">
                 수량 오류
@@ -69,7 +65,7 @@
             <div class="col">
                 <button class="w-100 btn btn-secondary btn-lg"
                         onclick="location.href='item.html'"
-                        th:onclick="|location.href='@{/item/{itemId}(itemId=${itemUpdateForm.id})}'|"
+                        th:onclick="|location.href='@{/item/{itemId}(itemId=${itemUpdateForm.itemId})}'|"
                         type="button">취소</button>
             </div>
         </div>
