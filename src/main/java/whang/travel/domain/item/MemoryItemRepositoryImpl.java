@@ -13,7 +13,7 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
-//@Repository
+@Repository
 public class MemoryItemRepositoryImpl implements ItemRepository{
     // 메모리 버전의 아이템 리포지토리
     private static final Map<Long, Item> store = new ConcurrentHashMap<>();

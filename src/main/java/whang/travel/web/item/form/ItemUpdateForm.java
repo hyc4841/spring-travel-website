@@ -8,8 +8,6 @@ import org.hibernate.validator.constraints.Range;
 @Data
 public class ItemUpdateForm {
 
-    @NotNull
-    private Long id;
     @NotBlank
     private String itemName;
     @NotNull
@@ -19,4 +17,10 @@ public class ItemUpdateForm {
     @NotNull
     private Integer quantity;
 
+
+    public ItemUpdateForm(String itemName, Integer price, Integer quantity) {
+        this.itemName = itemName;
+        this.price = price;
+        this.quantity = quantity;
+    }
 }

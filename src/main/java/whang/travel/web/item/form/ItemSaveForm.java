@@ -20,4 +20,9 @@ public class ItemSaveForm {
     @Range(min = 1, max = 9999) // 최소 1개부터 9999개 까지
     private Integer quantity;
 
+    public ItemSaveForm(String itemName, Integer price, Integer quantity) {
+        this.itemName = itemName;
+        this.price = price;
+        this.quantity = quantity;
+    }
 }

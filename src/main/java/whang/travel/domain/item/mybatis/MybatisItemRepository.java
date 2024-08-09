@@ -33,6 +33,7 @@ public class MybatisItemRepository implements ItemRepository {
 
     @Override
     public void update(Long id, ItemUpdateForm updateForm) {
+        log.info("상품 업데이트={}", updateForm);
         itemMapper.update(id, updateForm);
     }
 
