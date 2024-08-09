@@ -15,7 +15,6 @@ import whang.travel.web.item.form.ItemSearchCond;
 import whang.travel.web.item.form.ItemUpdateForm;
 
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Controller
@@ -60,7 +59,7 @@ public class ItemController {
         }
 
         Item saveitem = itemService.save(item);
-        redirectAttributes.addAttribute("itemId", saveitem.getId());
+        redirectAttributes.addAttribute("itemId", saveitem.getItemId());
         redirectAttributes.addAttribute("status", true);
 
         return "redirect:/item/{itemId}"; // 아이템 저장을 완료하면 아이템 상세 페이지로 리다이렉트 하도록 만듬

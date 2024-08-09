@@ -10,7 +10,7 @@ public class Item {
     // 아이템 가격
     // 아이템 분류 (공구, 생활 가전, 등등)
     // 판매자
-    private Long id;
+    private Long itemId;
     private String itemName;
     private Integer price;
     private Integer quantity;

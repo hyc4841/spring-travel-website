@@ -47,7 +47,7 @@ public class OrderController {
         Item orderItem = itemService.findById(orderItemId).get(); // 주문하려고 하는 상품 가져오기
 
         saveOrderForm.setOrderMemberId(loginMember.getMemberId());
-        saveOrderForm.setOrderItemId(orderItem.getId());
+        saveOrderForm.setOrderItemId(orderItem.getItemId());
         saveOrderForm.setOrderItem(orderItem.getItemName());
         saveOrderForm.setOrderItemPrice(orderItem.getPrice());
 

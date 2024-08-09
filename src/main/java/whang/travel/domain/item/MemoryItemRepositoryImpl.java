@@ -13,7 +13,7 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
-@Repository
+//@Repository
 public class MemoryItemRepositoryImpl implements ItemRepository{
     // 메모리 버전의 아이템 리포지토리
     private static final Map<Long, Item> store = new ConcurrentHashMap<>();
@@ -22,11 +22,11 @@ public class MemoryItemRepositoryImpl implements ItemRepository{
     @Override
     public Item save(ItemSaveForm saveItem) {
         Item item = new Item();
-        item.setId(++itemNum);
+        item.setItemId(++itemNum);
         item.setItemName(saveItem.getItemName());
         item.setPrice(saveItem.getPrice());
         item.setQuantity(saveItem.getQuantity());
-        store.put(item.getId(), item);
+        store.put(item.getItemId(), item);
 
         log.info("상품 등록 성공={}", item);
 
