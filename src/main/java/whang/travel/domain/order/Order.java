@@ -19,6 +19,11 @@ public class Order {
 
     public Order() {
     }
+    /*
+
+    insert into orders (order_member_id, order_item_id, order_item_quantity, delivery_address, order_date, total_price)
+values (1, 29, 20, '123', 'dfds', 1234);
+     */
 
     public Order(String orderMemberID, Long orderItemId, String orderItem, Integer orderItemPrice, Integer orderItemQuantity, String address, Date orderDate, Integer totalPrice) {
         this.orderMemberID = orderMemberID;
