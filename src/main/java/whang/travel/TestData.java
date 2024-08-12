@@ -22,12 +22,14 @@ public class TestData {
     @EventListener(ApplicationReadyEvent.class)
     public void testData() {
 
+        /*
         Member member = new Member("황", "윤철", "1", "1", "1", "1");
         memberRepository.save(member);
 
         log.info("테스트 데이터");
         itemRepository.save(new ItemSaveForm("itemA", 1000, 100));
         itemRepository.save(new ItemSaveForm("itemB", 2000, 300));
+         */
     }
 
 }
