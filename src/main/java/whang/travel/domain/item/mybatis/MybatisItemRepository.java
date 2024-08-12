@@ -49,6 +49,7 @@ public class MybatisItemRepository implements ItemRepository {
 
     @Override
     public void delete(Long id) {
-
+        log.info("아이템 삭제={}", id);
+        itemMapper.delete(id);
     }
 }

@@ -61,6 +61,15 @@
         </div>
     </div>
 
+    <div>
+        <form th:action="@{/item/{itemId}/delete(itemId=${item.itemId})}" method="#" th:method="delete">
+            <div class="row">
+                <button class="btn btn-lg btn-dark">상품 삭제하기</button>
+            </div>
+        </form>
+
+    </div>
+
 </div> <!-- /container -->
 </body>
 </html>

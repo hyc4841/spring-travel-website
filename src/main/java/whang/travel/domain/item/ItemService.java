@@ -20,4 +20,7 @@ public interface ItemService {
 
     // 아이템 전부 조회
     List<Item> findAll(ItemSearchCond cond);
+
+    // 아이템 삭제
+    void deleteItem(Long id);
 }

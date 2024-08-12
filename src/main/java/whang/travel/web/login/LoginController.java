@@ -49,6 +49,7 @@ public class LoginController {
         // HttpSession에서 세션 등록해주면 이름이 JSESSION이고 값은 예측 불가능한 값을 넣어준다.
         HttpSession session = request.getSession(); // 세션이 있으면 세션을 반환하고, 세션이 없으면 새로운 세션을 만든다.
         session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
+//        session. setMaxInactiveInterval(1800); 특정 세션의 시간을 설정해 줄 때
         log.info("세션 확인={}", session);
         return "redirect:" + redirectURL; // post 요청의 경우 성공하면 redirect 시켜주는게 낫다. 새로고침하면 post 요청이 다시 갈 수 있기 때문
     }

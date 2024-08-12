@@ -89,4 +89,11 @@ public class ItemController {
         return "redirect:/item/{itemId}";
     }
 
+    @DeleteMapping("{itemId}/delete")
+    public String deleteItem(@PathVariable Long itemId) {
+
+        itemService.deleteItem(itemId);
+
+        return "redirect:/item/items";
+    }
 }

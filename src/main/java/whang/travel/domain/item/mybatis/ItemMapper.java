@@ -19,4 +19,6 @@ public interface ItemMapper {
     Optional<Item> findById(Long itemId);
 
     List<Item> findAll(ItemSearchCond itemSearch);
+
+    void delete(Long itemId);
 }

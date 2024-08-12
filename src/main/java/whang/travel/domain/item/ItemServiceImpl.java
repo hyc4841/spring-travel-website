@@ -37,4 +37,9 @@ public class ItemServiceImpl implements ItemService{
     public List<Item> findAll(ItemSearchCond cond) {
         return itemRepository.findAll(cond);
     }
+
+    @Override
+    public void deleteItem(Long id) {
+        itemRepository.delete(id);
+    }
 }
