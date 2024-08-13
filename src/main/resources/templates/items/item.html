@@ -40,36 +40,36 @@
 
     <hr class="my-4">
 
-    <div class="row">
-        <div class="col">
+    <div class="row gy-3 justify-content-md-center">
+        <div class="col-md-4">
             <button class="w-100 btn btn-primary btn-lg"
                     onclick="location.href='editForm.html'"
                     th:onclick="|location.href='@{/item/{itemId}/edit(itemId=${item.itemId})}'|"
                     type="button">상품 수정</button>
         </div>
-        <div class="col">
+        <div class="col-md-4">
             <button class="w-100 btn btn-dark btn-lg"
                     onclick="location.href='addOrderForm.html'"
                     th:onclick="|location.href='@{/order/addOrder/{orderItemId}(orderItemId=${item.itemId})}'|"
                     type="button">구매하기</button>
         </div>
-        <div class="col">
+        <div class="col-md-4">
             <button class="w-100 btn btn-secondary btn-lg"
                     onclick="location.href='items.html'"
                     th:onclick="|location.href='@{/item/items}'|"
                     type="button">목록으로</button>
         </div>
-    </div>
 
-    <div>
-        <form th:action="@{/item/{itemId}/delete(itemId=${item.itemId})}" method="#" th:method="delete">
-            <div class="row">
-                <button class="btn btn-lg btn-dark">상품 삭제하기</button>
+
+            <div class="col-md-auto">
+                <form th:action="@{/item/{itemId}/delete(itemId=${item.itemId})}" method="#" th:method="delete">
+                        <button class="btn btn-lg btn-dark" type="submit">상품 삭제하기</button>
+                </form>
             </div>
-        </form>
 
     </div>
 
 </div> <!-- /container -->
+
 </body>
 </html>

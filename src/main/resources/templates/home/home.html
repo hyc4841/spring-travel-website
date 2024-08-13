@@ -7,6 +7,9 @@
 
     <link th:href="@{/css/bootstrap.min.css}"
             href="../../static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="carousel.css" rel="stylesheet">
+
+
 
     <style>
       .bd-placeholder-img {
@@ -85,12 +88,15 @@
       .bd-mode-toggle .dropdown-menu .active .bi {
         display: block !important;
       }
+
+      a {
+      text-decoration-line: none;
+      }
     </style>
 
-    
     <!-- Custom styles for this template -->
     <link th:href="@{/css/product.css}"
-            href="../../static/css/product.css" rel="stylesheet">
+          href="../../static/css/product.css" rel="stylesheet">
   </head>
 
 
@@ -120,6 +126,34 @@
     </symbol>
   </svg>
 
+  <header class="p-3 text-bg-dark">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+          <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
+        </a>
+
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          <li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>
+          <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
+          <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
+          <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
+          <li><a href="#" class="nav-link px-2 text-white">About</a></li>
+        </ul>
+
+        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+          <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">
+        </form>
+
+        <div class="text-end">
+          <button type="button" class="btn btn-outline-light me-2">Login</button>
+          <button type="button" class="btn btn-warning">Sign-up</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+<!--
   <header>
     <div class="px-3 py-2 bg-dark text-white">
       <div class="container">
@@ -136,14 +170,12 @@
                 Home
               </a>
             </li>
-
             <li>
               <a href="#" class="nav-link text-white">
                 <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#speedometer2"/></svg>
                 Dashboard
               </a>
             </li>
-
             <li>
               <a href="#" class="nav-link text-white">
                 <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#table"/></svg>
@@ -166,12 +198,10 @@
         </div>
       </div>
     </div>
-
-`
     <div class="px-3 py-2 border-bottom mb-3">
       <div class="container d-flex justify-content-between">
 
-        <!-- 상단 검색바 수정이 필요  -->
+
              <form class="col-lg-auto me-lg-auto" th:action="@{/search}" method="get">
                   <div class="col d-flex">
                     <input type="search" class="form-control me-2" placeholder="Search..." aria-label="Search">
@@ -179,36 +209,67 @@
                   </div>
               </form>
 
-        <!-- 회원가입, 로그인 버튼 -->
+         회원가입, 로그인 버튼 부분
         <div class="text-end">
           <button type="button" class="btn btn-light text-dark me-2" th:onclick="|location.href='@{/login}'|">Login</button>
           <button type="button" class="btn btn-primary" th:onclick="|location.href='@{/signup/add}'|">Sign-up</button>
         </div>
-
-
       </div>
     </div>
-
-  </header>
-
-
-
-
-<svg xmlns="http://www.w3.org/2000/svg" class="d-none">
-  <symbol id="aperture" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
-    <circle cx="12" cy="12" r="10"/>
-    <path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94"/>
-  </symbol>
-  <symbol id="cart" viewBox="0 0 16 16">
-    <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-  </symbol>
-  <symbol id="chevron-right" viewBox="0 0 16 16">
-    <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-  </symbol>
-</svg>
-
+  </header> -->
 
 <main>
+  <div id="itemSlide" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#itemSlide" data-bs-slide-to="0" aria-label="Slide 1" class="active custom-btn" aria-current="true"></button>
+      <button type="button" data-bs-target="#itemSlide" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#itemSlide" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+
+        <div class="container">
+          <div class="carousel-caption text-start">
+            <h1>Example headline.</h1>
+            <p>Some representative placeholder content for the first slide of the carousel.</p>
+            <p><a class="btn btn-lg btn-primary" href="#">Sign up today</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+
+        <div class="container">
+          <div class="carousel-caption">
+            <h1>Another example headline.</h1>
+            <p>Some representative placeholder content for the second slide of the carousel.</p>
+            <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+
+        <div class="container">
+          <div class="carousel-caption text-end">
+            <h1>One more for good measure.</h1>
+            <p>Some representative placeholder content for the third slide of this carousel.</p>
+            <p><a class="btn btn-lg btn-primary" href="#">Browse gallery</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
   <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-body-tertiary">
     <div class="col-md-6 p-lg-5 mx-auto my-5">
       <h1 class="display-3 fw-bold">Designed for engineers</h1>
@@ -343,7 +404,7 @@
     </div>
   </div>
 </footer>
-<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../../static/script/bootstrap.bundle.min.js"></script>
 
     </body>
 </html>
