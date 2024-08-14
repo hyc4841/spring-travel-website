@@ -37,7 +37,7 @@ public class ItemController {
         return "/items/item";
     }
 
-    @GetMapping("/items") // 아이템 목록 폼. 조건 검색을 할 수 있도록 만듬
+    @GetMapping("/items") // 아이템 목록 페이지
     public String items(@ModelAttribute("searchCond") ItemSearchCond cond, Model model) {
         List<Item> items = itemService.findAll(cond);
         model.addAttribute("items", items);
@@ -65,14 +65,14 @@ public class ItemController {
         return "redirect:/item/{itemId}"; // 아이템 저장을 완료하면 아이템 상세 페이지로 리다이렉트 하도록 만듬
     }
 
-    @GetMapping("/{itemId}/edit")
+    @GetMapping("/{itemId}/edit") // 아이템 수정 페이지
     public String editForm(@PathVariable Long itemId, Model model) {
         Item item = itemService.findById(itemId).get();
         model.addAttribute("itemUpdateForm", item);
         return "/items/editForm";
     }
 
-    @PostMapping("/{itemId}/edit")
+    @PostMapping("/{itemId}/edit") // 아이템 수정
     public String editItem(@Validated @ModelAttribute("itemUpdateForm") ItemUpdateForm updateForm, BindingResult bindingResult, @PathVariable Long itemId,
                            RedirectAttributes redirectAttributes) {
 
@@ -89,7 +89,7 @@ public class ItemController {
         return "redirect:/item/{itemId}";
     }
 
-    @DeleteMapping("{itemId}/delete")
+    @DeleteMapping("{itemId}/delete") // 아이템 삭제
     public String deleteItem(@PathVariable Long itemId) {
 
         itemService.deleteItem(itemId);

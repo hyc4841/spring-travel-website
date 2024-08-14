@@ -9,8 +9,9 @@
         <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/headers/">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 
-        <!--슬라이드 카드-->
-        <link href="carousel.css" rel="stylesheet">
+        <!--슬라이드 카드 관련-->
+        <link th:href="@{/css/carousel.css}"
+              href="../../static/css/carousel.css" rel="stylesheet">
 
         <style>
       .bd-placeholder-img {
@@ -89,9 +90,124 @@
       .bd-mode-toggle .dropdown-menu .active .bi {
         display: block !important;
       }
+      .container {
+        max-width: 90%;
+        margin: 0 auto;
+      }
+
+      #searchSection {
+        background-image: url(../../static/img/aaa.png);
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 100%;
+        height: 512px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+      }
+
+      #searchWindow {
+        height: 50%;
+        width: 95%;
+        margin-bottom: 30px;
+      }
+      input.form-control {
+        height: 45px;
+      }
+      button.btn {
+        height: 45px;
+      }
+
+
+      .slider{
+      height: 450px;
+      margin: auto;
+      position:relative;
+      width: 100%;
+      display:grid;
+      place-items:center;
+      overflow:hidden;
+
+    }
+
+    .slide-track{
+      display:flex;
+      width: calc(300px * 12);
+      animation: scroll 40s linear infinite;
+    }
+
+    .slide-track:hover{
+      animation-play-state:paused;
+    }
+
+    @keyframes scroll{
+      0% {
+        transform: translateX(0);
+      }
+      100%{
+        transform: translateX(calc(-300px * 6));
+      }
+    }
+
+/* Slider container */
+    .slider {
+    position: relative;
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+/* Slides container */
+    .slides {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+/* Individual slide */
+    .slide {
+    min-width: 50%;
+    box-sizing: border-box;
+    margin-top: 10px;
+
+}
+
+/* Card styling */
+    .card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    margin: 10px;
+}
+
+/* Navigation buttons */
+    .nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 4px;
+    z-index: 10;
+}
+
+.prev {
+    left: 10px;
+}
+
+.next {
+    right: 10px;
+}
     </style>
     </head>
-
+    <!--       /img/aaa.png           -->
     <body>
 
     <!--아이콘 가져오기-->
@@ -102,18 +218,20 @@
         </symbol>
     </svg>
 
-    <!--헤더 부분-->
+    <div class="container">
+
+    <!--헤더-->
     <header>
         <nav class="navbar navbar-white p-3 text-bg-white">
             <div class="container d-flex justify-content-between align-items-center">
                 <!--아이콘-->
-                <a href="#" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+                <a href="#" th:href="@{/home}" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
                     <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
                 </a>
 
                 <div class="d-flex ms-auto align-items-center">
-                    <button type="button" class="btn btn-outline-dark me-2" onclick="#" th:onclick="|location.href='@{/login}'|">Login</button>
-                    <button type="button" class="btn btn-warning me-3" onclick="#" th:onclick="|location.href='@{/signup/add}'|">Sign-up</button>
+                    <button type="button" class="btn btn-outline-dark me-2" onclick="#" th:onclick="|location.href='@{/login}'|">로그인</button>
+                    <button type="button" class="btn btn-warning me-3" onclick="#" th:onclick="|location.href='@{/signup/add}'|">회원가입</button>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -128,7 +246,10 @@
                             <a class="nav-link" href="#">국내 여행</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">해외 여행</a>
+                            <a class="nav-link" href="#">해외 여행</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" th:href="@{/item/items}" tabindex="-1" aria-disabled="true">숙소 검색</a>
                         </li>
 
                     </ul>
@@ -140,11 +261,45 @@
 
     </header>
 
-    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+
+<!--        <img class="rounded" src="aaa.png" width="100%" height="512" alt="검색창 배경 사진">-->
+
+        <!--숙소 검색-->
+        <div id="searchSection" class="p-5 rounded">
+            <h2 class="text-white">어디로 떠날까요?</h2>
+            <div id="searchWindow" class="bg-body-tertiary p-5 rounded">
+                <!--국내 해외 구분해서 검색한다.-->
+                <!--검색은 국내/해외, 여행지, 인원, 여행 날짜-->
+                <form action="#" th:action="@{/search/items}" method="get">
+                    <div class="container text-center">
+                        <div class="row justify-content-center">
+                            <div class="col-3">
+                                <input class="form-control" type="text" id="travelSite" placeholder="지역">
+                            </div>
+
+                            <div class="col-3">
+                                <input class="form-control" type="text" id="date" placeholder="여행 기간">
+                            </div>
+                            <div class="col-3">
+                                <input class="form-control" type="text" id="personnel" placeholder="인원">
+                            </div>
+                            <div class="col-3">
+                                <button class="btn btn-primary btn-lg" type="submit">검색</button>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    <!--이벤트 슬라이드-->
+    <div id="eventSlide" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
-            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" aria-label="Slide 1" class="active custom-btn" aria-current="true"></button>
-            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <button type="button" data-bs-target="#eventSlide" data-bs-slide-to="0" aria-label="Slide 1" class="active custom-btn" aria-current="true"></button>
+            <button type="button" data-bs-target="#eventSlide" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#eventSlide" data-bs-slide-to="2" aria-label="Slide 3"></button>
         </div>
         <div class="carousel-inner">
             <div class="carousel-item active">
@@ -182,11 +337,11 @@
                 </div>
             </div>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+        <button class="carousel-control-prev" type="button" data-bs-target="#eventSlide" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
         </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+        <button class="carousel-control-next" type="button" data-bs-target="#eventSlide" data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
         </button>
@@ -194,10 +349,51 @@
 
 
 
+        <div class="slider">
+            <div class="slides">
+                <div class="slide">
+                    <div class="card">
+                        <h2>Card 1</h2>
+                        <p>This is the first card.</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="card">
+                        <h2>Card 2</h2>
+                        <p>This is the second card.</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="card">
+                        <h2>Card 3</h2>
+                        <p>This is the third card.</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="card">
+                        <h2>Card 4</h2>
+                        <p>This is the third card.</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="card">
+                        <h2>Card 5</h2>
+                        <p>This is the third card.</p>
+                    </div>
+                </div>
+                <!-- Add more slides as needed -->
+            </div>
+            <button class="nav-btn prev" onclick="moveSlide(-1)">&#10094;</button>
+            <button class="nav-btn next" onclick="moveSlide(1)">&#10095;</button>
+        </div>
 
+    </div>
 
+    <script th:src="@{/script/bootstrap.bundle.min.js}"
+            src="../../static/script/bootstrap.bundle.min.js"></script>
 
-
-    <script src="../../static/script/bootstrap.bundle.min.js"></script>
+    <script th:src="@{/script/slide.js}"
+            src="../../static/script/slide.js"></script>
     </body>
+
 </html>

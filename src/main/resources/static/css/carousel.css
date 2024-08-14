@@ -3,7 +3,6 @@
 /* Padding below the footer and lighter body text */
 
 body {
-  padding-top: 3rem;
   padding-bottom: 3rem;
   color: #5a5a5a;
 }
@@ -14,8 +13,9 @@ body {
 
 /* Carousel base class */
 .carousel {
-  margin-bottom: 4rem;
+
 }
+
 /* Since positioning the image, we need to help out the caption */
 .carousel-caption {
   bottom: 3rem;
@@ -23,9 +23,11 @@ body {
 }
 
 /* Declare heights because of positioning of img element */
+/* 높이 결정*/
 .carousel-item {
-  height: 32rem;
+  height: 28rem;
 }
+
 .carousel-item > img {
   position: absolute;
   top: 0;

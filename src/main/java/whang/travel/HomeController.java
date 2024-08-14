@@ -26,7 +26,7 @@ public class HomeController {
     public String LoggedInHome(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member loginMember,
                                Model model) {
         if (loginMember == null) {
-            return "home/home";
+            return "home/homepage";
         }
 
         model.addAttribute("member", loginMember);
