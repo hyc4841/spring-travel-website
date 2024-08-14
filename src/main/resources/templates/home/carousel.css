@@ -3,7 +3,6 @@
 /* Padding below the footer and lighter body text */
 
 body {
-  padding-top: 3rem;
   padding-bottom: 3rem;
   color: #5a5a5a;
 }
@@ -23,9 +22,11 @@ body {
 }
 
 /* Declare heights because of positioning of img element */
+/* 높이 결정*/
 .carousel-item {
   height: 32rem;
 }
+
 .carousel-item > img {
   position: absolute;
   top: 0;

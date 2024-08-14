@@ -9,6 +9,9 @@
         <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/headers/">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 
+        <!--슬라이드 카드-->
+        <link href="carousel.css" rel="stylesheet">
+
         <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -88,6 +91,7 @@
       }
     </style>
     </head>
+
     <body>
 
     <!--아이콘 가져오기-->
@@ -101,35 +105,99 @@
     <!--헤더 부분-->
     <header>
         <nav class="navbar navbar-white p-3 text-bg-white">
-            <div class="container-fluid d-flex justify-content-between align-items-center">
+            <div class="container d-flex justify-content-between align-items-center">
+                <!--아이콘-->
                 <a href="#" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
                     <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
                 </a>
+
                 <div class="d-flex ms-auto align-items-center">
                     <button type="button" class="btn btn-outline-dark me-2" onclick="#" th:onclick="|location.href='@{/login}'|">Login</button>
                     <button type="button" class="btn btn-warning me-3" onclick="#" th:onclick="|location.href='@{/signup/add}'|">Sign-up</button>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarss" aria-controls="navbarss" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
 
                 </div>
-                <div class="collapse navbar-collapse" id="navbarss">
+                <div class="collapse navbar-collapse" id="navbar">
                     <ul class="navbar-nav me-auto mb-2">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            <a class="nav-link active" aria-current="page" href="#">홈</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
+                            <a class="nav-link" href="#">국내 여행</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                            <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">해외 여행</a>
                         </li>
+
                     </ul>
+
                 </div>
+
             </div>
         </nav>
 
     </header>
+
+    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" aria-label="Slide 1" class="active custom-btn" aria-current="true"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+
+                <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#677"/></svg>
+
+                <div class="container">
+                    <div class="carousel-caption text-start">
+                        <h1>제목</h1>
+                        <p>문구</p>
+                        <p><a class="btn btn-lg btn-primary" href="#">버튼</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1>Another example headline.</h1>
+                        <p>Some representative placeholder content for the second slide of the carousel.</p>
+                        <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+
+                <div class="container">
+                    <div class="carousel-caption text-end">
+                        <h1>One more for good measure.</h1>
+                        <p>Some representative placeholder content for the third slide of this carousel.</p>
+                        <p><a class="btn btn-lg btn-primary" href="#">Browse gallery</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+
+
+
+
+
+
     <script src="../../static/script/bootstrap.bundle.min.js"></script>
     </body>
 </html>
