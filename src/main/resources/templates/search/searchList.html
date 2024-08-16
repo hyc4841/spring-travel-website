@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link th:href="@{/css/bootstrap.min.css}"
+        href="../../static/css/bootstrap.css" rel="stylesheet">
+
+    <link th:href="@{/css/sidebars.css}"
+          href="../../static/css/sidebars.css" rel="stylesheet">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sidebars/">
+
+
+  <title>검색 화면</title>
+
+    <style>
+        .container {
+            max-width: 75%;
+        }
+
+         .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      a {
+      text-decoration-line: none;
+      }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <nav class="navbar navbar-white p-3 text-bg-white border-bottom">
+        <div class="container d-flex justify-content-between align-items-center">
+            <!--아이콘-->
+            <a href="#" th:href="@{/home}" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
+            </a>
+
+            <div class="d-flex ms-auto align-items-center">
+                <button type="button" class="btn btn-outline-dark me-2" onclick="#" th:onclick="|location.href='@{/login}'|">로그인</button>
+                <button type="button" class="btn btn-warning me-3" onclick="#" th:onclick="|location.href='@{/signup/add}'|">회원가입</button>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+                <ul class="navbar-nav me-auto mb-2">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">홈</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">국내 여행</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">해외 여행</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" th:href="@{/item/items}" tabindex="-1" aria-disabled="true">숙소 검색</a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+    </nav>
+
+</header>
+
+<div class="container d-flex">
+
+        <!--사이드 바-->
+        <div class="flex-shrink-0 p-3 bg-white" style="width: 280px;">
+            <a href="#" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
+                <svg class="bi me-2" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
+                <span class="fs-5 fw-semibold">Collapsible</span>
+            </a>
+            <ul class="list-unstyled ps-0">
+                <li class="mb-1">
+                    <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
+                        Home
+                    </button>
+                    <div class="collapse show" id="home-collapse">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                            <li><a href="#" class="link-dark rounded">Overview</a></li>
+                            <li><a href="#" class="link-dark rounded">Updates</a></li>
+                            <li><a href="#" class="link-dark rounded">Reports</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="mb-1">
+                    <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
+                        Dashboard
+                    </button>
+                    <div class="collapse" id="dashboard-collapse">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                            <li><a href="#" class="link-dark rounded">Overview</a></li>
+                            <li><a href="#" class="link-dark rounded">Weekly</a></li>
+                            <li><a href="#" class="link-dark rounded">Monthly</a></li>
+                            <li><a href="#" class="link-dark rounded">Annually</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="mb-1">
+                    <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
+                        Orders
+                    </button>
+                    <div class="collapse" id="orders-collapse">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                            <li><a href="#" class="link-dark rounded">New</a></li>
+                            <li><a href="#" class="link-dark rounded">Processed</a></li>
+                            <li><a href="#" class="link-dark rounded">Shipped</a></li>
+                            <li><a href="#" class="link-dark rounded">Returned</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="border-top my-3"></li>
+                <li class="mb-1">
+                    <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
+                        Account
+                    </button>
+                    <div class="collapse" id="account-collapse">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                            <li><a href="#" class="link-dark rounded">New...</a></li>
+                            <li><a href="#" class="link-dark rounded">Profile</a></li>
+                            <li><a href="#" class="link-dark rounded">Settings</a></li>
+                            <li><a href="#" class="link-dark rounded">Sign out</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+    <!--메인 컨텐츠-->
+    <div class="flex-grow-1 p-3">
+        <h1>'지역' 검색 결과 '00'건</h1>
+
+
+
+
+        <div class="row justify-content-md-center">
+            <!--아이템 카드-->
+            <div class="col-md-8 border-bottom">
+                <a th:href="" href="#">
+                <div class="row g-0 border rounded flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div class="col-auto d-none d-lg-block rounded">
+                        <svg class="bd-placeholder-img" width="300" height="200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                    </div>
+
+                    <div class="col p-4 d-flex flex-column position-static">
+                        <strong class="d-inline-block mb-2 text-success">숙소 분류(펜션, 호텔, 모텔)</strong>
+                        <h3 class="mb-0">숙소 이름</h3>
+                        <div class="mb-1 text-muted">숙소 지역</div>
+                        <div class="mb-1 text-muted">
+                    <span class="badge rounded-pill bg-danger"> <!--알약모양 뱃지-->
+                        <!-- 별모양 아이콘 -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                        </svg>
+                        별점(4.8)
+                    </span>리뷰 개수
+                        </div>
+                    </div>
+                </div>
+                </a>
+            </div>
+
+
+            <div class="col-md-8 border-bottom">
+                <a th:href="" href="#">
+                    <div class="row g-0 border rounded flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                        <div class="col-auto d-none d-lg-block rounded">
+                            <svg class="bd-placeholder-img" width="300" height="200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                        </div>
+
+                        <div class="col p-4 d-flex flex-column position-static">
+                            <strong class="d-inline-block mb-2 text-success">숙소 분류(펜션, 호텔, 모텔)</strong>
+                            <h3 class="mb-0">숙소 이름</h3>
+                            <div class="mb-1 text-muted">숙소 지역</div>
+                            <div class="mb-1 text-muted">
+                    <span class="badge rounded-pill bg-danger"> <!--알약모양 뱃지-->
+                        <!-- 별모양 아이콘 -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                        </svg>
+                        별점(4.8)
+                    </span>리뷰 개수
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-8 border-bottom">
+                <a th:href="" href="#">
+                    <div class="row g-0 border rounded flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                        <div class="col-auto d-none d-lg-block rounded">
+                            <svg class="bd-placeholder-img" width="300" height="200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                        </div>
+
+                        <div class="col p-4 d-flex flex-column position-static">
+                            <strong class="d-inline-block mb-2 text-success">숙소 분류(펜션, 호텔, 모텔)</strong>
+                            <h3 class="mb-0">숙소 이름</h3>
+                            <div class="mb-1 text-muted">숙소 지역</div>
+                            <div class="mb-1 text-muted">
+                    <span class="badge rounded-pill bg-danger"> <!--알약모양 뱃지-->
+                        <!-- 별모양 아이콘 -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                        </svg>
+                        별점(4.8)
+                    </span>리뷰 개수
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-8 border-bottom">
+                <a th:href="" href="#">
+                    <div class="row g-0 border rounded flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                        <div class="col-auto d-none d-lg-block rounded">
+                            <svg class="bd-placeholder-img" width="300" height="200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                        </div>
+
+                        <div class="col p-4 d-flex flex-column position-static">
+                            <strong class="d-inline-block mb-2 text-success">숙소 분류(펜션, 호텔, 모텔)</strong>
+                            <h3 class="mb-0">숙소 이름</h3>
+                            <div class="mb-1 text-muted">숙소 지역</div>
+                            <div class="mb-1 text-muted">
+                    <span class="badge rounded-pill bg-danger"> <!--알약모양 뱃지-->
+                        <!-- 별모양 아이콘 -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                        </svg>
+                        별점(4.8)
+                    </span>리뷰 개수
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+
+
+
+
+            <!--페이지 네비게이션-->
+        <div class="col-md-auto">
+                <nav class="">
+                    <ul class="pagination pagination-lg flex-wrap">
+                        <li class="page-item disabled">
+                            <a class="page-link">Previous</a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item active" aria-current="page">
+                            <a class="page-link" href="#">2</a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+</div>
+
+
+<script th:src="@{/script/bootstrap.bundle.min.js}"
+        src="../../static/script/bootstrap.bundle.min.js"></script>
+
+<link th:href="@{/script/sidebars.js}"
+      href="../../static/script/sidebars.js" rel="stylesheet">
+
+</body>
+</html>

@@ -23,6 +23,39 @@
           font-size: 3.5rem;
         }
       }
+
+/* Set up the slider container */.slider {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/* Create a grid layout for each slide */.card-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    grid-template-rows: repeat(2, 1fr);    /* 2 rows */
+    gap: 20px; /* Space between the cards */
+    padding: 20px;
+}
+
+/* Style individual cards */.card {
+    background: #f4f4f4;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Ensure each slide occupies full width (optional, depends on your slider behavior) */.slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
     </style>
 
     
@@ -327,6 +360,36 @@
 
 
   <div class="b-example-divider"></div>
+
+
+
+  <div class="slider">
+    <div class="slides">
+      <div class="slide">
+        <div class="card-grid">
+          <div class="card">
+            <h2>Card 1</h2>
+            <p>This is the first card.</p>
+          </div>
+          <div class="card">
+            <h2>Card 2</h2>
+            <p>This is the second card.</p>
+          </div>
+          <div class="card">
+            <h2>Card 3</h2>
+            <p>This is the third card.</p>
+          </div>
+          <div class="card">
+            <h2>Card 4</h2>
+            <p>This is the fourth card.</p>
+          </div>
+        </div>
+      </div>
+      <!-- Add more slides as needed -->
+    </div></div>
+
+
+
 </main>
 
 
