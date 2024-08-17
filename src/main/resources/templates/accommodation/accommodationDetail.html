@@ -1,10 +1,84 @@
 <!DOCTYPE html>
-<html >
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../../static/css/bootstrap.css" rel="stylesheet">
+
     <title>숙소 상세 페이지</title>
+
+    <style>
+
+    </style>
+
 </head>
 <body>
 
+<header>
+    <nav class="navbar navbar-white p-3 text-bg-white border-bottom">
+        <div class="container d-flex justify-content-between align-items-center">
+            <!--아이콘-->
+            <a href="#" th:href="@{/home}" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
+            </a>
+
+            <div class="d-flex ms-auto align-items-center">
+                <button type="button" class="btn btn-outline-dark me-2" onclick="#" th:onclick="|location.href='@{/login}'|">로그인</button>
+                <button type="button" class="btn btn-warning me-3" onclick="#" th:onclick="|location.href='@{/signup/add}'|">회원가입</button>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+                <ul class="navbar-nav me-auto mb-2">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">홈</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">국내 여행</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">해외 여행</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" th:href="@{/item/items}" tabindex="-1" aria-disabled="true">숙소 검색</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- * 카카오맵 - 지도퍼가기 -->
+<!-- 1. 지도 노드 -->
+<div id="daumRoughmapContainer1723908977327" class="root_daum_roughmap root_daum_roughmap_landing"></div>
+
+<!--
+	2. 설치 스크립트
+	* 지도 퍼가기 서비스를 2개 이상 넣을 경우, 설치 스크립트는 하나만 삽입합니다.
+-->
+<script charset="UTF-8" class="daum_roughmap_loader_script" src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
+
+<!-- 3. 실행 스크립트 -->
+<script charset="UTF-8">
+    new daum.roughmap.Lander({
+        "timestamp" : "1723908977327",
+        "key" : "2kd8y",
+        "mapWidth" : "640",
+        "mapHeight" : "360"
+    }).render();
+</script>
+
+<!--상단 숙소 이미지-->
+
+
+
+
+
+
+<script th:src="@{/script/bootstrap.bundle.min.js}"
+        src="../../static/script/bootstrap.bundle.min.js"></script>
 </body>
 </html>

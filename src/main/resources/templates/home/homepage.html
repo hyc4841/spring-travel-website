@@ -28,59 +28,9 @@
         }
       }
 
-      .b-example-divider {
-        width: 100%;
-        height: 3rem;
-        background-color: rgba(0, 0, 0, .1);
-        border: solid rgba(0, 0, 0, .15);
-        border-width: 1px 0;
-        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
-      }
-
-      .b-example-vr {
-        flex-shrink: 0;
-        width: 1.5rem;
-        height: 100vh;
-      }
-
       .bi {
         vertical-align: -.125em;
         fill: currentColor;
-      }
-
-      .nav-scroller {
-        position: relative;
-        z-index: 2;
-        height: 2.75rem;
-        overflow-y: hidden;
-      }
-
-      .nav-scroller .nav {
-        display: flex;
-        flex-wrap: nowrap;
-        padding-bottom: 1rem;
-        margin-top: -1px;
-        overflow-x: auto;
-        text-align: center;
-        white-space: nowrap;
-        -webkit-overflow-scrolling: touch;
-      }
-
-      .btn-bd-primary {
-        --bd-violet-bg: #712cf9;
-        --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
-
-        --bs-btn-font-weight: 600;
-        --bs-btn-color: var(--bs-white);
-        --bs-btn-bg: var(--bd-violet-bg);
-        --bs-btn-border-color: var(--bd-violet-bg);
-        --bs-btn-hover-color: var(--bs-white);
-        --bs-btn-hover-bg: #6528e0;
-        --bs-btn-hover-border-color: #6528e0;
-        --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
-        --bs-btn-active-color: var(--bs-btn-hover-color);
-        --bs-btn-active-bg: #5a23c8;
-        --bs-btn-active-border-color: #5a23c8;
       }
 
       .bd-mode-toggle {
@@ -97,78 +47,76 @@
 
     /* /img/aaa.png */
     /* ../../static/img/aaa.png 로컬에서 돌릴때 */
-          #searchSection {
-            background-image: url(/img/aaa.png);
-            background-position: center;
-            background-size: cover;
-            background-repeat: no-repeat;
-            width: 100%;
-            height: 512px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            align-items: center;
-          }
+      #searchSection {
+        background-image: url(../../static/img/aaa.png);
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 100%;
+        height: 512px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+      }
 
-          #searchWindow {
-            height: 50%;
-            width: 95%;
-            margin-bottom: 30px;
-          }
-          input.form-control {
-            height: 45px;
-          }
-          button.btn {
-            height: 45px;
-          }
+      #searchWindow {
+        height: 50%;
+        width: 95%;
+        margin-bottom: 30px;
+      }
+      input.form-control {
+        height: 45px;
+      }
+      button.btn {
+        height: 45px;
+      }
 
-        .slide-track{
-          display:flex;
-          width: calc(300px * 12);
-          animation: scroll 40s linear infinite;
-        }
+      .slide-track{
+      display:flex;
+      width: calc(300px * 12);
+      animation: scroll 40s linear infinite;
+      }
 
-        .slide-track:hover{
-          animation-play-state:paused;
-        }
+    .slide-track:hover{
+      animation-play-state:paused;
+    }
 
-        @keyframes scroll{
-          0% {
-            transform: translateX(0);
-          }
-          100%{
-            transform: translateX(calc(-300px * 6));
-          }
-        }
+    @keyframes scroll{
+      0% {
+        transform: translateX(0);
+      }
+      100%{
+        transform: translateX(calc(-300px * 6));
+      }
+    }
 
     /* Slider container */
-        .slider {
-        position: relative;
-        width: 100%;
-        margin: auto;
-        overflow: hidden;
-        background-color: #5a23c8;
+    .slider {
+    position: relative;
+    width: 100%;
+    margin: auto;
+    overflow: hidden;
+    background-color: #5a23c8;
     }
 
     /* Slides container */
-        .slides {
-        display: flex;
-        transition: transform 0.5s ease;
+    .slides {
+    display: flex;
+    transition: transform 0.5s ease;
     }
 
     /* Individual slide */
-        .slide {
-        min-width: 35%;
-        box-sizing: border-box;
-
+    .slide {
+    min-width: 35%;
+    box-sizing: border-box;
     }
 
     .card-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr); /* 2 columns */
     grid-template-rows: repeat(2, 1fr);    /* 2 rows */
-
-}
+    }
 
     /* Card styling */
         .card {
@@ -248,14 +196,10 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#" th:href="@{/item/items}" tabindex="-1" aria-disabled="true">숙소 검색</a>
                         </li>
-
                     </ul>
-
                 </div>
-
             </div>
         </nav>
-
     </header>
 
 
