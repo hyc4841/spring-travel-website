@@ -23,7 +23,7 @@
     <select id="findOrderByMemberId" resultType="Order">
         select orders.order_num, orders.order_member_id, orders.order_item_id, item.item_name, item.price, orders.order_item_quantity, orders.delivery_address, orders.order_date, orders.total_price
         from orders, item
-        where orders.order_member_id=1 and orders.order_item_id=item.item_id
+        where orders.order_member_id=#{memberId} and orders.order_item_id=item.item_id
     </select>
 
     <select id="findIdByMemberLoginId" resultType="Long">

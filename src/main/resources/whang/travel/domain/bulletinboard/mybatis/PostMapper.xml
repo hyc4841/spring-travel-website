@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whang.travel.domain.bulletinboard.mybatis.PostMapper">
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="postId">
+        insert into bulletinboard (member_id, title, content, category, post_date, edit_date)
+        values (#{memberId}, #{title}, #{content}, #{category}, #{post_date}, #{edit_date})
+    </insert>
+
+    <update id="update">
+        update bulletinboard set title=#{updatePost.editTitle},
+                                 content=#{updatePost.editContent},
+                                 category=#{editCategory},
+                                 edit_date=#{editDate}
+        where post_id=#{postId}
+    </update>
+
+    <!-- 주로 사용자가 작성한 게시글들을 리스트로 뽑아낼 걸로 기대함 -->
+    <select id="findPostByMemberId" resultType="Post">
+        select post_id, member_id, title, content, category, post_date, edit_date
+        from bulletinboard
+        <where>
+            member_id=#{memberId}
+            <if test="searchTitle != null and searchTitle != ''">
+                and title like concat('%', #{searchTitle}, '%')
+            </if>
+        </where>
+    </select>
+
+    <!-- 주로 글의 상세 내용을 보여줄 때 사용할걸로 기대함 -->
+    <select id="findPostByPostId" resultType="Post">
+        select post_id, member_id, title, content, category, post_date, edit_date
+        from bulletinboard
+        where post_id=#{postId}
+    </select>
+
+    <select id="findAll" resultType="Post">
+        select post_id, member_id, title, content, category, post_date, edit_date
+        from bulletinboard
+        <where>
+            <if test="searchTitle != null and searchTitle != ''">
+                and title like concat('%', #{searchTitle}, '%')
+            </if>
+        </where>
+    </select>
+
+    <select id="findMemberName" resultType="MemberName">
+        select first_name, last_name
+        from member
+        where member_id=#{memberId}
+    </select>
+
+    <delete id="deletePost">
+        delete
+        from bulletinboard
+        where post_id=#{postId}
+    </delete>
+
+
+</mapper>
