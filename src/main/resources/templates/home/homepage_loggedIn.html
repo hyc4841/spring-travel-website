@@ -146,11 +146,24 @@
         right: 10px;
     }
 
+    a {
+        text-decoration-line: none;
+    }
+
 
     </style>
     </head>
     <!--       /img/aaa.png           -->
     <body>
+
+    <!--프로필 이미지-->
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <symbol id="people-circle" viewBox="0 0 16 16">
+            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+        </symbol>
+    </svg>
+
 
     <!--아이콘 가져오기-->
     <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
@@ -173,19 +186,15 @@
                 <div class="d-flex ms-auto align-items-center">
 
 
-                    <!-- 로그인 안했을 때-->
-                    <button th:if="${member == null}"  type="button" class="btn btn-outline-dark me-2" onclick="#" th:onclick="|location.href='@{/login}'|">로그인</button>
-                    <button th:if="${member == null}"  type="button" class="btn btn-warning me-3" onclick="#" th:onclick="|location.href='@{/signup/add}'|">회원가입</button>
-
-                    <!-- 로그인 했을 때 -->
-                    <a th:if="${member != null}"  class="me-3 text-dark" href="#">
+                    <a class="me-3 text-dark" href="#">
                         <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#people-circle"/></svg>
                         <span th:text="|${member.firstName}${member.lastName} 님|">
                             로그인한 사용자 이름
                         </span>
+
                     </a>
 
-                    <form th:if="${member != null}" th:action="@{/logout}" method="post">
+                    <form th:action="@{/logout}" method="post">
                         <button type="submit" class="btn btn-dark me-3" onclick="#">로그아웃</button>
                     </form>
 

@@ -25,11 +25,14 @@ public class HomeController {
     @GetMapping("/home")
     public String LoggedInHome(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member loginMember,
                                Model model) {
+        // 로그인 안되어 있으면 기본 홈페이지로 이동
         if (loginMember == null) {
+            model.addAttribute("member", null);
             return "home/homepage";
         }
 
+        // 로그인 되어 있으면
         model.addAttribute("member", loginMember);
-        return "home/home_loggedin";
+        return "home/homepage";
     }
 }
