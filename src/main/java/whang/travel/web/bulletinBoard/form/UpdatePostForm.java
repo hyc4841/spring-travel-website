@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class EditPostForm {
+public class UpdatePostForm {
 
     // 수정 제목
     private String editTitle;
@@ -16,4 +16,10 @@ public class EditPostForm {
     // 최종 수정 일자
     private Date editDate;
 
+    public UpdatePostForm(String editTitle, String editContent, String editCategory, Date editDate) {
+        this.editTitle = editTitle;
+        this.editContent = editContent;
+        this.editCategory = editCategory;
+        this.editDate = editDate;
+    }
 }

@@ -5,9 +5,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 import whang.travel.domain.bulletinboard.Post;
 import whang.travel.domain.bulletinboard.PostRepository;
-import whang.travel.web.bulletinBoard.form.EditPostForm;
-import whang.travel.web.member.form.MemberName;
+import whang.travel.domain.bulletinboard.DisplayPostForm;
+import whang.travel.web.bulletinBoard.form.SavePostForm;
+import whang.travel.web.bulletinBoard.form.UpdatePostForm;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,18 +18,25 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MybatisPostRepository implements PostRepository {
 
-
     private final PostMapper postMapper;
 
     @Override
-    public Post save(Post savePost) {
-        postMapper.save(savePost);
+    public Post save(SavePostForm savePost) {
 
-        return savePost;
+        Post post = new Post();
+        post.setMemberId(savePost.getMemberId());
+        post.setTitle(savePost.getTitle());
+        post.setContent(savePost.getContent());
+        post.setCategory(savePost.getCategory());
+        post.setPostDate(new Date());
+
+        postMapper.save(post);
+
+        return post;
     }
 
     @Override
-    public void updatePost(Long postId, EditPostForm editForm) {
+    public void updatePost(Long postId, UpdatePostForm editForm) {
         log.info("글 업데이트={}", editForm);
         postMapper.update(postId, editForm);
     }
@@ -53,6 +62,7 @@ public class MybatisPostRepository implements PostRepository {
         return postList;
     }
 
+    /*
     @Override
     public MemberName findMemberName(Long memberId) {
         MemberName memberName = postMapper.findMemberName(memberId);
@@ -60,8 +70,16 @@ public class MybatisPostRepository implements PostRepository {
         return memberName;
     }
 
+     */
+
     @Override
     public void deletePost(Long postId) {
         postMapper.deletePost(postId);
+    }
+
+    @Override
+    public List<DisplayPostForm> findAllWithMemberName(String searchTitle) {
+        log.info("멤버id가 아니라 작성자 이름으로 찾기");
+        return postMapper.findAllWithMemberName(searchTitle);
     }
 }

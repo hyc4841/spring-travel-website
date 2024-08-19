@@ -4,6 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.parsing.BeanEntry;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import whang.travel.domain.bulletinboard.PostRepository;
+import whang.travel.domain.bulletinboard.PostService;
+import whang.travel.domain.bulletinboard.PostServiceImpl;
+import whang.travel.domain.bulletinboard.mybatis.MybatisPostRepository;
+import whang.travel.domain.bulletinboard.mybatis.PostMapper;
 import whang.travel.domain.item.ItemRepository;
 import whang.travel.domain.item.ItemService;
 import whang.travel.domain.item.ItemServiceImpl;
@@ -21,6 +26,7 @@ public class MybatisConfig {
 
     private final ItemMapper itemMapper;
     private final MemberMapper memberMapper;
+    private final PostMapper postMapper;
 
     // 아이템 부분
     @Bean
@@ -42,5 +48,15 @@ public class MybatisConfig {
         return new MybatisMemberRepository(memberMapper);
     }
 
+
+    @Bean
+    public PostService postService() {
+        return new PostServiceImpl(postRepository());
+    }
+
+    @Bean
+    public PostRepository postRepository() {
+        return new MybatisPostRepository(postMapper);
+    }
 
 }

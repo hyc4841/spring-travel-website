@@ -3,8 +3,8 @@ package whang.travel.domain.bulletinboard;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import whang.travel.web.bulletinBoard.form.EditPostForm;
-import whang.travel.web.member.form.MemberName;
+import whang.travel.web.bulletinBoard.form.SavePostForm;
+import whang.travel.web.bulletinBoard.form.UpdatePostForm;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,12 +17,12 @@ public class PostServiceImpl implements PostService {
     private final PostRepository postRepository;
 
     @Override
-    public Post save(Post post) {
+    public Post save(SavePostForm post) {
         return postRepository.save(post);
     }
 
     @Override
-    public void Update(Long postId, EditPostForm editForm) {
+    public void Update(Long postId, UpdatePostForm editForm) {
         postRepository.updatePost(postId, editForm);
     }
 
@@ -41,13 +41,21 @@ public class PostServiceImpl implements PostService {
         return postRepository.findAll(searchTitle);
     }
 
+    /*
     @Override
     public MemberName findMemberName(Long memberId) {
         return postRepository.findMemberName(memberId);
     }
 
+     */
+
     @Override
     public void deletePost(Long postId) {
         postRepository.deletePost(postId);
+    }
+
+    @Override
+    public List<DisplayPostForm> findAllWithMemberName(String searchTitle) {
+        return postRepository.findAllWithMemberName(searchTitle);
     }
 }
