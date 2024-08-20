@@ -1,6 +1,7 @@
 package whang.travel.domain.bulletinboard;
 
 import lombok.Data;
+import lombok.Getter;
 
 import java.util.Date;
 

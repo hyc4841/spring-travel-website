@@ -10,7 +10,7 @@ public class DisplayPostForm {
     // pk
     private Long postId;
     // 작성자
-    private String fistName;
+    private String firstName;
     private String lastName;
     // 제목
     private String title; // 100자
@@ -24,7 +24,7 @@ public class DisplayPostForm {
     private Date postEditDate;
 
     public DisplayPostForm(String fistName, String lastName, String title, String content, String category, Date postDate) {
-        this.fistName = fistName;
+        this.firstName = fistName;
         this.lastName = lastName;
         this.title = title;
         this.content = content;

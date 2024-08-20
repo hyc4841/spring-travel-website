@@ -7,5 +7,5 @@ import lombok.Data;
 public class SearchForm {
 
     @NotBlank
-    private String region;
+    private String searchTitle;
 }

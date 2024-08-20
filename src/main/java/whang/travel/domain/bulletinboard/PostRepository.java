@@ -6,7 +6,7 @@ import whang.travel.web.bulletinBoard.form.UpdatePostForm;
 import java.util.List;
 import java.util.Optional;
 
-public interface PostRepository {
+public interface  PostRepository {
     // 게시판 글 저장소
     // 글 저장
     Post save(SavePostForm savePost);

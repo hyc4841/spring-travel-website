@@ -12,10 +12,10 @@
         <h2>게시판</h2>
     </div>
 
-    <form th:action th:object="${searchTitle}" method="get" class="form-inline">
+    <form class="form-inline" th:action th:object="${searchForm}" method="get" >
     <div class="row">
         <div class="col">
-            <input type="text" th:field="${searchTitle}" class="form-control" placeholder="제목으로 검색"/>
+            <input type="text" th:field="*{searchTitle}" class="form-control" placeholder="제목으로 검색"/>
         </div>
         <div class="col">
             <button type="submit" class="btn btn-secondary mb-2">검색</button>
@@ -44,16 +44,16 @@
                 <th>작성자</th>
                 <th>작성 일자</th>
                 <th>카테고리</th>
-
             </tr>
             </thead>
             <tbody>
             <tr th:each="post : ${posts}">
-                <td><a href="#" th:href="@{/item/{itemId}(itemId=${item.itemId})}" th:text="${item.itemId}">글 번호</a></td>
-                <td><a href="#" th:href="@{|/item/${item.itemId}|}" th:text="${item.itemName}">제목</a></td>
-                <td th:text="${item.price}">작성자</td>
-                <td th:text="${item.quantity}">작성일자</td>
-                <td th:text="${item.quantity}">카테고리</td>
+                <!-- 여기로 넘겨지는 posts는 DisplayPostForm의 데이터 형태가 넘어오는 것임. 작성자 이름을 사용하기 위해서 그렇게 했음-->
+                <td><a href="#" th:href="@{/bulletinBoard/{postId}(postId=${post.postId})}" th:text="${post.postId}">글 번호</a></td>
+                <td><a href="#" th:href="@{|/bulletinBoard/${post.postId}|}" th:text="${post.title}">제목</a></td>
+                <td th:text="|${post.firstName}${post.lastName}|">작성자</td>
+                <td th:text="${post.postDate}">작성일자</td>
+                <td th:text="${post.category}">카테고리</td>
             </tr>
             </tbody>
         </table>

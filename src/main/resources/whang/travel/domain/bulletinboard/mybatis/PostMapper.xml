@@ -4,8 +4,8 @@
 <mapper namespace="whang.travel.domain.bulletinboard.mybatis.PostMapper">
 
     <insert id="save" useGeneratedKeys="true" keyProperty="postId">
-        insert into bulletinboard (member_id, title, content, category, post_date, edit_date)
-        values (#{memberId}, #{title}, #{content}, #{category}, #{post_date}, #{edit_date})
+        insert into bulletinboard (member_id, title, content, category, post_date)
+        values (#{memberId}, #{title}, #{content}, #{category}, #{postDate})
     </insert>
 
     <update id="update">
@@ -57,26 +57,15 @@
         where post_id=#{postId}
     </delete>
 
+<!--밑에 select 문에서 속성 순서 바뀌면 가끔 오류 생기던데 왜그러는거지? 이유 찾기 -->
     <select id="findAllWithMemberName" resultType="DisplayPostForm">
         select
-        bulletinboard.post_id,
-        member.first_name,
-        member.last_name,
-        bulletinboard.title,
-        bulletinboard.content,
-        bulletinboard.category,
-        bulletinboard.post_date,
-        bulletinboard.edit_date
-        from
-        bulletinboard
-        join
-        member
-        on
-        bulletinboard.member_id = member.id
+        post_id, member.first_name, member.last_name, title,
+        category, edit_date , content,  post_date
+        from bulletinboard
+        join member
+        on bulletinboard.member_id = member.id
         <where>
-            <if test="postId != null">
-                bulletinboard.post_id = #{postId}
-            </if>
             <if test="searchTitle != null and searchTitle != ''">
                 and bulletinboard.title like concat('%', #{searchTitle}, '%')
             </if>
