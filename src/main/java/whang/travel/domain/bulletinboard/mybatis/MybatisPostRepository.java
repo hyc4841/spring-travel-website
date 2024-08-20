@@ -36,9 +36,14 @@ public class MybatisPostRepository implements PostRepository {
     }
 
     @Override
-    public void updatePost(Long postId, UpdatePostForm editForm) {
-        log.info("글 업데이트={}", editForm);
-        postMapper.update(postId, editForm);
+    public void updatePost(Long postId, UpdatePostForm updateForm) {
+        log.info("글 업데이트={}", updateForm);
+
+        // 수정 날짜는 repository에서
+        updateForm.setEditDate(new Date());
+
+
+        postMapper.update(postId, updateForm);
     }
 
     @Override

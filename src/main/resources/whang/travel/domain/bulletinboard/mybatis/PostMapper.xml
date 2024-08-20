@@ -11,8 +11,8 @@
     <update id="update">
         update bulletinboard set title=#{updatePost.editTitle},
                                  content=#{updatePost.editContent},
-                                 category=#{editCategory},
-                                 edit_date=#{editDate}
+                                 category=#{updatePost.editCategory},
+                                 edit_date=#{updatePost.editDate}
         where post_id=#{postId}
     </update>
 

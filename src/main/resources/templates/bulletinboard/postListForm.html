@@ -49,8 +49,8 @@
             <tbody>
             <tr th:each="post : ${posts}">
                 <!-- 여기로 넘겨지는 posts는 DisplayPostForm의 데이터 형태가 넘어오는 것임. 작성자 이름을 사용하기 위해서 그렇게 했음-->
-                <td><a href="#" th:href="@{/bulletinBoard/{postId}(postId=${post.postId})}" th:text="${post.postId}">글 번호</a></td>
-                <td><a href="#" th:href="@{|/bulletinBoard/${post.postId}|}" th:text="${post.title}">제목</a></td>
+                <td><a href="#" th:href="@{/bulletinBoard/detail/{postId}(postId=${post.postId})}" th:text="${post.postId}">글 번호</a></td>
+                <td><a href="#" th:href="@{|/bulletinBoard/detail/${post.postId}|}" th:text="${post.title}">제목</a></td>
                 <td th:text="|${post.firstName}${post.lastName}|">작성자</td>
                 <td th:text="${post.postDate}">작성일자</td>
                 <td th:text="${post.category}">카테고리</td>

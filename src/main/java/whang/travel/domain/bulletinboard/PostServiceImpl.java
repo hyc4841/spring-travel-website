@@ -22,8 +22,8 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public void Update(Long postId, UpdatePostForm editForm) {
-        postRepository.updatePost(postId, editForm);
+    public void Update(Long postId, UpdatePostForm updateForm) {
+        postRepository.updatePost(postId, updateForm);
     }
 
     @Override
