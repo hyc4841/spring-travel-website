@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -22,11 +23,14 @@ public class LoginController {
 
     private final LoginService loginService;
 
+    private final PasswordEncoder passwordEncoder; // spring
+
     @GetMapping("/login")
     public String LoginForm(@ModelAttribute("loginForm") LoginForm loginForm) {
         return "login/loginForm";
     }
 
+    // 로그인
     @PostMapping("/login")
     public String Login(@Validated @ModelAttribute("loginForm") LoginForm loginForm, BindingResult bindingResult,
                         @RequestParam(defaultValue = "/home") String redirectURL,
