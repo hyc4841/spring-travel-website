@@ -29,17 +29,23 @@ public class SecurityConfig {
         //anyRequest().permitAll() 은 모든 url을 허용하겠다는 의미.
         http.authorizeHttpRequests((authorizeRequests) ->
                         authorizeRequests
-                                .requestMatchers("/api1").hasRole("user")
-                                .requestMatchers("/api2").hasRole("admin")
+                                .requestMatchers("/login").permitAll()
+                                .requestMatchers("/css/**").permitAll()
+                                .requestMatchers("/script/**").permitAll()
+                                .requestMatchers("/home").permitAll()
+                                .requestMatchers("/signup/**").permitAll()
+                                .requestMatchers("/").permitAll()
+                                .requestMatchers("/accommodation/**").permitAll()
                                 .anyRequest().authenticated()
                 )
+//                .userDetailsService(userDetailsService)
                 // 로그인 관련 설정
                 .formLogin((formLogin) ->
                         formLogin
                                 .loginPage("/login")
-                                .defaultSuccessUrl()
-                                .failureUrl()
-                                .usernameParameter("username")
+                                .defaultSuccessUrl("/home")
+                                .failureUrl("/home")
+                                .usernameParameter("loginId")
                                 .passwordParameter("password")
                                 .defaultSuccessUrl("/", true)
                 )
@@ -48,8 +54,8 @@ public class SecurityConfig {
                 .logout((logout) ->
                         logout
                                 .invalidateHttpSession(true)
-                                .logoutRequestMatcher(new AntPathRequestMatcher())
-                                .logoutSuccessUrl()
+                                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                                .logoutSuccessUrl("/logout?logout")
                 );
 
         return http.build();
