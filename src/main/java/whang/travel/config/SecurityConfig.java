@@ -1,53 +1,56 @@
 package whang.travel.config;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-@EnableWebSecurity
+@Slf4j
 @Configuration
+@EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private UserDetailsService userDetailsService;
-
+    private final UserDetailsService userDetailsService;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         // 인가(접근 권한)을 성정
         //anyRequest().permitAll() 은 모든 url을 허용하겠다는 의미.
-        http.authorizeHttpRequests((authorizeRequests) ->
+        http
+//                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests((authorizeRequests) ->
                         authorizeRequests
                                 .requestMatchers("/login").permitAll()
                                 .requestMatchers("/css/**").permitAll()
                                 .requestMatchers("/script/**").permitAll()
+                                .requestMatchers("/img/**").permitAll()
                                 .requestMatchers("/home").permitAll()
                                 .requestMatchers("/signup/**").permitAll()
                                 .requestMatchers("/").permitAll()
-                                .requestMatchers("/accommodation/**").permitAll()
+                                .requestMatchers("/bulletinBoard/**").permitAll()
                                 .anyRequest().authenticated()
                 )
-//                .userDetailsService(userDetailsService)
+
                 // 로그인 관련 설정
                 .formLogin((formLogin) ->
                         formLogin
                                 .loginPage("/login")
-                                .defaultSuccessUrl("/home")
-                                .failureUrl("/home")
+                                .loginProcessingUrl("/login")
                                 .usernameParameter("loginId")
                                 .passwordParameter("password")
-                                .defaultSuccessUrl("/", true)
+                                .defaultSuccessUrl("/home", true)
                 )
 
                 // 로그아웃 관련 설정
@@ -55,16 +58,21 @@ public class SecurityConfig {
                         logout
                                 .invalidateHttpSession(true)
                                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                                .logoutSuccessUrl("/logout?logout")
-                );
+                                .logoutSuccessUrl("/home")
+                )
+                .userDetailsService(userDetailsService);
 
         return http.build();
     }
 
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
     }
 
 

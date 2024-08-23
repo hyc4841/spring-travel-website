@@ -19,7 +19,6 @@ import whang.travel.domain.member.MemberRepository;
 public class SignUpController { // 회원 가입 컨트롤러
 
     private final MemberRepository memberRepository;
-
     private final PasswordEncoder passwordEncoder;
 
     // get : 회원 가입 폼 이동. 지금 로그인 화면하고 회원가입 화면이 합쳐져 있음

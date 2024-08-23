@@ -23,18 +23,20 @@ public class LoginController {
 
     private final LoginService loginService;
 
-    private final PasswordEncoder passwordEncoder; // spring
-
     @GetMapping("/login")
     public String LoginForm(@ModelAttribute("loginForm") LoginForm loginForm) {
+        log.info("get : 로그인 화면");
+
         return "login/loginForm";
     }
 
-    // 로그인
+    // 로그인 spring security 사용하면 컨트롤러에서 이부분은 필요가 없어짐.
+    /*
     @PostMapping("/login")
     public String Login(@Validated @ModelAttribute("loginForm") LoginForm loginForm, BindingResult bindingResult,
                         @RequestParam(defaultValue = "/home") String redirectURL,
                         HttpServletRequest request) throws IOException {
+        log.info("post : 로그인 하기");
 
         if (bindingResult.hasErrors()) { // 필드 오류가 있으면 입력했던 정보 가지고 다시 로그인 화면으로 감.
             log.info("BindingResult={}", bindingResult);
@@ -58,6 +60,9 @@ public class LoginController {
         return "redirect:" + redirectURL; // post 요청의 경우 성공하면 redirect 시켜주는게 낫다. 새로고침하면 post 요청이 다시 갈 수 있기 때문
     }
 
+     */
+
+    // spring security 도입하면서 필요 없어짐.
     @PostMapping("/logout")
     public String logout(HttpServletRequest request) {
         HttpSession session = request.getSession(false); // 로그아웃은 세션을 제거해주면 된다.

@@ -20,7 +20,14 @@
     <div class="py-5 text-center">
       <h1>로그인 화면</h1>
     </div>
-    <form action="loginForm.html" th:action th:object="${loginForm}" method="post">
+    <form action="loginForm.html" th:action="@{/login}" th:object="${loginForm}" method="post">
+
+        <div th:if="${param.error}">
+            <div class="alert alert-danger">
+                사용자ID 또는 비밀번호를 확인해 주세요.
+            </div>
+        </div>
+
       <div class="mb-3">
         <label for="loginId" class="form-label" th:text="#{member.login.id}">아이디</label>
         <input type="text" class="form-control" id="loginId" aria-describedby="emailHelp"
