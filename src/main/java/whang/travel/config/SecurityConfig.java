@@ -47,7 +47,7 @@ public class SecurityConfig {
                 .formLogin((formLogin) ->
                         formLogin
                                 .loginPage("/login")
-                                .loginProcessingUrl("/login")
+//                                .loginProcessingUrl("/login")
                                 .usernameParameter("loginId")
                                 .passwordParameter("password")
                                 .defaultSuccessUrl("/home", true)
@@ -59,8 +59,8 @@ public class SecurityConfig {
                                 .invalidateHttpSession(true)
                                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                                 .logoutSuccessUrl("/home")
-                )
-                .userDetailsService(userDetailsService);
+                );
+//                .userDetailsService(userDetailsService);
 
         return http.build();
     }
@@ -88,6 +88,9 @@ public class SecurityConfig {
     수동 :
     BcryptPassword로 비밀번호 암호화해서 데이터베이스에 저장(BcryptPassword 말고 다른거 써도 됨. 이게 근데 제일 많이 쓰는 듯)
 
+    spring security를 사용하면
+    login, logout 컨트롤러를 사용하지 않아도 된다. filter에서 먼저 처리해줌
+    그럼 로그인 필드 검증, 오류를 어떻게 다룰것이냐가 문제임.
 
 
 

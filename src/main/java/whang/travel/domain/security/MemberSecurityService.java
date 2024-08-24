@@ -31,7 +31,6 @@ public class MemberSecurityService implements UserDetailsService {
         // 데이터베이스에서 조회. 여기서 받는건 username이라고 하지만 실제로 유니크한 멤버의 로그인id나 다른 유니크한 값을 써야함. 중복되면 안되니까
         Optional<Member> member = memberRepository.findByLoginId(username);
         log.info("멤버 찾기 실행={}", member);
-        log.info("member는 비어있습니까?={}", member.isEmpty());
 
         if (member.isEmpty()) {
             log.info("여기 실행되는거 맞냐?");
