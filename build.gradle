@@ -57,6 +57,9 @@ dependencies {
 	// jwt
 	implementation 'io.jsonwebtoken:jjwt:0.9.1'
 
+	// 이메일 검증 라이브러리
+	implementation 'commons-validator:commons-validator:1.7'
+
 }
 
 tasks.named('test') {

@@ -80,6 +80,7 @@
                        th:field="*{memberId}" required>
 
                 <div class="field-error" th:errors="*{memberId}">id 오류</div>
+
                 <div class="invalid-feedback">Your id is required.</div>
 
               </div>
@@ -114,8 +115,11 @@
             <!-- 이메일 -->
             <div class="col-12">
               <label for="email" class="form-label" th:text="#{member.signup.email}">이메일 <span class="text-muted">(Optional)</span></label>
-              <input type="email" class="form-control" id="email" placeholder="you@example.com"
+              <input type="text" class="form-control" id="email" placeholder="you@example.com"
                      th:field="*{email}">
+
+              <div class="field-error" th:errors="*{email}">이메일 오류</div>
+
               <div class="invalid-feedback">
                 Please enter a valid email address for shipping updates.
               </div>

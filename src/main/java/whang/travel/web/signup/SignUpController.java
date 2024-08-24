@@ -3,6 +3,7 @@ package whang.travel.web.signup;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,9 +11,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import whang.travel.config.MemberValidator;
 import whang.travel.domain.member.Member;
 import whang.travel.domain.member.MemberRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -23,6 +26,7 @@ public class SignUpController { // 회원 가입 컨트롤러
 
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
+    private final MemberValidator memberValidator;
 
     // get : 회원 가입 폼 이동. 지금 로그인 화면하고 회원가입 화면이 합쳐져 있음
     @GetMapping("/signup/add")
@@ -36,12 +40,27 @@ public class SignUpController { // 회원 가입 컨트롤러
                          BindingResult bindingResult,
                          @RequestParam(defaultValue = "/home") String redirectURL)  {
 
+        /*
+        // 이메일 검증
+        boolean emailValidation = EmailValidator.getInstance().isValid(member.getEmail());
+        log.info("이메일이 유효한지 검사={}", emailValidation);
+        if (!emailValidation) {
+            bindingResult.addError(new FieldError("member", "email", "유효한 이메일 형식이 아닙니다!!"));
+        }
+
         // 가입하려는 유저가 입력한 memberId값이 이미 다른 사람이 사용중이면 오류로 보여준.
         Optional<Member> checkMember = memberRepository.findByLoginId(member.getMemberId());
         if (!checkMember.isEmpty()) {
             log.info("멤버 id 중복 발생={}", checkMember);
             // objectName : ModelAttribute이름, field : 오류가 난 필드 이름, 메세지는 메시지
             bindingResult.addError(new FieldError("member", "memberId", "이미 사용 중인 id입니다!!"));
+        }
+         */
+
+        List<FieldError> validation = memberValidator.validation(member, bindingResult);
+        log.info("오류 검증 결과={}", validation);
+        for (FieldError error : validation) {
+            bindingResult.addError(error);
         }
 
         // 회원가입 데이터에 대한 검증
