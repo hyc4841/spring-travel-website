@@ -7,10 +7,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import whang.travel.domain.member.Member;
 import whang.travel.domain.member.MemberRepository;
+
+import java.util.Optional;
 
 @Slf4j
 @Controller
@@ -32,11 +35,21 @@ public class SignUpController { // 회원 가입 컨트롤러
     public String signup(@Validated @ModelAttribute("member") Member member,
                          BindingResult bindingResult,
                          @RequestParam(defaultValue = "/home") String redirectURL)  {
+
+        // 가입하려는 유저가 입력한 memberId값이 이미 다른 사람이 사용중이면 오류로 보여준.
+        Optional<Member> checkMember = memberRepository.findByLoginId(member.getMemberId());
+        if (!checkMember.isEmpty()) {
+            log.info("멤버 id 중복 발생={}", checkMember);
+            // objectName : ModelAttribute이름, field : 오류가 난 필드 이름, 메세지는 메시지
+            bindingResult.addError(new FieldError("member", "memberId", "이미 사용 중인 id입니다!!"));
+        }
+
         // 회원가입 데이터에 대한 검증
         if (bindingResult.hasErrors()) {
             log.info("오류 있음={}", bindingResult);
             return "signup/signup";
         }
+
         // 회원가입할 때 오류 : 아이디 중복, 비밀번호 확인 불일치, 유효한 이메일이 아님, 필수 필드를 입력하지 않음. 등등...
         // 이메일 양식, 아이디에 특수문자 사용불가, 각 필드 길이 제한 등 검증 부분 추가적으로 업데이트 해야함
 

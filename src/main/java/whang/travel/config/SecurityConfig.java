@@ -13,7 +13,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import whang.travel.domain.security.CustomAuthenticationSuccessHandler;
 
 @Slf4j
 @Configuration
@@ -29,7 +31,7 @@ public class SecurityConfig {
         // 인가(접근 권한)을 성정
         //anyRequest().permitAll() 은 모든 url을 허용하겠다는 의미.
         http
-//                .csrf(AbstractHttpConfigurer::disable)
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authorizeRequests) ->
                         authorizeRequests
                                 .requestMatchers("/login").permitAll()
@@ -39,18 +41,20 @@ public class SecurityConfig {
                                 .requestMatchers("/home").permitAll()
                                 .requestMatchers("/signup/**").permitAll()
                                 .requestMatchers("/").permitAll()
-                                .requestMatchers("/bulletinBoard/**").permitAll()
+                                .requestMatchers("/bulletinBoard/**").hasRole("user")
                                 .anyRequest().authenticated()
                 )
-
                 // 로그인 관련 설정
-                .formLogin((formLogin) ->
+                .formLogin(
+
+                        (formLogin) ->
                         formLogin
                                 .loginPage("/login")
-//                                .loginProcessingUrl("/login")
+                                .loginProcessingUrl("/login")
                                 .usernameParameter("loginId")
                                 .passwordParameter("password")
                                 .defaultSuccessUrl("/home", true)
+                                .successHandler(authenticationSuccessHandler())
                 )
 
                 // 로그아웃 관련 설정
@@ -75,6 +79,11 @@ public class SecurityConfig {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
+    @Bean
+    public AuthenticationSuccessHandler authenticationSuccessHandler() {
+        return new CustomAuthenticationSuccessHandler();
+    }
+
 
 }
 
@@ -91,6 +100,10 @@ public class SecurityConfig {
     spring security를 사용하면
     login, logout 컨트롤러를 사용하지 않아도 된다. filter에서 먼저 처리해줌
     그럼 로그인 필드 검증, 오류를 어떻게 다룰것이냐가 문제임.
+
+    로그인 필드 검증은 자세히 할 필요 없다. 정보를 받고
+    서버 내부에서 검증하고 오류가 있으면 사용자에겐 다시 정확히 입력하라고 하면 되기 때문
+
 
 
 

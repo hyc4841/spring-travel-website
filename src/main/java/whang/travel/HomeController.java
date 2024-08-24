@@ -28,15 +28,12 @@ public class HomeController {
     @GetMapping("/home")
     public String LoggedInHome(HttpServletRequest request, Model model, @AuthenticationPrincipal UserDetails user) {
 
-        log.info("세션 확인={}", request.getSession());
-
         log.info("유저 확인={}", user);
         if (user != null) {
             log.info("자격확인?={}", user.getAuthorities());
         }
 
         model.addAttribute("user", user);
-
 
         /* spring security 도입하면서 사용 안하게 됨.
         // 로그인 안되어 있으면 기본 홈페이지로 이동
