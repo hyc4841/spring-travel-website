@@ -1,10 +1,10 @@
 package whang.travel.web.bulletinBoard;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Update;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,7 +15,7 @@ import whang.travel.domain.bulletinboard.Post;
 import whang.travel.domain.bulletinboard.PostService;
 import whang.travel.domain.bulletinboard.DisplayPostForm;
 import whang.travel.domain.member.Member;
-import whang.travel.web.SessionConst;
+import whang.travel.domain.member.MemberRepository;
 import whang.travel.web.bulletinBoard.form.SavePostForm;
 import whang.travel.web.bulletinBoard.form.UpdatePostForm;
 import whang.travel.web.search.form.SearchForm;
@@ -29,34 +29,43 @@ import java.util.List;
 public class BulletinBoardController {
 
     private final PostService postService;
+    private final MemberRepository memberRepository;
 
     @GetMapping("/list")
-    // 게시판 목록
-    public String bulletinBoardList(@ModelAttribute("searchForm") SearchForm searchForm, Model model) {
+    // 게시판 목록 화면
+    public String bulletinBoardList(@ModelAttribute("searchForm") SearchForm searchForm, @AuthenticationPrincipal UserDetails user, Model model) {
         List<DisplayPostForm> postList = postService.findAllWithMemberName(searchForm.getSearchTitle());
         log.info("제목 검색 데이터={}", searchForm);
         model.addAttribute("posts", postList);
+        model.addAttribute("user", user);
 
         return "/bulletinboard/postListForm";
     }
 
     @GetMapping("/add")
     // 글 작성 화면으로
-    public String postAddForm(@ModelAttribute("post") SavePostForm post, HttpServletRequest request, Model model) {
+    public String postAddForm(@ModelAttribute("post") SavePostForm post, @AuthenticationPrincipal UserDetails user,
+                              HttpServletRequest request, Model model) {
 
-        // 작성자의 멤버 id를 찾아와야 한다. 현재 로그인한 사용자 찾기
-        Long loginMemberId = getId(request);
-        post.setMemberId(loginMemberId);
+        // 현재 로그인한 사용자 찾기
+        Member member = findMember(request, user);
+        post.setMemberLoginId(member.getMemberId());
 
         return "bulletinboard/postAddForm";
     }
 
     // 현재 로그인한 유저의 id를 찾기 위한 메소드
-    private static Long getId(HttpServletRequest request) {
+    private Member findMember(HttpServletRequest request, @AuthenticationPrincipal UserDetails curMember) {
+        String username = curMember.getUsername();
+        Member member = memberRepository.findByLoginId(username).get();
+        return member;
+        /*
+        spring security 도입하면서 이 부분은 사용이 불가능해짐
         // 현재 로그인한 멤버 찾기
         HttpSession session = request.getSession();
         Member loginMember = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
         return loginMember.getId();
+         */
     }
 
     @PostMapping("/add")
@@ -66,6 +75,10 @@ public class BulletinBoardController {
             log.info("오류 발생={}", bindingResult);
             return "bulletinboard/postAddForm";
         }
+
+        // 멤버의 loginId로 id 찾기
+        Long id = memberRepository.findIdByLoginId(post.getMemberLoginId());
+        post.setMemberId(id);
         postService.save(post);
 
         return "redirect:/bulletinBoard/list";
@@ -74,20 +87,21 @@ public class BulletinBoardController {
 
     // 게시판 글 보여줄 화면
     @GetMapping("/detail/{postId}")
-    public String showPost(@PathVariable Long postId, Model model) {
+    public String showPost(@PathVariable Long postId, @AuthenticationPrincipal UserDetails user, Model model) {
         // 게시물을 가져온다.
         Post post = postService.findPostByPostId(postId).get();
         // DB접근해서 게시 글을 가져와서 보여준다
         // 수정 화면에서도 DB에 접근해서 가져와서 보여주는 식으로 하자
 
         model.addAttribute("post", post);
+        model.addAttribute("user", user);
 
         return "/bulletinboard/postDetailForm";
     }
 
     // 글 수정 화면
     @GetMapping("/edit/{postId}")
-    public String updatePostForm(@PathVariable Long postId, Model model) {
+    public String updatePostForm(@PathVariable Long postId, @AuthenticationPrincipal UserDetails user, Model model) {
         Post post = postService.findPostByPostId(postId).get();
 
         UpdatePostForm updatePost = new UpdatePostForm();
@@ -98,6 +112,7 @@ public class BulletinBoardController {
         updatePost.setPostId(post.getPostId());
 
         model.addAttribute("updatePost", updatePost);
+        model.addAttribute("user", user);
 
         return "/bulletinboard/postUpdateForm";
     }

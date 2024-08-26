@@ -3,7 +3,6 @@ package whang.travel.config;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.validator.routines.EmailValidator;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -17,7 +16,7 @@ import java.util.Optional;
 @Slf4j
 @RequiredArgsConstructor
 @Component
-public class MemberValidator {
+public class MemberSignupValidator {
 
     private final MemberRepository memberRepository;
 
@@ -33,7 +32,7 @@ public class MemberValidator {
             // bindingResult.addError(new FieldError("member", "email", "유효한 이메일 형식이 아닙니다!!"));
         }
 
-        // 멤버 중복인지 검사
+        // 멤버 중복 검사
         Optional<Member> findMember = memberRepository.findByLoginId(member.getMemberId());
         if (!findMember.isEmpty()) {
             fieldErrors.add(new FieldError("member", "memberId", "이미 사용 중인 id입니다!!"));

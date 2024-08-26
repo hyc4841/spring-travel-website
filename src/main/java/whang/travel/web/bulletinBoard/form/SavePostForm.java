@@ -7,8 +7,9 @@ import lombok.Data;
 @Data
 public class SavePostForm {
 
-    @NotNull
-    private Long memberId;
+    private Long memberId; // 멤버의 로그인 id가 아니라 DB상 id를 말함
+
+    private String memberLoginId;
 
     @NotBlank
     private String title;

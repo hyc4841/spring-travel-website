@@ -53,7 +53,7 @@ public class SecurityConfig {
                                 .loginProcessingUrl("/login")
                                 .usernameParameter("loginId")
                                 .passwordParameter("password")
-                                .defaultSuccessUrl("/home", true)
+                                .defaultSuccessUrl("/home")
                                 .successHandler(authenticationSuccessHandler())
                 )
 
@@ -102,9 +102,6 @@ public class SecurityConfig {
 
     로그인 필드 검증은 자세히 할 필요 없다. 정보를 받고
     서버 내부에서 검증하고 오류가 있으면 사용자에겐 다시 정확히 입력하라고 하면 되기 때문
-
-
-
 
  */
 

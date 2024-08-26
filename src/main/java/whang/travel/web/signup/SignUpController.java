@@ -1,22 +1,18 @@
 package whang.travel.web.signup;
 
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import whang.travel.config.MemberValidator;
+import whang.travel.config.MemberSignupValidator;
 import whang.travel.domain.member.Member;
 import whang.travel.domain.member.MemberRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Controller
@@ -26,7 +22,7 @@ public class SignUpController { // 회원 가입 컨트롤러
 
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
-    private final MemberValidator memberValidator;
+    private final MemberSignupValidator memberValidator;
 
     // get : 회원 가입 폼 이동. 지금 로그인 화면하고 회원가입 화면이 합쳐져 있음
     @GetMapping("/signup/add")
@@ -77,7 +73,6 @@ public class SignUpController { // 회원 가입 컨트롤러
         member.setPassword(encodedPassword);
 
         memberRepository.save(member);
-        log.info("회원가입 성공={}", member);
 
         return "redirect:" + redirectURL; // 회원가입 성공하면 홈 화면으로 이동.
     }

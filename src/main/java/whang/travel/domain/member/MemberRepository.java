@@ -21,6 +21,9 @@ public interface MemberRepository { // 회원 저장소가 해야하는 기능
     // 로그인 id로 회원 찾기
     Optional<Member> findByLoginId(String loginId);
 
+    // 로그인 id로 멤버 id 찾기
+    Long findIdByLoginId(String loginId);
+
 
 
 }

@@ -20,4 +20,6 @@ public interface MemberMapper {
     Optional<Member> findByLoginId(String loginId);
 
     List<Member> findAll();
+
+    Long findIdByLoginId(String loginId);
 }

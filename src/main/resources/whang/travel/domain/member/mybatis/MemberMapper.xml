@@ -31,4 +31,10 @@
         select * from member
     </select>
 
+    <select id="findIdByLoginId" resultType="Long">
+        select id
+        from member
+        where member_id=#{loginId}
+    </select>
+
 </mapper>

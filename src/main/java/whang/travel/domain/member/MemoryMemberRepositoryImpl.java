@@ -55,4 +55,9 @@ public class MemoryMemberRepositoryImpl implements MemberRepository {
                 .filter(m -> m.getMemberId().equals(loginId))
                 .findFirst();
     }
+
+    @Override
+    public Long findIdByLoginId(String loginId) {
+        return null;
+    }
 }

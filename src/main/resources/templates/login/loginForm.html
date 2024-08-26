@@ -32,7 +32,7 @@
         <label for="loginId" class="form-label" th:text="#{member.login.id}">아이디</label>
         <input type="text" class="form-control" id="loginId" aria-describedby="emailHelp"
                 th:field="*{loginId}" th:errorclass="field-error" placeholder="아이디를 입력하세요">
-        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+<!--        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>-->
           <div class="field-error" th:errors="*{loginId}">
               아이디 오류
           </div>
