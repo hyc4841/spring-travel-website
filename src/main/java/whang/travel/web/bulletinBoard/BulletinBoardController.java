@@ -51,6 +51,8 @@ public class BulletinBoardController {
         Member member = findMember(request, user);
         post.setMemberLoginId(member.getMemberId());
 
+        model.addAttribute("user", user);
+
         return "bulletinboard/postAddForm";
     }
 

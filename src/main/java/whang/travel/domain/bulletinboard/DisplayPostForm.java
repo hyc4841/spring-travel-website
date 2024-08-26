@@ -9,9 +9,11 @@ public class DisplayPostForm {
 
     // pk
     private Long postId;
-    // 작성자
+    // 작성자 이름
     private String firstName;
     private String lastName;
+    // 작성자 로그인 id
+    private String memberId;
     // 제목
     private String title; // 100자
     // 내용

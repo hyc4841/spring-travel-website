@@ -60,8 +60,8 @@
 <!--밑에 select 문에서 속성 순서 바뀌면 가끔 오류 생기던데 왜그러는거지? 이유 찾기 -->
     <select id="findAllWithMemberName" resultType="DisplayPostForm">
         select
-        post_id, member.first_name, member.last_name, title,
-        category, edit_date , content,  post_date
+        post_id, member.first_name, member.last_name, member.member_id, title,
+        edit_date , category, content,  post_date
         from bulletinboard
         join member
         on bulletinboard.member_id = member.id
