@@ -21,20 +21,17 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+
         SavedRequest savedRequest = requestCache.getRequest(request, response);
 
         if (savedRequest == null) {
-            redirectStrategy.sendRedirect(request, response, "/default-url");
+            response.sendRedirect("/home");
             return;
         }
 
         String redirectUrl = savedRequest.getRedirectUrl();
-        redirectStrategy.sendRedirect(request, response, redirectUrl);
-    }
+        response.sendRedirect(redirectUrl);
 
-
-    public void setRequestCache(RequestCache requestCache) {
-        this.requestCache = requestCache;
     }
 
 }
