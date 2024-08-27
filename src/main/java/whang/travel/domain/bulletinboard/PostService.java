@@ -10,7 +10,7 @@ public interface PostService {
 
     Post save(SavePostForm post);
 
-    void Update(Long postId, UpdatePostForm editForm);
+    void update(Long postId, UpdatePostForm editForm);
 
     List<Post> findPostByMemberId(Long memberId, String searchTitle);
 

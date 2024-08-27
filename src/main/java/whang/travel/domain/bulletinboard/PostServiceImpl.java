@@ -22,7 +22,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public void Update(Long postId, UpdatePostForm updateForm) {
+    public void update(Long postId, UpdatePostForm updateForm) {
         postRepository.updatePost(postId, updateForm);
     }
 

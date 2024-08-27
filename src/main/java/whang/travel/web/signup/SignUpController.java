@@ -71,6 +71,8 @@ public class SignUpController { // 회원 가입 컨트롤러
         // 회원 가입할 때 비밀번호를 암호화 한 후에 데이터베이스에 넣는다.
         String encodedPassword = passwordEncoder.encode(member.getPassword());
         member.setPassword(encodedPassword);
+        // 멤버 등급 부여, 여기선 일반 회원 등급인 user를 부여
+        member.setRole("user");
 
         memberRepository.save(member);
 

@@ -3,8 +3,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="whang.travel.domain.member.mybatis.MemberMapper">
     <insert id="save" useGeneratedKeys="true" keyProperty="id">
-        insert into member (first_name, last_name, member_id, password, email, address)
-        values (#{firstName}, #{lastName}, #{memberId}, #{password}, #{email}, #{address})
+        insert into member (first_name, last_name, member_id, password, email, address, role)
+        values (#{firstName}, #{lastName}, #{memberId}, #{password}, #{email}, #{address}, #{role})
     </insert>
 
     <update id="update">
@@ -16,13 +16,13 @@
     </update>
 
     <select id="findById" resultType="Member">
-        select id, first_name, last_name, member_id, password, email, address
+        select id, first_name, last_name, member_id, password, email, address, role
         from member
         where id=#{id}
     </select>
 
     <select id="findByLoginId" resultType="Member">
-        select id, first_name, last_name, member_id, password, email, address
+        select id, first_name, last_name, member_id, password, email, address, role
         from member
         where member_id = #{loginId}
     </select>

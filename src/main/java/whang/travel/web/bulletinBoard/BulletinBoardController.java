@@ -129,7 +129,7 @@ public class BulletinBoardController {
             return "/bulletinboard/postUpdateForm"; // 오류와 함께 다시 글 수정 화면으로
         }
 
-        postService.Update(postId, updatePost);
+        postService.update(postId, updatePost);
 
         redirectAttributes.addAttribute("postId", postId);
         return "redirect:/bulletinBoard/detail/{postId}";
