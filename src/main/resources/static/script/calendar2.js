@@ -58,7 +58,12 @@ function buildCalendar() {
     document.getElementById("calMonth").innerText = autoLeftPad((toDay.getMonth() + 1), 2);   // @param MM월
 
     // 2번 캘린더의 year, month. toDay.getMonth()의 값은 0 ~ 11까지의 값이다. 그래서 마지막 11 + 돼버려서 13이 되어버리는 거임.
-    document.getElementById("calYear2").innerText = toDay.getFullYear();
+    if (toDay.getMonth() == 11) {
+        document.getElementById("calYear2").innerText = toDay.getFullYear() + 1;
+    }
+    else {
+        document.getElementById("calYear2").innerText = toDay.getFullYear();
+    }
     document.getElementById("calMonth2").innerText = autoLeftPad((toDay.getMonth() + 2), 2)
 
     // 이전 캘린더의 출력결과가 남아있다면, 이전 캘린더를 삭제한다. 1번 2번 캘린더 모두 삭제함
@@ -181,7 +186,8 @@ function buildCalendar() {
     }
 
 //-----------------달력 2---------------------------------//
-    for(let day = 1 - doMonth2.getDay(); daysLength >= day; day++) {
+
+    for(let day = 1 - doMonth2.getDay(); daysLength2 >= day; day++) {
 
         let column = row2.insertCell();
 
