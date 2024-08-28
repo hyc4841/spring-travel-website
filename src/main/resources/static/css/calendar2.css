@@ -1,0 +1,74 @@
+/* .scriptCalendar { */
+            /* display: none; 기본적으로 숨김 */
+            /* position: absolute; 절대 위치 설정 */
+            /* border: 1px solid #ccc; 테두리 추가 */
+            /* z-index: 1000; 다른 요소 위에 표시 */
+        /* } */
+/* .scriptCalendar { text-align:center; } */
+/* .scriptCalendar > thead > tr > td { width:50px;height:50px; } */
+/* .scriptCalendar > thead > tr:first-child > td { font-weight:bold; } */
+/* .scriptCalendar > thead > tr:last-child > td { background-color:#90EE90; } */
+/* .scriptCalendar > tbody > tr > td { width:50px;height:50px; } */
+/* .calendarBtn { cursor:pointer; } */
+
+/* .calendar-container { */
+    /* display: none; */
+/* } */
+
+/* .calendar-wrraper { */
+    /* display: flex; 플렉스 박스 사용 */
+    /* justify-content: space-between; 간격을 고르게 분배 */
+/* } */
+.scriptCalendar {
+    /* display: none; 기본적으로 숨김 */
+    /* border: 1px solid #ccc; 테두리 추가 */
+    z-index: 1000; /* 다른 요소 위에 표시 */
+    text-align: center; /* 가운데 정렬 */
+    width: 100%; /* 테이블 너비를 100%로 설정 */
+
+    min-width: 350px; /* 최소 너비 설정 */
+    max-width: 500px; /* 최대 너비 설정 (필요 시) */
+    box-sizing: border-box; /* 패딩과 테두리를 포함한 너비 계산 */
+}
+
+.scriptCalendar > thead > tr > td {
+    width: 50px; 
+    height: 50px; 
+}
+
+.scriptCalendar > thead > tr:first-child > td {
+    font-weight: bold; 
+}
+
+.scriptCalendar > thead > tr:last-child > td {
+    background-color: #90EE90; 
+}
+
+.scriptCalendar > tbody > tr > td {
+    width: 50px; 
+    height: 50px; 
+}
+
+.calendarBtn {
+    cursor: pointer; 
+}
+
+.calendar-container {
+    display: none; /* 플렉스 박스 사용 */
+    justify-content: space-between; /* 간격을 고르게 분배 */
+    flex-wrap: nowrap; /* 줄바꿈 없이 나란히 배치 */
+}
+
+.calendar-wrraper {
+    display: flex; /* 플렉스 박스 사용 */
+    justify-content: space-between; /* 간격을 고르게 분배 */
+    width: 100%; /* 부모 컨테이너에 맞게 조정 */
+    border: 1px solid #ccc; /*테두리 추가*/
+    border-radius: 10px; 
+}
+table {
+    border-collapse: separate; /* 테두리 분리 */
+    border-spacing: 0; /* 간격 설정 */
+    border-radius: 10px; /* 원하는 반경 설정 */
+    overflow: hidden; /* 둥근 모서리 효과를 위해 overflow 설정 */
+}

@@ -7,6 +7,15 @@
         <title>홈 페이지</title>
         <link th:href="@{/css/bootstrap.min.css}"
               href="../../static/css/bootstrap.css" rel="stylesheet">
+        
+        <!-- 홈페이지 전반 css -->
+        <link th:href="@{/css/homepage.css}"
+              href="../../static/css/homepage.css" rel="stylesheet">
+
+        <!-- 달력 -->
+        <link th:href="@{/css/calendar2.css}"
+              href="../../static/css/calendar2.css" rel="stylesheet">
+
         <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/headers/">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 
@@ -14,147 +23,15 @@
         <link th:href="@{/css/carousel.css}"
               href="../../static/css/carousel.css" rel="stylesheet">
 
-        <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-
-      .bi {
-        vertical-align: -.125em;
-        fill: currentColor;
-      }
-
-      .bd-mode-toggle {
-        z-index: 1500;
-      }
-
-      .bd-mode-toggle .dropdown-menu .active .bi {
-        display: block !important;
-      }
-
-
-    /* /img/aaa.png */
-    /* ../../static/img/aaa.png 로컬에서 돌릴때 */
-      #searchSection {
-        background-image: url(/img/aaa.png);
-        background-position: center;
-        background-size: cover;
-        background-repeat: no-repeat;
-        width: 100%;
-        height: 512px;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        align-items: ;
-      }
-
-      #searchWindow {
-        height: 50%;
-        width: 95%;
-        margin-bottom: 30px;
-      }
-
-      input.form-control {
-        height: 45px;
-      }
-
-      .slide-track{
-      display:flex;
-      width: calc(300px * 12);
-      animation: scroll 40s linear infinite;
-      }
-
-    .slide-track:hover{
-      animation-play-state:paused;
-    }
-
-    @keyframes scroll{
-      0% {
-        transform: translateX(0);
-      }
-      100%{
-        transform: translateX(calc(-300px * 6));
-      }
-    }
-
-    /* Slider container */
-    .slider {
-    position: relative;
-    width: 100%;
-    margin: auto;
-    overflow: hidden;
-    background-color: #5a23c8;
-    }
-
-    /* Slides container */
-    .slides {
-    display: flex;
-    transition: transform 0.5s ease;
-    }
-
-    /* Individual slide */
-    .slide {
-    min-width: 35%;
-    box-sizing: border-box;
-    }
-
-    .card-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2 columns */
-    grid-template-rows: repeat(2, 1fr);    /* 2 rows */
-    }
-
-    /* Card styling */
-        .card {
-        background: white;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-        text-align: center;
-        margin: 10px;
-    }
-
-    /* Navigation buttons */
-        .nav-btn {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        background-color: rgba(0, 0, 0, 0.5);
-        color: white;
-        border: none;
-        padding: 10px;
-        cursor: pointer;
-        font-size: 18px;
-        border-radius: 4px;
-        z-index: 10;
-    }
-
-    .prev {
-        left: 10px;
-    }
-
-    .next {
-        right: 10px;
-    }
-
-    a {
-        text-decoration-line: none;
-    }
-
-
-    </style>
     </head>
-    <!--       /img/aaa.png           -->
+    
+    <style>
+      
+
+
+    </style>    
+
     <body>
 
     <!--아이콘 가져오기-->
@@ -232,7 +109,6 @@
     </header>
     </div>
 
-
     <div class="container">
         <!-- <img class="rounded" src="aaa.png" width="100%" height="512" alt="검색창 배경 사진">-->
         <!--숙소 검색-->
@@ -243,18 +119,74 @@
                     <div id="searchWindow" class="bg-body-tertiary p-5 rounded">
                         <!--국내 해외 구분해서 검색한다.-->
                         <!--검색은 국내/해외, 여행지, 인원, 여행 날짜-->
-                        <form action="#" th:action="@{/search/items}" method="get">
+                        <form action="#" th:action="@{/search/items}" th:object="${searchCond}" method="get">
                             <div class="container text-center">
                                 <div class="row justify-content-center">
-                                    <div class="col-3">
-                                        <input class="form-control" type="text" id="travelSite" placeholder="지역">
-                                    </div>
 
+                                    <!-- 지역 -->
                                     <div class="col-3">
-                                        <input class="form-control" type="text" id="date" placeholder="여행 기간">
+                                        <input class="form-control" type="text" id="travelSite" placeholder="지역">                                        
                                     </div>
+                                    
+                                    <!-- 날짜 선택 -->
                                     <div class="col-3">
-                                        <input class="form-control" type="text" id="personnel" placeholder="인원">
+
+                                        <button class="btn btn-outline-dark mb-3" type="button" id="dateSelect" style="width:100%">
+                                            여행 기간
+                                            <input class="form-control" type="hidden" th:field="*{startDate}" id="startDate" placeholder="시작">
+                                            <input class="form-control" type="hidden" th:field="*{endDate}" id="endDate" placeholder="끝">
+                                        </button>
+
+                                        <div class="calendar-container">
+
+                                            <div class="calendar-wrraper">
+
+                                                <!-- 달력 -->
+                                                <table class="scriptCalendar calendar1" style="margin-right: 10px;">
+                                                    <thead>
+                                                    <tr>
+                                                        <td class="calendarBtn" id="btnPrevCalendar">&#60;&#60;</td>
+                                                        <td colspan="5">
+                                                            <span id="calYear">YYYY</span>년
+                                                            <span id="calMonth">MM</span>월
+                                                        </td>
+                                                        <td class="calendarBtn" id="nextNextCalendar">&#62;&#62;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>일</td><td>월</td><td>화</td><td>수</td><td>목</td><td>금</td><td>토</td>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody></tbody>
+                                                </table>
+
+                                                <!-- 달력 -->
+                                                <table class="scriptCalendar calendar2">
+                                                    <thead>
+                                                    <tr>
+                                                        <td class="calendarBtn" id="btnPrevCalendar2">&#60;&#60;</td>
+                                                        <td colspan="5">
+                                                            <span id="calYear2">YYYY</span>년
+                                                            <span id="calMonth2">MM</span>월
+                                                        </td>
+                                                        <td class="calendarBtn" id="nextNextCalendar2">&#62;&#62;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>일</td><td>월</td><td>화</td><td>수</td><td>목</td><td>금</td><td>토</td>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody></tbody>
+                                                </table>
+
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+                                    
+                                    <!-- 인원 -->
+                                    <div class="col-3">
+                                        <input class="form-control" type="text" th:field="*{personnel}" id="personnel" placeholder="인원">
                                     </div>
                                     <div class="col-3">
                                         <button class="btn btn-primary btn-lg" type="submit">검색</button>
@@ -406,14 +338,8 @@
 
 
 
-
-
-
-
-
-
-
-
+    <script th:src="@{/script/calendar.js}"
+            src="../../static/script/calendar2.js"></script>
 
     <script th:src="@{/script/bootstrap.bundle.min.js}"
             src="../../static/script/bootstrap.bundle.min.js"></script>
