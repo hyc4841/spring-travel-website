@@ -15,6 +15,7 @@
         <!-- 달력 -->
         <link th:href="@{/css/calendar2.css}"
               href="../../static/css/calendar2.css" rel="stylesheet">
+              
 
         <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/headers/">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
@@ -23,12 +24,18 @@
         <link th:href="@{/css/carousel.css}"
               href="../../static/css/carousel.css" rel="stylesheet">
 
+    
+
 
     </head>
     
     <style>
-      
-
+        td {
+            border-radius: 30px;
+        }
+        table {
+            background-color: white;
+        }
 
     </style>    
 
@@ -165,7 +172,7 @@
                                                 <table class="scriptCalendar calendar2">
                                                     <thead>
                                                     <tr>
-                                                        
+                                                        <td></td>
                                                         <td colspan="5">
                                                             <span id="calYear2">YYYY</span>년
                                                             <span id="calMonth2">MM</span>월
@@ -339,6 +346,9 @@
 
     </div>
 
+
+    <script th:src="@{/script/calendar.js}"
+            src="../../static/script/calendar.js"></script>
 
 
     <script th:src="@{/script/calendar.js}"

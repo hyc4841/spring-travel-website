@@ -1,5 +1,5 @@
 var dragging = false;
-var days = document.querySelectorAll('.day');
+var daySelect = document.querySelectorAll('.day');
 var offset = 0;
 
 //---------------------------------------------------------------//
@@ -33,32 +33,31 @@ function clearActiveDays() { // 선택한 숫자들 푸는 함수
 //---------------------------------------------------------------//
 
 
-function clearRange() { // 선택한 두 숫자 사이에 숫자들을 range 처리해주는 함수
-  days.forEach(item => {
+function clearRange() { // range 제거하기
+  daySelect.forEach(item => {
     item.classList.remove('range');
   });
 }
 
 //---------------------------------------------------------------//
 
-
 function calculateRange() { // range 계산 함수
   var activeAIndex, activeBIndex;
 
-  days.forEach((item, index) => { // 이 구문은 어떤 리스트인 days를 foreach 즉, 순회하는 구문임
+  daySelect.forEach((item, index) => { // 이 구문은 어떤 리스트인 days를 foreach 즉, 순회하는 구문임
     if (item.classList.contains('active-a')) activeAIndex = index; // 인덱스 딸라고 하는 작업
     if (item.classList.contains('active-b')) activeBIndex = index; // 인덱스 따서 선택된 a와 b사이에 range 만들어줄라고
   });
 
   if (activeAIndex < activeBIndex) {
     for (var i = activeAIndex; i <= activeBIndex; i++) {
-      days[i].classList.add('range');
+      daySelect[i].classList.add('range');
     }
   }
 
   if (activeAIndex > activeBIndex) {
     for (var i = activeAIndex; i >= activeBIndex; i--) {
-      days[i].classList.add('range');
+      daySelect[i].classList.add('range');
     }
   }
 }
@@ -108,7 +107,7 @@ window.addEventListener('mouseup', e => {
 
 // 드래그
 // 날짜 드래그 선택까지 지원함 ㅋㅋㅋ
-days.forEach((item, index) => {
+daySelect.forEach((item, index) => {
   var dayNumber = item.querySelector('.day-number').innerHTML;
 
   if (dayNumber === '1' && !item.classList.contains('next-mon')) {
@@ -128,7 +127,6 @@ days.forEach((item, index) => {
   });
 });
 
-
 // 키보드
 window.addEventListener('keyup', e => {
   var key = e.keyCode;
@@ -141,8 +139,6 @@ window.addEventListener('keyup', e => {
   }
 });
 
-// 마우스
-// 클릭으로 하는 부분은 여기
 document.querySelector('.reset').addEventListener('click', e => {
   clearActiveDays();
   clearRange();
