@@ -42,7 +42,7 @@ function nextCalendar() {
 function buildCalendar() {
 
     let doMonth = new Date(toDay.getFullYear(), toDay.getMonth(), 1);
-    let lastDate = new Date(toDay.getFullYear(), toDay.getMonth() + 1, 0);
+    let lastDate = new Date(toDay.getFullYear(), toDay.getMonth() + 1, 0); // date 파라미터를 0으로 하면 해당 달의 마지막 날을 나타냄.
 
     // 달력 1의 다음달을 보여줘야하니까.
     let doMonth2 = new Date(toDay.getFullYear(), toDay.getMonth() + 1, 1);
@@ -77,7 +77,7 @@ function buildCalendar() {
 
 
     // @param 첫번째 개행
-    let row = tbCalendar.insertRow();
+    let row = tbCalendar.insertRow(); // <tr삽입>
     // 2번 캘린더 개행
     let row2 = tbCalendar2.insertRow();
 
@@ -100,6 +100,7 @@ function buildCalendar() {
 
         let column = row.insertCell();
 
+        // 평일, 일, 토 날짝 집어넣는 부분. 새로운 열 삽입은 토요일에서 진행됨. 일 - 토 루틴
         // @param 평일( 전월일과 익월일의 데이터 제외 )
         if(Math.sign(day) == 1 && lastDate.getDate() >= day) {
             // @param 평일 날짜 데이터 삽입
@@ -138,14 +139,14 @@ function buildCalendar() {
 
                 // @details 현재일보다 이후이면서 현재월에 포함되는 일인경우
                 else if(nowDate.getDate() < day && lastDate.getDate() >= day) {
-                    column.style.backgroundColor = "#FFFFFF";
+                    column.style.backgroundColor = "#FFFFFF"; // 흰색
                     column.style.cursor = "pointer";
                     column.onclick = function(){ calendarChoiceDay(this); }
                 }
 
                 // @details 현재일인 경우
                 else if(nowDate.getDate() == day) {
-                    column.style.backgroundColor = "#FFFFE6";
+                    column.style.backgroundColor = "#FFFFE6"; // 약간 노랗게
                     column.style.cursor = "pointer";
                     column.onclick = function(){ calendarChoiceDay(this); }
                 }
@@ -154,6 +155,7 @@ function buildCalendar() {
             } else if(toDay.getMonth() < nowDate.getMonth()) {
                 if(Math.sign(day) == 1 && day <= lastDate.getDate()) {
                     column.style.backgroundColor = "#E5E5E5";
+                
                 }
             }
 
@@ -192,7 +194,7 @@ function buildCalendar() {
         let column = row2.insertCell();
 
         // @param 평일( 전월일과 익월일의 데이터 제외 )
-        if(Math.sign(day) == 1 && lastDate2.getDate() >= day) {
+        if(Math.sign(day) == 1 && lastDate2.getDate() >= day) { // Math.sign(day)는 day값의 부호를 반환한다고 함. 양수 1, 음수 -1, 0, -0, 숫자가 아니면 NaN
             // @param 평일 날짜 데이터 삽입
             column.innerText = autoLeftPad(day, 2);
 
@@ -275,11 +277,6 @@ function buildCalendar() {
         }
         dom2++;
     }
-
-
-    
-
-
 
 }
 
