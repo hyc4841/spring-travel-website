@@ -42,9 +42,6 @@ function buildCalendar() {
     let doMonth = new Date(toDay.getFullYear(), toDay.getMonth(), 1); // 이번 달 1일을 담고 있음.
     let lastDate = new Date(toDay.getFullYear(), toDay.getMonth() + 1, 0); // date 파라미터에 0을 넣으면 이번달의 0일 즉 저번달의 마지막 날이 됨. 그래서 month에 +1해줘야 이번달 마지막날이 됨.
 
-    console.log("lastDate의 값 : ");
-    console.log(lastDate);
-
     // 달력 1의 다음달을 보여줘야하니까.
     let doMonth2 = new Date(toDay.getFullYear(), toDay.getMonth() + 1, 1); // 다음달의 첫번째 날
     let lastDate2 = new Date(toDay.getFullYear(), toDay.getMonth() + 2, 0); // 다음달의 마지막 날
@@ -378,16 +375,14 @@ toggleButton.addEventListener('click', () => {
 });
 
 
+var daySelect;
+var calendar1;
+document.addEventListener('DOMContentLoaded', function() { // html이 완전히 완성된 후에 실행되도록 설정.
+    daySelect = document.querySelectorAll('.day');
+    calendar1 = document.querySelector(".calendar1 > tbody"); // 1번 캘린더 가져오기
+});
 
-
-
-
-
-
-
-
-
-var daySelect = document.querySelectorAll('.day'); // day는 달력 1, day2는 달력 2
+// var daySelect = document.querySelectorAll('.day'); // day는 달력 1, day2는 달력 2
 
 function activateDay() { // 숫자 선택 활성화 하는 함수
     var activeElement = document.activeElement; // 내가 현재 상호작용 하고 있는 요소를 나타낸다고 함. 즉, 여기선 내가 달력에서 누른 숫자를 말함.
@@ -409,21 +404,47 @@ function activateDay() { // 숫자 선택 활성화 하는 함수
     // 먼저 active-a가 달력1에 있는지 달력2에 있는지 확인한다. 추가로 날짜가 며칠인지 확인?
     var activeAItem;
     var activeBItem;
+    console.log("여긴????");
 
     daySelect.forEach((item, index) => {
+        console.log("여긴 실행되니?");
         if (item.classList.contains('active-a')) { // 아이템 a 가져오기
+            console.log(item);
             activeAItem = item;
         } 
         
         if (item.classList.contains('active-b')) { // 아이템 b 가져오기
+            console.log(item);
             activeBItem = item;
         }
     });
 
-    // 3. a와 b 둘 다 달력 2에 있는 경우
+    var col;
     // 1. a, b 둘 다 달력 1에 있는 경우
     if (activeAItem.classList.contains('day') && activeBItem.classList.contains('day')) {
-        
+        // a와 b 행열 인덱스 가져와서 for문으로 하면 될듯
+        var rowIndexA = activeAItem.parentNode.rowIndex;
+        var rowIndexB = activeBItem.parentNode.rowIndex;
+        var cellIndexA = activeAItem.cellIndex;
+        var cellIndexB = activeBItem.cellIndex;
+        col = cellIndexA;
+
+        console.log(rowIndexA);
+        console.log(rowIndexB);
+        console.log(cellIndexA);
+        console.log(cellIndexB);
+        // 현재 col은 맞음 근데 row가 이상함.
+
+        console.log(calendar1);
+
+        for (var row = rowIndexA; row <= rowIndexB; row++) {
+            while(col % 7 != 6) {
+                calendar1.rows[row].cells[col].classList.add('range');
+
+                if (row == rowIndexB && col % 7 == cellIndexB) break;
+            
+            }
+        }
     }
 
     // 2. a는 달력 1에, b는 달력 2에 있는 경우
@@ -431,34 +452,11 @@ function activateDay() { // 숫자 선택 활성화 하는 함수
 
     }
 
-    // 경우의 수를 생각해보면,
+    // 3. a와 b 둘 다 달력 2에 있는 경우
     else if (activeAItem.classList.contains('day2') && activeBItem.classList.contains('day2')) {
 
     }
 
-
-
-
-
-
-  var activeAIndex, activeBIndex;
-
-  daySelect.forEach((item, index) => { // 이 구문은 어떤 리스트인 days를 foreach 즉, 순회하는 구문임
-    if (item.classList.contains('active-a')) activeAIndex = index; // 인덱스 딸라고 하는 작업
-    if (item.classList.contains('active-b')) activeBIndex = index; // 인덱스 따서 선택된 a와 b사이에 range 만들어줄라고
-  });
-
-  if (activeAIndex < activeBIndex) {
-    for (var i = activeAIndex; i <= activeBIndex; i++) {
-      daySelect[i].classList.add('range');
-    }
-  }
-
-  if (activeAIndex > activeBIndex) {
-    for (var i = activeAIndex; i >= activeBIndex; i--) {
-      daySelect[i].classList.add('range');
-    }
-  }
 }
 
   function clearActiveDays() { // 선택한 숫자들 푸는 함수

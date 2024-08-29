@@ -11,3 +11,7 @@ console.log(lastDate.getMonth());
 let daysLength = (Math.ceil((doMonth.getDay() + lastDate.getDate()) / 7) * 7) - doMonth.getDay();
 
 console.log(daysLength);
+
+for (var i = 0; i <= 0; i++) {
+    console.log("확인");
+}
