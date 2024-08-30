@@ -549,14 +549,15 @@ function calculateRange() {
         console.log(document.querySelector(".calendar2 > tbody > tr > td.active-a"));
         console.log(document.querySelector(".calendar2 > tbody > tr > td.active-b"));
         // 사이에 있는 애들 모두 range로 만든다.
+
         var activeA = document.querySelector(".calendar2 > tbody > tr > td.active-a");
         var activeB = document.querySelector(".calendar2 > tbody > tr > td.active-b");
         var index = activeA.cellIndex;
 
         console.log("a와 b 인덱스 확인하기");
-        console.log("arow : " + activeA.parentNode.rowIndex);
+        console.log("arow : " + activeA.parentNode.rowIndex - 2);
         console.log("acol : " + activeA.cellIndex);
-        console.log("arow : " + activeB.parentNode.rowIndex);
+        console.log("arow : " + activeB.parentNode.rowIndex - 2);
         console.log("bcol : " + activeB.cellIndex);
 
         console.log(document.querySelector(".calendar2 > tbody"));
@@ -568,9 +569,16 @@ function calculateRange() {
             while (index % 7 != 6) {
                 index++;
                 document.querySelector(".calendar2 > tbody").rows[i].cells[index].classList.add('range');
-                if (i == activeB.parentNode.rowIndex && index == activeB.cellIndex) {
+
+                if (i == (activeB.parentNode.rowIndex) - 2 && index == activeB.cellIndex) {
+                    console.log("여기 실행");
                     break;
                 }
+
+                console.log("i : " + i);
+                console.log("activeB.parentNode.rowIndex : " + (activeB.parentNode.rowIndex - 2));
+                console.log("index : " + index);
+                console.log("bcol : " + activeB.cellIndex);
             }
             index = 0;
         }
