@@ -76,16 +76,16 @@ table {
 
 .active-a {
     color: #aa1766;
-    background-color: #e1f5fe;
+    background-color: #00aeff;
 }
 .active-b {
     color: #31ff02;
-    background-color: #e1f5fe;
+    background-color: #00aeff;
 }
 
 .day.range {
     color: #0288d1;
-    background-color: #e1f5fe;
+    background-color: #00aeff;
   }
 
   .day.range.active-a,
