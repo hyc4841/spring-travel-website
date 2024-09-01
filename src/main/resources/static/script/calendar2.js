@@ -319,10 +319,6 @@ function buildCalendar() {
  * @param   digit   글자의 자릿수를 지정 ( 2자릿수인 경우 00, 3자릿수인 경우 000 … )
  */
 function autoLeftPad(num, digit) { // digit은 자릿수 num = 12, digit = 3 이면 3자리수 012로 만드는 거임
-    if (num == 13) {
-        num = 1;
-    }
-
     if(String(num).length < digit) {
         num = new Array(digit - String(num).length + 1).join("0") + num;
     }
@@ -448,44 +444,43 @@ function calculateRange() {
     // 달력 1에 a가 있고, 달력 2에 b가 있는 경우
     if (document.querySelector(".calendar1 > tbody > tr > td.active-a") && document.querySelector(".calendar2 > tbody > tr > td.active-b")) { // 달력 1에 a가 있고, 달력 2에 b가 있는 경우
 
-        console.log("달력 2에 a가 있고 달력 1, 2 어느 쪽에도 b가 없는 경우");
+        console.log("달력 1에 a가 있고, 달력 2에 b가 있는 경우");
 
         var activeA = document.querySelector(".calendar1 > tbody > tr > td.active-a");
         var activeB = document.querySelector(".calendar2 > tbody > tr > td.active-b");
 
         var arow = document.querySelector(".calendar1 > tbody").getElementsByTagName('tr').length;
 
-        console.log("달력 1의 년도 가져오기 : " + document.getElementById('calYear').innerText);
-        var year = Number(document.getElementById('calYear').innerText)
-        console.log("year : " + year);
-        var lastDate = new Date(Number(document.getElementById('calYear').innerText), Number(document.getElementById('calMonth')) + 1, 0); // 마지막 날임.
+        var lastDate = new Date(Number(document.getElementById('calYear').innerText), Number(document.getElementById('calMonth').innerText), 0); // 마지막 날임.
 
-        console.log(activeA);
         var count = Number(activeA.innerText);
-        console.log("count 값 : " + count)
-
+ 
         var index = activeA.cellIndex;
         for (var i = activeA.parentNode.rowIndex - 2; i <= arow; i++) {
             document.querySelector(".calendar1 > tbody").rows[i].cells[index].classList.add('range');
             while (index % 7 != 6) {
                 index++;
                 document.querySelector(".calendar1 > tbody").rows[i].cells[index].classList.add('range');
-                if (count == lastDate.getDate()) {
-                    return;
-                }
+                
                 count++;
             }
+
+            if (count == lastDate.getDate()) break;
             index = 0;
         }
 
         index = activeB.cellIndex;
         count = Number(activeB.innerText);
+
+
+
         for (var i = activeB.parentNode.rowIndex - 2; i >= 0; i--) {
+            console.log("여긴 실행되긴 하는거냐?")
             document.querySelector(".calendar2 > tbody").rows[i].cells[index].classList.add('range');
             while (index % 7 != 0) {
                 index--;
                 document.querySelector(".calendar2 > tbody").rows[i].cells[index].classList.add('range');
-                if (count == 1) return;
+                if (count == 1) break;
                 count--;
             }
             index = 6;
