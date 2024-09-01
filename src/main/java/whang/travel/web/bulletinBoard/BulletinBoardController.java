@@ -42,8 +42,7 @@ public class BulletinBoardController {
         return "/bulletinboard/postListForm";
     }
 
-    @GetMapping("/add")
-    // 글 작성 화면으로
+    @GetMapping("/add") // 글 작성 화면으로
     public String postAddForm(@ModelAttribute("post") SavePostForm post, @AuthenticationPrincipal UserDetails user,
                               HttpServletRequest request, Model model) {
 

@@ -73,7 +73,6 @@ table {
     overflow: hidden; /* 둥근 모서리 효과를 위해 overflow 설정 */
 }
 
-
 .active-a {
     color: #aa1766;
     background-color: #00aeff;
@@ -83,42 +82,19 @@ table {
     background-color: #00aeff;
 }
 
-.day.range {
-    color: #0288d1;
+
+.range {
     background-color: #00aeff;
-  }
-
-  .day.range.active-a,
-.day:not(.range) + .day.range.active-b {
-  background-color: transparent;
-  box-shadow: inset -1.5em 0 #e1f5fe;
 }
 
-.day.range.active-b,
-.day.range + .day.range.active-a {
-  background-color: transparent;
-  box-shadow: inset 1.5em 0 #e1f5fe;
+.saturday {
+    color: #4D4DFF;
 }
 
-.day.range.active-a:first-child,
-.day.range.active-b:first-child {
-  box-shadow: none;
+.sunday {
+    color: #FF4D4D;
 }
 
-.day.range.active-a:first-child + .day.range,
-.day.range.active-b:first-child + .day.range {
-  box-shadow: -1.5em 0 #e1f5fe;
+.weekday {
+    color: black;
 }
-
-.day.range.active-a:first-child + .day:not(.range),
-.day.range.active-b:first-child + .day:not(.range) {
-  box-shadow: -4.5em 0 #e1f5fe;
-}
-
-
-.day.range.active-a:first-child + .day.range.active-b {
-    box-shadow:
-      -1.5em 0 #e1f5fe,
-      inset 1.5em 0 #e1f5fe;
-  }
-
