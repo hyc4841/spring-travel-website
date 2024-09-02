@@ -155,7 +155,7 @@ function buildCalendar() {
                 else if(nowDate.getDate() < day && lastDate.getDate() >= day) {
                     
                     column.style.cursor = "pointer"; // 클릭가능하게 만듬
-                    column.onclick = function(){ selectDate(this, toDay.getFullYear(), toDay.getMonth() + 1, toDay.getDate); }
+                    column.onclick = function(){ selectDate(this, toDay.getFullYear(), toDay.getMonth() + 1, Number(column.innerText)); }
                     column.classList.add("day"); // 선택가능한 날에 day 클래스 추가하기
                     column.classList.add("day-number");
                 }
@@ -164,7 +164,7 @@ function buildCalendar() {
                 else if(nowDate.getDate() == day) {
                     column.style.backgroundColor = "#FFFFE6"; // 약간 노랗게
                     column.style.cursor = "pointer"; // 클릭가능하게 만듬
-                    column.onclick = function(){ selectDate(this, toDay.getFullYear(), toDay.getMonth() + 1, toDay.getDate); }
+                    column.onclick = function(){ selectDate(this, toDay.getFullYear(), toDay.getMonth() + 1, Number(column.innerText)); }
                     column.classList.add("day");
                     column.classList.add("day-number");
                 }
@@ -182,7 +182,7 @@ function buildCalendar() {
                 if(Math.sign(day) == 1 && day <= lastDate.getDate()) {
                     // column.style.backgroundColor = "#FFFFFF";
                     column.style.cursor = "pointer";
-                    column.onclick = function(){ selectDate(this, toDay.getFullYear(), toDay.getMonth() + 1, toDay.getDate); }
+                    column.onclick = function(){ selectDate(this, toDay.getFullYear(), toDay.getMonth() + 1, Number(column.innerText)); }
                     column.classList.add("day");
                     column.classList.add("day-number");
                 }
@@ -201,7 +201,7 @@ function buildCalendar() {
             if(Math.sign(day) == 1 && day <= lastDate.getDate()) {
                 // column.style.backgroundColor = "#FFFFFF";
                 column.style.cursor = "pointer";
-                column.onclick = function(){ selectDate(this, toDay.getFullYear(), toDay.getMonth() + 1, toDay.getDate); }
+                column.onclick = function(){ selectDate(this, toDay.getFullYear(), toDay.getMonth() + 1, Number(column.innerText)); }
             }
         }
         dom++;
@@ -255,7 +255,7 @@ function buildCalendar() {
                 else if(nowDate.getDate() < day && lastDate2.getDate() >= day) {
                     // column.style.backgroundColor = "#FFFFFF";
                     column.style.cursor = "pointer";
-                    column.onclick = function(){ selectDate(this, toDay.getFullYear(), toDay.getMonth() + 2, toDay.getDate); }
+                    column.onclick = function(){ selectDate(this, toDay.getFullYear(), toDay.getMonth() + 2, Number(column.innerText)); }
                     column.classList.add("day2");
                     column.classList.add("day-number");
                 }
@@ -264,7 +264,7 @@ function buildCalendar() {
                 else if(nowDate.getDate() == day) {
                     column.style.backgroundColor = "#FFFFE6";
                     column.style.cursor = "pointer";
-                    column.onclick = function(){ selectDate(this, toDay.getFullYear(), toDay.getMonth() + 2, toDay.getDate); }
+                    column.onclick = function(){ selectDate(this, toDay.getFullYear(), toDay.getMonth() + 2, Number(column.innerText)); }
                     column.classList.add("day2");
                     column.classList.add("day-number");
                 }
@@ -281,7 +281,7 @@ function buildCalendar() {
                 if(Math.sign(day) == 1 && day <= lastDate2.getDate()) {
                     // column.style.backgroundColor = "#FFFFFF";
                     column.style.cursor = "pointer";
-                    column.onclick = function(){ selectDate(this, toDay.getFullYear(), toDay.getMonth()  + 2, toDay.getDate); }
+                    column.onclick = function(){ selectDate(this, toDay.getFullYear(), toDay.getMonth()  + 2, Number(column.innerText)); }
                     column.classList.add("day2");
                     column.classList.add("day-number");
                 }
@@ -300,7 +300,7 @@ function buildCalendar() {
             if(Math.sign(day) == 1 && day <= lastDate2.getDate()) {
                 // column.style.backgroundColor = "#FFFFFF";
                 column.style.cursor = "pointer";
-                column.onclick = function(){ selectDate(this, toDay.getFullYear(), toDay.getMonth() + 2, toDay.getDate); }
+                column.onclick = function(){ selectDate(this, toDay.getFullYear(), toDay.getMonth() + 2, Number(column.innerText)); }
                 column.classList.add("day2");
                 column.classList.add("day-number");
             }
@@ -371,6 +371,8 @@ function selectDate(tdItem, year, month, date) {
         startMonth = month;
         startYear = year;
         tdItem.classList.add('active-a');
+        document.getElementById('startDate').value = year + '-' + month + '-' + date;
+        console.log(document.getElementById('startDate').value);
     }
     else if (startDate != null && endDate == null) { // 시작 날짜를 선택했고, 아직 끝 날짜를 선택하지 않았으면,
         console.log("시작 날짜 선택되어 있고 끝 날짜 선택 안되어 있음, 끝 날짜 선택");
@@ -381,6 +383,8 @@ function selectDate(tdItem, year, month, date) {
         endMonth = month;
         endYear = year;
         tdItem.classList.add('active-b');
+        document.getElementById('endDate').value = year + '-' + month + '-' + date;
+        console.log(document.getElementById('endDate').value);
     }
     if (startDate != null && endDate != null) { // 시작과 끝이 모두 선택되어 있으면
         console.log("시작과 끝이 모두 선택되어 있으므로 두 날짜 사이에 range 설정");
