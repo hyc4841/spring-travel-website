@@ -343,6 +343,68 @@ var starttdItem = null, endtdItem = null;
 
 var srow = null, erow = null;
 
+function clearVar() {
+    starttdItem = null;
+    startDate = null;
+    startMonth = null;
+    startYear = null;
+    srow = null;
+
+    endtdItem = null;
+    endDate = null;
+    endMonth = null;
+    endYear = null;
+    erow = null;
+}
+
+function switchingVar() {
+    var tmpDate = startDate;
+    var tmpMonth = startMonth;
+    var tmpYear = startYear;
+    var tmpItem = starttdItem;
+    var tmprow = srow;
+
+    startDate = endDate;
+    startMonth = endMonth;
+    startYear = endYear;
+    starttdItem = endtdItem;
+    srow = erow;
+
+    endDate = tmpDate;
+    endMonth = tmpMonth;
+    endYear = tmpYear;
+    endtdItem = tmpItem;
+    erow = tmprow;
+}
+
+function saveStart(tdItem, year, month, date) {
+    console.log("시작 날짜 아직 선택 안되어 있음, 시작 날짜 선택");
+    starttdItem = tdItem;
+    srow = starttdItem.parentNode.rowIndex - 2; // 테이블 rowIndex 가져오기. starttdItem를 전달해서 row를 가져오려고 했는데 뭐가 문제인지 -1 값만 담겨서 이렇게 저장해서 전달함.
+    startDate = date;
+    startMonth = month;
+    startYear = year;
+    tdItem.classList.add('active-a');
+    // document.getElementById('startDate').value = year + '-' + month + '-' + date;
+}
+
+function saveEnd(tdItem, year, month, date) {
+    console.log("시작 날짜 선택되어 있고 끝 날짜 선택 안되어 있음, 끝 날짜 선택");
+    endtdItem = tdItem;
+    erow = endtdItem.parentNode.rowIndex - 2;
+    endDate = date;
+    endMonth = month;
+    endYear = year;
+    tdItem.classList.add('active-b');
+    // document.getElementById('endDate').value = year + '-' + month + '-' + date;
+}
+
+function clearStartEnd() {
+    document.getElementById('startDate').value = null;
+    document.getElementById('endDate').value = null;
+}
+
+// 날짜 선택 함수
 function selectDate(tdItem, year, month, date) {
     console.log("selectDate 함수 실행");
 
@@ -350,45 +412,34 @@ function selectDate(tdItem, year, month, date) {
     if (startDate && endDate) {
         console.log("클리어");
         clearActiveDays();
-        starttdItem = null;
-        startDate = null;
-        startMonth = null;
-        startYear = null;
-        srow = null;
-
-        endtdItem = null;
-        endDate = null;
-        endMonth = null;
-        endYear = null;
-        erow = null;
+        clearVar();
+        clearStartEnd();
     }
     if (startDate == null && endDate == null) { // 아직 시작 날짜를 선택하지 않았으면
-        console.log("시작 날짜 아직 선택 안되어 있음, 시작 날짜 선택");
-        starttdItem = tdItem;
-        console.log("item : " + starttdItem.parentNode.rowIndex);
-        srow = starttdItem.parentNode.rowIndex - 2;
-        startDate = date;
-        startMonth = month;
-        startYear = year;
-        tdItem.classList.add('active-a');
-        document.getElementById('startDate').value = year + '-' + month + '-' + date;
-        console.log(document.getElementById('startDate').value);
+        saveStart(tdItem, year, month, date);
     }
     else if (startDate != null && endDate == null) { // 시작 날짜를 선택했고, 아직 끝 날짜를 선택하지 않았으면,
-        console.log("시작 날짜 선택되어 있고 끝 날짜 선택 안되어 있음, 끝 날짜 선택");
-        endtdItem = tdItem;
-        console.log("item : " + endtdItem.parentNode.rowIndex);
-        erow = endtdItem.parentNode.rowIndex - 2;
-        endDate = date;
-        endMonth = month;
-        endYear = year;
-        tdItem.classList.add('active-b');
-        document.getElementById('endDate').value = year + '-' + month + '-' + date;
-        console.log(document.getElementById('endDate').value);
+        saveEnd(tdItem, year, month, date);
     }
     if (startDate != null && endDate != null) { // 시작과 끝이 모두 선택되어 있으면
         console.log("시작과 끝이 모두 선택되어 있으므로 두 날짜 사이에 range 설정");
-        calculateRange();
+        
+        // 여기서 스위칭 해줘야 나머지 코드들이 쉬워짐.
+        if ((startMonth == endMonth && startDate > endDate) || (startMonth > endMonth)) {
+            console.log("a가 b보다 나중 날짜임");
+            var a = document.querySelector('.active-a');
+            var b = document.querySelector('.active-b');
+            a.classList.remove('active-a');
+            a.classList.add('active-b');
+            b.classList.remove('active-b');
+            b.classList.add('active-a');
+            switchingVar();
+        }
+        calculateRange(startDate, startMonth, endDate, endMonth);
+        document.getElementById('startDate').value = startYear + '-' + startMonth + '-' + startDate;
+        document.getElementById('endDate').value = endYear + '-' + endMonth + '-' + endDate;
+        console.log("시작일 : " + document.getElementById('startDate').value);
+        console.log("종료일 : " + document.getElementById('endDate').value);   
     }
 }
 
@@ -400,18 +451,9 @@ function relocation() { // 달력 조작 버튼을 누르면 시작 날짜, 끝 
     // 달력 1과 달력 2의 년도, 몇월 달인지를 확인한다. 만약 일치한다면 저장해 두었던 위치에 재배치 한다.
     console.log("재배치 함수 실행");
 
-    if (starttdItem == null) return;
+    if (starttdItem == null) return; // starttdItem가 null인 경우는 a가 선택 안된 경우
     
-    // 시작 일자 인덱스
-    console.log("srow : " + srow)
-    var scol = starttdItem.cellIndex;
-    console.log("scol : " + scol);
-
-    // 끝 날짜 인덱스
-    console.log("erow : " + erow);
-    var ecol = endtdItem.cellIndex;
-    console.log("ecol : " + ecol);
-
+    var scol = starttdItem.cellIndex; // 시작 일자 인덱스
 
     // 달력 1의 년도, 개월을 확인
     var calendar1Year = document.getElementById("calYear"); // 달력 1의 년도
@@ -419,11 +461,6 @@ function relocation() { // 달력 조작 버튼을 누르면 시작 날짜, 끝 
 
     var calendar2Year = document.getElementById("calYear2"); // 달력 2의 년도
     var calendar2Month = document.getElementById("calMonth2"); // 달력 2의 월
-
-    console.log("calendar1Year : " + calendar1Year.innerText + " : " + startYear.toString());
-    console.log("calendar1Month : " + calendar1Month.innerText + " : " + startMonth.toString());
-    console.log("calendar2Year : " + calendar2Year.innerText + " : " + endYear.toString());
-    console.log("calendar2Month : " + calendar2Month.innerText + " : " + endMonth.toString());
     
     // 달력 1
     if (startYear.toString() == calendar1Year.innerText && startMonth.toString() == calendar1Month.innerText) { // 시작 날짜의 년도가 같고 달이 같으면 2
@@ -435,6 +472,7 @@ function relocation() { // 달력 조작 버튼을 누르면 시작 날짜, 끝 
     }
 
     if (endtdItem == null) return
+    var ecol = endtdItem.cellIndex;   // 끝 날짜 인덱스
 
     if (endYear.toString() == calendar1Year.innerText && endMonth.toString() == calendar1Month.innerText) { // 시작 날짜의 년도가 같고 달이 같으면 1
         document.querySelector(".calendar1 > tbody").rows[erow].cells[ecol].classList.add('active-b');
@@ -443,41 +481,114 @@ function relocation() { // 달력 조작 버튼을 누르면 시작 날짜, 끝 
         document.querySelector(".calendar2 > tbody").rows[erow].cells[ecol].classList.add('active-b');
     }
 
-    calculateRange();   
+    calculateRange(startDate, startMonth, endDate, endMonth);   
 }
 
-function calculateRange() {
+
+function drawActiveARange(activeA, startDate_, lastDate, rowLen, index, calendarSide) {
+
+    for (var i = activeA.parentNode.rowIndex - 2; i <= rowLen; i++) {
+        calendarSide.rows[i].cells[index].classList.add('range');
+        startDate_++;
+        while (index % 7 != 6) {
+            index++;
+            calendarSide.rows[i].cells[index].classList.add('range'); // 마지막 index = 0; 찍히고 이 문장 실행할려고 해서 그런거임. 구조적으로 바꿔야함.
+            if (startDate_ == lastDate.getDate()) break;
+            startDate_++;
+        }
+        if (startDate_ == lastDate.getDate()) break;
+        index = 0;
+    }
+}
+
+function drawActiveBRange(activeB, startDate_, index, calendarSide) {
+
+    for (var i = activeB.parentNode.rowIndex - 2; i >= 0; i--) {
+        calendarSide.rows[i].cells[index].classList.add('range');
+        startDate_--;
+        while (index % 7 != 0) {
+            index--;
+            calendarSide.rows[i].cells[index].classList.add('range');
+            if (startDate_ == 1) break;
+            startDate_--;
+        }
+        if (startDate_ == 1) break;
+        index = 6;
+    }
+}
+
+function drawBoth(activeA, activeB, index, calendarSide) {
+    for (var i = activeA.parentNode.rowIndex - 2; i <= activeB.parentNode.rowIndex - 2; i++) {
+        calendarSide.rows[i].cells[index].classList.add('range');
+        while (index % 7 != 6) {
+            index++;
+            calendarSide.rows[i].cells[index].classList.add('range');
+            if (i == (activeB.parentNode.rowIndex - 2) && index == activeB.cellIndex) {
+                break;
+            }
+        }
+        index = 0;
+    }
+}
+
+function calculateRange(startDate, startMonth, endDate, endMonth) {
     console.log("calculateRange 함수 실행");
-    // a와 b가 정해져 있는데 a만 달력에 보이고, b는 안보이는 상태
-    // a와 b가 정해져 있는데 b만 달력에 보이고, a는 안보이는 상태
-    // a와 b가 정해져 있는데 a와 b가 달력에 안보이는 상태
 
-    // 그럼 현재 달력에 a와 b가 어떻게 잡고 있는지 확인해야함.
-    // calculateRange는 relocation이 모두 실행된 후 실행된다. 또한 relocation에서 a와 b가 결정되지 않으면 실행되지 않는다.
-    // calculateRange는 selectDate에서 a와 b가 모두 결정된 후 실행된다.
+    console.log("a : " + startMonth + '-' + startDate);
+    console.log("b : " + endMonth + '-' + endDate);
 
-    // 결국 a와 b가 모두 결정되면 calculateRange는 실행된다.
+    /*
+    // 달력 1에 b가 있고, 달력 2에 a가 있는 경우
+    if (document.querySelector(".calendar1 > tbody > tr > td.active-b") && document.querySelector(".calendar2 > tbody > tr > td.active-a")) { // 달력 1에 a가 있고, 달력 2에 b가 있는 경우
+        console.log("달력 2에 a가 있고, 달력 1에 b가 있는 경우");
 
-    // a와 b에 모두 값이 들어있다고 생각하고 진행.
+        var activeA = document.querySelector(".calendar1 > tbody > tr > td.active-b");
+        var activeB = document.querySelector(".calendar2 > tbody > tr > td.active-a");
+        
+        var rowLen = document.querySelector(".calendar1 > tbody").getElementsByTagName('tr').length - 1; // tr의 개수. 인덱스가 아님
+        var lastDate = new Date(Number(document.getElementById('calYear').innerText), Number(document.getElementById('calMonth').innerText), 0); // 마지막 날
+        var index = activeA.cellIndex; // col 인덱스
+        var calendarSide = document.querySelector(".calendar1 > tbody"); // 달력 1 쪽
+        var startDate = Number(activeA.innerText); // activeA 시작 날짜
 
-    // a와 b가 정해져 있고, a와 b모두 달력에 있는 상태
-    
+        drawActiveARange(activeA, startDate, lastDate, rowLen, index, calendarSide); // a쪽 Range 그리기
+
+        index = activeB.cellIndex;
+        startDate = Number(activeB.innerText);
+        calendarSide = document.querySelector(".calendar2 > tbody");
+
+        drawActiveBRange(activeB, startDate, index, calendarSide); // b쪽 Range 그리기
+    }
+        */
+
+
     // 달력 1에 a가 있고, 달력 2에 b가 있는 경우
     if (document.querySelector(".calendar1 > tbody > tr > td.active-a") && document.querySelector(".calendar2 > tbody > tr > td.active-b")) { // 달력 1에 a가 있고, 달력 2에 b가 있는 경우
-
         console.log("달력 1에 a가 있고, 달력 2에 b가 있는 경우");
 
         var activeA = document.querySelector(".calendar1 > tbody > tr > td.active-a");
         var activeB = document.querySelector(".calendar2 > tbody > tr > td.active-b");
+       
+        var rowLen = document.querySelector(".calendar1 > tbody").getElementsByTagName('tr').length - 1; // tr의 개수. 인덱스가 아님
+        var lastDate = new Date(Number(document.getElementById('calYear').innerText), Number(document.getElementById('calMonth').innerText), 0); // 마지막 날
+        var index = activeA.cellIndex; // col 인덱스
+        var calendarSide = document.querySelector(".calendar1 > tbody"); // 달력 1 쪽
+        var startDate = Number(activeA.innerText); // activeA 시작 날짜
 
-        var arow = document.querySelector(".calendar1 > tbody").getElementsByTagName('tr').length - 1; // tr의 개수
+        drawActiveARange(activeA, startDate, lastDate, rowLen, index, calendarSide); // a쪽 Range 그리기
 
-        var lastDate = new Date(Number(document.getElementById('calYear').innerText), Number(document.getElementById('calMonth').innerText), 0); // 마지막 날임.
+        index = activeB.cellIndex;
+        startDate = Number(activeB.innerText);
+        calendarSide = document.querySelector(".calendar2 > tbody");
 
+        drawActiveBRange(activeB, startDate, index, calendarSide); // b쪽 Range 그리기
+
+        
+        // 리펙토링 전 코드
+        /*
+         // a 그리기
         var count = Number(activeA.innerText);
-        var index = activeA.cellIndex;
-
-        for (var i = activeA.parentNode.rowIndex - 2; i <= arow; i++) {
+        for (var i = activeA.parentNode.rowIndex - 2; i <= rowLen; i++) {
             document.querySelector(".calendar1 > tbody").rows[i].cells[index].classList.add('range');
             count++;
             while (index % 7 != 6) {
@@ -489,10 +600,10 @@ function calculateRange() {
             if (count == lastDate.getDate()) break;
             index = 0;
         }
-
-        index = activeB.cellIndex;
+        */
+        /*
+        // b 그리기
         count = Number(activeB.innerText);
-
         for (var i = activeB.parentNode.rowIndex - 2; i >= 0; i--) {
             console.log("여긴 실행되긴 하는거냐?")
             document.querySelector(".calendar2 > tbody").rows[i].cells[index].classList.add('range');
@@ -506,6 +617,7 @@ function calculateRange() {
             if (count == 1) break;
             index = 6;
         }
+        */
     }
 
     // 달력 2에 a가 있고 달력 1, 2 어느 쪽에도 b가 없는 경우
@@ -517,13 +629,18 @@ function calculateRange() {
 
         var activeA = document.querySelector(".calendar2 > tbody > tr > td.active-a");
 
-        var arow = document.querySelector(".calendar2 > tbody").getElementsByTagName('tr').length - 1; // tr의 개수임 인덱스 아님.
+        var rowLen = document.querySelector(".calendar2 > tbody").getElementsByTagName('tr').length - 1; // tr의 개수임 인덱스 아님.
         var lastDate = new Date(Number(document.getElementById('calYear2').innerText), Number(document.getElementById('calMonth2').innerText), 0); // 마지막 날임.
-
-        var count = Number(activeA.innerText);
+        var calendarSide = document.querySelector(".calendar2 > tbody");
         var index = activeA.cellIndex;
+        var startDate = Number(activeA.innerText);
 
-        for (var i = activeA.parentNode.rowIndex - 2; i <= arow; i++) {
+        drawActiveARange(activeA, startDate, lastDate, rowLen, index, calendarSide); // a쪽 Range 그리기
+
+        /*
+        // a 그리기
+        var count = Number(activeA.innerText);
+        for (var i = activeA.parentNode.rowIndex - 2; i <= rowLen; i++) {
             document.querySelector(".calendar2 > tbody").rows[i].cells[index].classList.add('range');
             count++;
             while (index % 7 != 6) {
@@ -535,6 +652,7 @@ function calculateRange() {
             if (count == lastDate.getDate()) return;
             index = 0;
         }
+        */
     }
 
     // 달력 1에 b가 있고 a는 달력 1, 2 어느 쪽에도 없는 경우
@@ -545,9 +663,15 @@ function calculateRange() {
 
         var activeB = document.querySelector(".calendar1 > tbody > tr > td.active-b");
 
-        var count = Number(activeB.innerText);
         var index = activeB.cellIndex;
+        var startDate = Number(activeB.innerText);
+        var calendarSide = document.querySelector(".calendar1 > tbody");
 
+        drawActiveBRange(activeB, startDate, index, calendarSide)
+
+        /*
+        // b 그리기
+        var count = Number(activeB.innerText);
         for (var i = activeB.parentNode.rowIndex - 2; i >= 0; i--) {
             document.querySelector(".calendar1 > tbody").rows[i].cells[index].classList.add('range');
             count--;
@@ -560,6 +684,7 @@ function calculateRange() {
             if (count == 1) return;
             index = 6;
         }
+        */
     }
 
     // 달력 1에 a, b 모두 있는 경우
@@ -569,9 +694,15 @@ function calculateRange() {
 
         var activeA = document.querySelector(".calendar1 > tbody > tr > td.active-a");
         var activeB = document.querySelector(".calendar1 > tbody > tr > td.active-b");
+        
         var index = activeA.cellIndex;
+        var calendarSide = document.querySelector(".calendar1 > tbody");
+
+        drawBoth(activeA, activeB, index, calendarSide);
 
         // range 설정해주는 로직 잘못됐음
+        // 둘다 그리기
+        /*
         for (var i = activeA.parentNode.rowIndex - 2; i <= activeB.parentNode.rowIndex - 2; i++) {
             document.querySelector(".calendar1 > tbody").rows[i].cells[index].classList.add('range');
             while (index % 7 != 6) {
@@ -583,6 +714,7 @@ function calculateRange() {
             }
             index = 0;
         }
+            */
     }
 
     // 달력 2에 a, b 모두 있는 경우
@@ -591,9 +723,14 @@ function calculateRange() {
 
         var activeA = document.querySelector(".calendar2 > tbody > tr > td.active-a");
         var activeB = document.querySelector(".calendar2 > tbody > tr > td.active-b");
-        var index = activeA.cellIndex;
 
-        // range 설정해주는 로직 잘못됨 고쳐야함.
+        var index = activeA.cellIndex;
+        var calendarSide = document.querySelector(".calendar2 > tbody");
+        
+        drawBoth(activeA, activeB, index, calendarSide);
+
+        
+        /*
         for (var i = activeA.parentNode.rowIndex - 2; i <= activeB.parentNode.rowIndex - 2; i++) {
             document.querySelector(".calendar2 > tbody").rows[i].cells[index].classList.add('range');
             while (index % 7 != 6) {
@@ -606,30 +743,18 @@ function calculateRange() {
             }
             index = 0;
         }
+        */
+
     }
+
+    
 }
 
-function activateDay() { // 숫자 선택 활성화 하는 함수
-    var activeElement = document.activeElement; // 내가 현재 상호작용 하고 있는 요소를 나타낸다고 함. 즉, 여기선 내가 달력에서 누른 숫자를 말함.
-    var activeAItem = document.querySelector('.active-a');
-    var activeBItem = document.querySelector('.active-b');
-  
-    if (activeAItem && activeBItem) { // activeAItem와 activeBItem가 dom 객체를 가지고 있으면 true로 판정. 즉, a와 b가 모두 선택되어 있으면 clearActiveDays하고 clearRange실행시키고 선택한 숫자에 새로 active-a 부여함
-      clearActiveDays();
-      clearRange();
-      activeElement.classList.add('active-a');
-      return;
-    }
-  
-    if (activeAItem) activeElement.classList.add('active-b'); // activeAItem에 dom객체가 있으면 즉, 선택된 active-a가 있는 경우. 현재 내가 누른 숫자를 active-b로 만듬.
-    else activeElement.classList.add('active-a'); // 아직 선택한 active-a가 없으면 현재 누른 숫자 active-a로 만듬.
-  }
-
-  function clearActiveDays() { // 선택한 숫자들 푸는 함수
+function clearActiveDays() { // 선택한 숫자들 푸는 함수
     console.log("clearActiveDays함수 실행")
     var activeAItem = document.querySelector('.active-a');
     var activeBItem = document.querySelector('.active-b');
-  
+
     if (activeAItem) activeAItem.classList.remove('active-a');
     if (activeBItem) activeBItem.classList.remove('active-b');
 
@@ -638,4 +763,11 @@ function activateDay() { // 숫자 선택 활성화 하는 함수
     ran.forEach((item) => {
         item.classList.remove('range');
     });
-  }
+}
+
+
+
+/*
+메모장
+시작 과 끝 날짜 같게 하면 오류생김. 고쳐야함.
+*/
