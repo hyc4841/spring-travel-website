@@ -42,6 +42,7 @@ public class SecurityConfig {
                                 .requestMatchers("/signup/**").permitAll()
                                 .requestMatchers("/").permitAll()
                                 .requestMatchers("/bulletinBoard/**").hasAnyRole("user", "admin")
+                                .requestMatchers("/accommodation/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 // 로그인 관련 설정

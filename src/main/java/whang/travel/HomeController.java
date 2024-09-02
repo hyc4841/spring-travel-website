@@ -9,10 +9,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import whang.travel.domain.member.Member;
 import whang.travel.web.SessionConst;
+import whang.travel.web.accommodation.form.AccommoSearchCond;
 
 @Slf4j
 @Controller
@@ -26,12 +28,7 @@ public class HomeController {
     }
 
     @GetMapping("/home")
-    public String LoggedInHome(HttpServletRequest request, Model model, @AuthenticationPrincipal UserDetails user) {
-
-        log.info("유저 확인={}", user);
-        if (user != null) {
-            log.info("자격확인?={}", user.getAuthorities());
-        }
+    public String LoggedInHome(@ModelAttribute("searchCond") AccommoSearchCond accommoSearchCond, HttpServletRequest request, Model model, @AuthenticationPrincipal UserDetails user) {
 
         model.addAttribute("user", user);
 
@@ -47,4 +44,5 @@ public class HomeController {
          */
         return "home/homepage";
     }
+
 }

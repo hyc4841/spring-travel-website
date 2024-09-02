@@ -11,7 +11,6 @@
           href="../../static/css/sidebars.css" rel="stylesheet">
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sidebars/">
 
-
   <title>숙소 검색 리스트 화면</title>
 
     <style>
@@ -180,14 +179,12 @@
 
     <!--메인 컨텐츠-->
     <div class="flex-grow-1 p-3">
-        <!-- [[${}]] 으로 텍스트 중간에 삽입해서 표현 -->
         <h1>'지역' 검색 결과 '00'건</h1>
-
         <div class="row justify-content-md-center">
 
             <!--아이템 카드-->
             <div class="col-md-8 border-bottom mb-4">
-                <a th:href="" href="#">
+                <a th:href="@{/accommodation/detail}" href="#">
                 <div class="row g-0 border rounded flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                     <div class="col-auto d-none d-lg-block rounded">
                         <svg class="bd-placeholder-img" width="300" height="200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
@@ -211,8 +208,9 @@
                 </a>
             </div>
 
+            <!--추후에 for 문으로 생성할거임-->
             <div class="col-md-8 border-bottom mb-4">
-                <a th:href="" href="#">
+                <a th:href="@{/accommodation/detail}" href="#">
                     <div class="row g-0 border rounded flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                         <div class="col-auto d-none d-lg-block rounded">
                             <svg class="bd-placeholder-img" width="300" height="200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
@@ -237,7 +235,7 @@
             </div>
 
             <div class="col-md-8 border-bottom mb-4">
-                <a th:href="" href="#">
+                <a th:href="@{/}" href="#">
                     <div class="row g-0 border rounded flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                         <div class="col-auto d-none d-lg-block rounded">
                             <svg class="bd-placeholder-img" width="300" height="200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
@@ -262,7 +260,7 @@
             </div>
 
             <div class="col-md-8 border-bottom mb-4">
-                <a th:href="" href="#">
+                <a th:href="@{/}" href="#">
                     <div class="row g-0 border rounded flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                         <div class="col-auto d-none d-lg-block rounded">
                             <svg class="bd-placeholder-img" width="300" height="200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
@@ -312,12 +310,7 @@
 
 
 
-
-
-
-
     </div>
-
 
 
 
