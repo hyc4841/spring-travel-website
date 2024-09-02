@@ -155,7 +155,7 @@ function buildCalendar() {
                 else if(nowDate.getDate() < day && lastDate.getDate() >= day) {
                     
                     column.style.cursor = "pointer"; // 클릭가능하게 만듬
-                    column.onclick = function(){ selectDate(this, toDay.getFullYear(), toDay.getMonth(), toDay.getDate); }
+                    column.onclick = function(){ selectDate(this, toDay.getFullYear(), toDay.getMonth() + 1, toDay.getDate); }
                     column.classList.add("day"); // 선택가능한 날에 day 클래스 추가하기
                     column.classList.add("day-number");
                 }
@@ -164,7 +164,7 @@ function buildCalendar() {
                 else if(nowDate.getDate() == day) {
                     column.style.backgroundColor = "#FFFFE6"; // 약간 노랗게
                     column.style.cursor = "pointer"; // 클릭가능하게 만듬
-                    column.onclick = function(){ selectDate(this, toDay.getFullYear(), toDay.getMonth(), toDay.getDate); }
+                    column.onclick = function(){ selectDate(this, toDay.getFullYear(), toDay.getMonth() + 1, toDay.getDate); }
                     column.classList.add("day");
                     column.classList.add("day-number");
                 }
@@ -182,7 +182,7 @@ function buildCalendar() {
                 if(Math.sign(day) == 1 && day <= lastDate.getDate()) {
                     // column.style.backgroundColor = "#FFFFFF";
                     column.style.cursor = "pointer";
-                    column.onclick = function(){ selectDate(this, toDay.getFullYear(), toDay.getMonth(), toDay.getDate); }
+                    column.onclick = function(){ selectDate(this, toDay.getFullYear(), toDay.getMonth() + 1, toDay.getDate); }
                     column.classList.add("day");
                     column.classList.add("day-number");
                 }
@@ -201,7 +201,7 @@ function buildCalendar() {
             if(Math.sign(day) == 1 && day <= lastDate.getDate()) {
                 // column.style.backgroundColor = "#FFFFFF";
                 column.style.cursor = "pointer";
-                column.onclick = function(){ selectDate(this, toDay.getFullYear(), toDay.getMonth(), toDay.getDate); }
+                column.onclick = function(){ selectDate(this, toDay.getFullYear(), toDay.getMonth() + 1, toDay.getDate); }
             }
         }
         dom++;
@@ -229,7 +229,7 @@ function buildCalendar() {
                 row2 = tbCalendar2.insertRow(); // @param 토요일이 지나면 다시 가로 행을 한줄 추가한다.
             }
 
-            if (dom % 7 != 1 && dom % 7 != 0) {
+            if (dom2 % 7 != 1 && dom % 7 != 0) {
                 column.classList.add('weekday');
             }
         }
@@ -255,7 +255,7 @@ function buildCalendar() {
                 else if(nowDate.getDate() < day && lastDate2.getDate() >= day) {
                     // column.style.backgroundColor = "#FFFFFF";
                     column.style.cursor = "pointer";
-                    column.onclick = function(){ selectDate(this, toDay.getFullYear(), toDay.getMonth(), toDay.getDate); }
+                    column.onclick = function(){ selectDate(this, toDay.getFullYear(), toDay.getMonth() + 2, toDay.getDate); }
                     column.classList.add("day2");
                     column.classList.add("day-number");
                 }
@@ -264,7 +264,7 @@ function buildCalendar() {
                 else if(nowDate.getDate() == day) {
                     column.style.backgroundColor = "#FFFFE6";
                     column.style.cursor = "pointer";
-                    column.onclick = function(){ selectDate(this, toDay.getFullYear(), toDay.getMonth(), toDay.getDate); }
+                    column.onclick = function(){ selectDate(this, toDay.getFullYear(), toDay.getMonth() + 2, toDay.getDate); }
                     column.classList.add("day2");
                     column.classList.add("day-number");
                 }
@@ -281,7 +281,7 @@ function buildCalendar() {
                 if(Math.sign(day) == 1 && day <= lastDate2.getDate()) {
                     // column.style.backgroundColor = "#FFFFFF";
                     column.style.cursor = "pointer";
-                    column.onclick = function(){ selectDate(this, toDay.getFullYear(), toDay.getMonth(), toDay.getDate); }
+                    column.onclick = function(){ selectDate(this, toDay.getFullYear(), toDay.getMonth()  + 2, toDay.getDate); }
                     column.classList.add("day2");
                     column.classList.add("day-number");
                 }
@@ -300,7 +300,7 @@ function buildCalendar() {
             if(Math.sign(day) == 1 && day <= lastDate2.getDate()) {
                 // column.style.backgroundColor = "#FFFFFF";
                 column.style.cursor = "pointer";
-                column.onclick = function(){ selectDate(this, toDay.getFullYear(), toDay.getMonth(), toDay.getDate); }
+                column.onclick = function(){ selectDate(this, toDay.getFullYear(), toDay.getMonth() + 2, toDay.getDate); }
                 column.classList.add("day2");
                 column.classList.add("day-number");
             }
@@ -341,25 +341,32 @@ var startDate = null, startMonth = null, startYear = null;
 var endDate = null, endMonth = null, endYear = null;
 var starttdItem = null, endtdItem = null;
 
+var srow = null, erow = null;
+
 function selectDate(tdItem, year, month, date) {
     console.log("selectDate 함수 실행");
 
     // clear
     if (startDate && endDate) {
+        console.log("클리어");
         clearActiveDays();
         starttdItem = null;
         startDate = null;
         startMonth = null;
         startYear = null;
+        srow = null;
 
         endtdItem = null;
         endDate = null;
         endMonth = null;
         endYear = null;
+        erow = null;
     }
     if (startDate == null && endDate == null) { // 아직 시작 날짜를 선택하지 않았으면
         console.log("시작 날짜 아직 선택 안되어 있음, 시작 날짜 선택");
         starttdItem = tdItem;
+        console.log("item : " + starttdItem.parentNode.rowIndex);
+        srow = starttdItem.parentNode.rowIndex - 2;
         startDate = date;
         startMonth = month;
         startYear = year;
@@ -368,6 +375,8 @@ function selectDate(tdItem, year, month, date) {
     else if (startDate != null && endDate == null) { // 시작 날짜를 선택했고, 아직 끝 날짜를 선택하지 않았으면,
         console.log("시작 날짜 선택되어 있고 끝 날짜 선택 안되어 있음, 끝 날짜 선택");
         endtdItem = tdItem;
+        console.log("item : " + endtdItem.parentNode.rowIndex);
+        erow = endtdItem.parentNode.rowIndex - 2;
         endDate = date;
         endMonth = month;
         endYear = year;
@@ -390,12 +399,15 @@ function relocation() { // 달력 조작 버튼을 누르면 시작 날짜, 끝 
     if (starttdItem == null) return;
     
     // 시작 일자 인덱스
-    var srow = starttdItem.parentNode.rowIndex;
+    console.log("srow : " + srow)
     var scol = starttdItem.cellIndex;
+    console.log("scol : " + scol);
 
     // 끝 날짜 인덱스
-    var erow = endtdItem.parentNode.rowIndex;
+    console.log("erow : " + erow);
     var ecol = endtdItem.cellIndex;
+    console.log("ecol : " + ecol);
+
 
     // 달력 1의 년도, 개월을 확인
     var calendar1Year = document.getElementById("calYear"); // 달력 1의 년도
@@ -403,22 +415,27 @@ function relocation() { // 달력 조작 버튼을 누르면 시작 날짜, 끝 
 
     var calendar2Year = document.getElementById("calYear2"); // 달력 2의 년도
     var calendar2Month = document.getElementById("calMonth2"); // 달력 2의 월
+
+    console.log("calendar1Year : " + calendar1Year.innerText + " : " + startYear.toString());
+    console.log("calendar1Month : " + calendar1Month.innerText + " : " + startMonth.toString());
+    console.log("calendar2Year : " + calendar2Year.innerText + " : " + endYear.toString());
+    console.log("calendar2Month : " + calendar2Month.innerText + " : " + endMonth.toString());
     
     // 달력 1
-    if (startYear.toString == calendar1Year.innerText && startMonth.toString == calendar1Month.innerText) { // 시작 날짜의 년도가 같고 달이 같으면 2
+    if (startYear.toString() == calendar1Year.innerText && startMonth.toString() == calendar1Month.innerText) { // 시작 날짜의 년도가 같고 달이 같으면 2
         document.querySelector(".calendar1 > tbody").rows[srow].cells[scol].classList.add('active-a');
     }
     // 달력 2
-    else if (startYear.toString == calendar2Year.innerText && startMonth.toString == calendar2Month.innerText) { // 시작 날짜의 년도가 같고 달이 같으면 2 
+    else if (startYear.toString() == calendar2Year.innerText && startMonth.toString() == calendar2Month.innerText) { // 시작 날짜의 년도가 같고 달이 같으면 2 
         document.querySelector(".calendar2 > tbody").rows[srow].cells[scol].classList.add('active-a');
     }
 
     if (endtdItem == null) return
 
-    if (endYear.toString == calendar1Year.innerText && endMonth.toString == calendar1Month.innerText) { // 시작 날짜의 년도가 같고 달이 같으면 1
+    if (endYear.toString() == calendar1Year.innerText && endMonth.toString() == calendar1Month.innerText) { // 시작 날짜의 년도가 같고 달이 같으면 1
         document.querySelector(".calendar1 > tbody").rows[erow].cells[ecol].classList.add('active-b');
     }
-    else if (endYear.toString == calendar2Year.innerText && endMonth.toString == calendar2Month.innerText) { // 시작 날짜의 년도가 같고 달이 같으면 2
+    else if (endYear.toString() == calendar2Year.innerText && endMonth.toString() == calendar2Month.innerText) { // 시작 날짜의 년도가 같고 달이 같으면 2
         document.querySelector(".calendar2 > tbody").rows[erow].cells[ecol].classList.add('active-b');
     }
 
@@ -449,22 +466,22 @@ function calculateRange() {
         var activeA = document.querySelector(".calendar1 > tbody > tr > td.active-a");
         var activeB = document.querySelector(".calendar2 > tbody > tr > td.active-b");
 
-        var arow = document.querySelector(".calendar1 > tbody").getElementsByTagName('tr').length;
+        var arow = document.querySelector(".calendar1 > tbody").getElementsByTagName('tr').length - 1; // tr의 개수
 
         var lastDate = new Date(Number(document.getElementById('calYear').innerText), Number(document.getElementById('calMonth').innerText), 0); // 마지막 날임.
 
         var count = Number(activeA.innerText);
- 
         var index = activeA.cellIndex;
+
         for (var i = activeA.parentNode.rowIndex - 2; i <= arow; i++) {
             document.querySelector(".calendar1 > tbody").rows[i].cells[index].classList.add('range');
+            count++;
             while (index % 7 != 6) {
                 index++;
-                document.querySelector(".calendar1 > tbody").rows[i].cells[index].classList.add('range');
-                
+                document.querySelector(".calendar1 > tbody").rows[i].cells[index].classList.add('range'); // 마지막 index = 0; 찍히고 이 문장 실행할려고 해서 그런거임. 구조적으로 바꿔야함.
+                if (count == lastDate.getDate()) break;
                 count++;
             }
-
             if (count == lastDate.getDate()) break;
             index = 0;
         }
@@ -472,17 +489,17 @@ function calculateRange() {
         index = activeB.cellIndex;
         count = Number(activeB.innerText);
 
-
-
         for (var i = activeB.parentNode.rowIndex - 2; i >= 0; i--) {
             console.log("여긴 실행되긴 하는거냐?")
             document.querySelector(".calendar2 > tbody").rows[i].cells[index].classList.add('range');
+            count--;
             while (index % 7 != 0) {
                 index--;
                 document.querySelector(".calendar2 > tbody").rows[i].cells[index].classList.add('range');
                 if (count == 1) break;
                 count--;
             }
+            if (count == 1) break;
             index = 6;
         }
     }
@@ -494,22 +511,24 @@ function calculateRange() {
     ) {
         console.log("달력 2에 a가 있고 달력 1, 2 어느 쪽에도 b가 없는 경우");
 
-        var arow = document.querySelector(".calendar2 > tbody").getElementsByTagName('tr').length;
-        var lastDate = new Date(Number(document.getElementById('calYear2').innerText), Number(document.getElementById('calMonth2')) + 1, 0); // 마지막 날임.
+        var activeA = document.querySelector(".calendar2 > tbody > tr > td.active-a");
+
+        var arow = document.querySelector(".calendar2 > tbody").getElementsByTagName('tr').length - 1; // tr의 개수임 인덱스 아님.
+        var lastDate = new Date(Number(document.getElementById('calYear2').innerText), Number(document.getElementById('calMonth2').innerText), 0); // 마지막 날임.
 
         var count = Number(activeA.innerText);
         var index = activeA.cellIndex;
 
         for (var i = activeA.parentNode.rowIndex - 2; i <= arow; i++) {
             document.querySelector(".calendar2 > tbody").rows[i].cells[index].classList.add('range');
+            count++;
             while (index % 7 != 6) {
                 index++;
                 document.querySelector(".calendar2 > tbody").rows[i].cells[index].classList.add('range');
-                if (count == lastDate.getDate()) {
-                    return;
-                }
+                if (count == lastDate.getDate()) return;
                 count++;
             }
+            if (count == lastDate.getDate()) return;
             index = 0;
         }
     }
@@ -520,23 +539,26 @@ function calculateRange() {
     !document.querySelector(".calendar2 > tbody > tr > td.active-a")) { 
         console.log("달력 1에 b가 있고 a는 달력 1, 2 어느 쪽에도 없는 경우");
 
+        var activeB = document.querySelector(".calendar1 > tbody > tr > td.active-b");
 
         var count = Number(activeB.innerText);
         var index = activeB.cellIndex;
 
         for (var i = activeB.parentNode.rowIndex - 2; i >= 0; i--) {
-            document.querySelector(".calendar2 > tbody").rows[i].cells[index].classList.add('range');
+            document.querySelector(".calendar1 > tbody").rows[i].cells[index].classList.add('range');
+            count--;
             while (index % 7 != 0) {
-                index++;
-                document.querySelector(".calendar2 > tbody").rows[i].cells[index].classList.add('range');
+                index--;
+                document.querySelector(".calendar1 > tbody").rows[i].cells[index].classList.add('range');
                 if (count == 1) return;
                 count--;
             }
-            index = 0;
+            if (count == 1) return;
+            index = 6;
         }
     }
 
-    // 달력 2에 a, b 모두 있는 경우
+    // 달력 1에 a, b 모두 있는 경우
     else if (document.querySelector(".calendar1 > tbody > tr > td.active-a") && document.querySelector(".calendar1 > tbody > tr > td.active-b")) { // 달력 1에 a, b 모두 있는 경우
         // 사이에 있는 애들 모두 range로 만든다.
         console.log("달력 1에 a, b 모두 있는 경우");
@@ -598,7 +620,6 @@ function activateDay() { // 숫자 선택 활성화 하는 함수
     if (activeAItem) activeElement.classList.add('active-b'); // activeAItem에 dom객체가 있으면 즉, 선택된 active-a가 있는 경우. 현재 내가 누른 숫자를 active-b로 만듬.
     else activeElement.classList.add('active-a'); // 아직 선택한 active-a가 없으면 현재 누른 숫자 active-a로 만듬.
   }
-
 
   function clearActiveDays() { // 선택한 숫자들 푸는 함수
     console.log("clearActiveDays함수 실행")
