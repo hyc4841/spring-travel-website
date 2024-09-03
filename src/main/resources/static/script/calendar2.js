@@ -435,9 +435,10 @@ function selectDate(tdItem, year, month, date) {
             b.classList.add('active-a');
             switchingVar();
         }
+        // 날짜 저장하는 곳
         calculateRange(startDate, startMonth, endDate, endMonth);
-        document.getElementById('startDate').value = startYear + '-' + startMonth + '-' + startDate;
-        document.getElementById('endDate').value = endYear + '-' + endMonth + '-' + endDate;
+        document.getElementById('startDate').value = startYear + '-' + autoLeftPad(startMonth, 2)  + '-' + autoLeftPad(startDate, 2);
+        document.getElementById('endDate').value = endYear + '-' + autoLeftPad(endMonth, 2) + '-' + autoLeftPad(endDate, 2);
         console.log("시작일 : " + document.getElementById('startDate').value);
         console.log("종료일 : " + document.getElementById('endDate').value);   
     }

@@ -6,8 +6,6 @@ import java.util.List;
 
 @Data
 public class Accommodation {
-
-
     private Long accommodationId;   // pk
     private String name;
     private String location;
@@ -16,5 +14,4 @@ public class Accommodation {
     private List<String> service;
     private String information;
     private Long seller;            // seller foreign key
-
 }

@@ -3,61 +3,41 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="whang.travel.domain.accommodation.mybatis.AccommodationMapper">
 
-    <insert id="save" useGeneratedKeys="true" keyProperty="postId">
-        insert into bulletinboard (member_id, title, content, category, post_date)
-        values (#{memberId}, #{title}, #{content}, #{category}, #{postDate})
+    <insert id="save" useGeneratedKeys="true" keyProperty="accommodationId">
+        insert into accommodation (name, location, category, introduction, service, information, seller)
+        values (#{name}, #{location}, #{category}, #{introduction}, #{service}, #{information}, #{seller})
     </insert>
 
     <update id="update">
-        update bulletinboard set title=#{updatePost.editTitle},
-                                 content=#{updatePost.editContent},
-                                 category=#{updatePost.editCategory},
-                                 edit_date=#{updatePost.editDate}
-        where post_id=#{postId}
+        update accommodation set name=#{updateAccommo.name},
+        location=#{updateAccommo.location},
+        category=#{updateAccommo.category},
+        introduction=#{updateAccommo.introduction},
+        service=#{updateAccommo.service},
+        information=#{updateAccommo.information},
+        seller=#{updateAccommo.seller}
+        where accommodation_id=#{accommoId}
     </update>
 
-    <!-- 주로 사용자가 작성한 게시글들을 리스트로 뽑아낼 걸로 기대함 -->
-    <select id="findPostByMemberId" resultType="Post">
-        select post_id, member_id, title, content, category, post_date, edit_date
-        from bulletinboard
-        <where>
-            member_id=#{memberId}
-            <if test="searchTitle != null and searchTitle != ''">
-                and title like concat('%', #{searchTitle}, '%')
-            </if>
-        </where>
+    <!-- 리스트에서 카드를 클릭하면 상세 페이지로 넘어갈 때 사용될 것. -->
+    <select id="findAccommoById" resultType="Accommodation">
+        select accommodation_id, name, location, category, introduction, service, information, seller
+        from accommodation
+        where accommodation_id=#{accommoId}
     </select>
 
-    <!-- 주로 글의 상세 내용을 보여줄 때 사용할걸로 기대함 -->
-    <select id="findPostByPostId" resultType="Post">
-        select post_id, member_id, title, content, category, post_date, edit_date
-        from bulletinboard
-        where post_id=#{postId}
+    <!-- 사용자가 지역, 날짜, 인원을 넣고 검색을 눌렀을 때 숙소 리스트 뽑아줄 때 사용. -->
+    <select id="findAccommoList" resultType="Accommodation">
+        select accommodation_id, a.name, location, category, introduction, service, information, seller
+        from accommodation a
+        join room r
+        on a.accommodation_id = r.accommodation
+        where location like concat('%', #{region}, '%')
+        and r.max_personnel &lt;= #{personnel}
+<!--  해당 기간안에 예약 내역이 없으면 되나? -->
     </select>
 
-    <select id="findAll" resultType="Post">
-        select post_id, member_id, title, content, category, post_date, edit_date
-        from bulletinboard
-        <where>
-            <if test="searchTitle != null and searchTitle != ''">
-                and title like concat('%', #{searchTitle}, '%')
-            </if>
-        </where>
-    </select>
 
-<!--    <select id="findMemberName" resultType="MemberName">-->
-<!--        select first_name, last_name-->
-<!--        from member-->
-<!--        where member_id=#{memberId}-->
-<!--    </select>-->
-
-    <delete id="deletePost">
-        delete
-        from bulletinboard
-        where post_id=#{postId}
-    </delete>
-
-<!--밑에 select 문에서 속성 순서 바뀌면 가끔 오류 생기던데 왜그러는거지? 이유 찾기 -->
     <select id="findAllWithMemberName" resultType="DisplayPostForm">
         select
         post_id, member.first_name, member.last_name, member.member_id, title,
@@ -71,5 +51,46 @@
             </if>
         </where>
     </select>
+
+    <select id="findAll" resultType="Post">
+        select post_id, member_id, title, content, category, post_date, edit_date
+        from bulletinboard
+        <where>
+            <if test="searchTitle != null and searchTitle != ''">
+                and title like concat('%', #{searchTitle}, '%')
+            </if>
+        </where>
+    </select>
+
+
+
+
+
+
+
+
+    <!--숙소 삭제-->
+    <delete id="delete">
+        delete
+        from accommodation
+        where accommodation_id=#{accommoId}
+    </delete>
+
+
+
+
+
+
+
+<!--    <select id="findMemberName" resultType="MemberName">-->
+<!--        select first_name, last_name-->
+<!--        from member-->
+<!--        where member_id=#{memberId}-->
+<!--    </select>-->
+
+
+
+<!--밑에 select 문에서 속성 순서 바뀌면 가끔 오류 생기던데 왜그러는거지? 이유 찾기 -->
+
 
 </mapper>
