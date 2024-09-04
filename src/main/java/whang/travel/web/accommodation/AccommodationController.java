@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import whang.travel.domain.accommodation.Accommodation;
 import whang.travel.domain.accommodation.AccommodationService;
 import whang.travel.web.accommodation.form.AccommoSearchCond;
@@ -27,7 +28,8 @@ public class AccommodationController {
     private final AccommodationService accommoService;
 
     @GetMapping("/list")
-    public String AccommoList(@Validated @ModelAttribute("searchCond") AccommoSearchCond accommoSearchCond, BindingResult bindingResult, Model model, @AuthenticationPrincipal UserDetails user) {
+    public String AccommoList(@Validated @ModelAttribute("searchCond") AccommoSearchCond accommoSearchCond,
+                              BindingResult bindingResult, Model model, @AuthenticationPrincipal UserDetails user) {
 
         if (bindingResult.hasErrors()) {
             log.info("에러 발생={}", bindingResult);

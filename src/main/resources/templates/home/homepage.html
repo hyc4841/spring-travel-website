@@ -32,6 +32,10 @@
         table {
             background-color: white;
         }
+        .field-error {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
 
     </style>    
 
@@ -128,7 +132,11 @@
 
                                     <!-- 지역 -->
                                     <div class="col-3">
-                                        <input class="form-control" type="text" th:field="*{region}" id="travelSite" placeholder="지역">
+                                        <input class="form-control" type="text" th:field="*{region}"
+                                               th:errorclass="field-error" id="travelSite" placeholder="지역">
+                                        <div class="field-error" th:errors="*{region}">
+                                            지역 오류
+                                        </div>
                                     </div>
                                     
                                     <!-- 날짜 선택 -->
@@ -136,9 +144,17 @@
 
                                         <button class="btn btn-outline-dark mb-3" type="button" id="dateSelect" style="width:100%">
                                             여행 기간
-                                            <input class="form-control" type="hidden" th:field="*{startDate}" id="startDate" placeholder="시작">
-                                            <input class="form-control" type="hidden" th:field="*{endDate}" id="endDate" placeholder="끝">
+                                            <input class="form-control" type="hidden" th:field="*{startDate}"
+                                                   th:errorclass="field-error" id="startDate" placeholder="시작">
+                                            <input class="form-control" type="hidden" th:field="*{endDate}"
+                                                   th:errorclass="field-error" id="endDate" placeholder="끝">
                                         </button>
+                                        <div class="field-error" th:errors="*{startDate}">
+                                            시작 날 오류
+                                        </div>
+                                        <div class="field-error" th:errors="*{endDate}">
+                                            끝 날 오류
+                                        </div>
 
                                         <div class="calendar-container">
 
@@ -189,7 +205,11 @@
                                     
                                     <!-- 인원 -->
                                     <div class="col-3">
-                                        <input class="form-control" type="text" th:field="*{personnel}" id="personnel" placeholder="인원">
+                                        <input class="form-control" type="text" th:field="*{personnel}"
+                                               th:errorclass="field-error" id="personnel" placeholder="인원">
+                                        <div class="field-error" th:errors="*{personnel}">
+                                            인원 오류
+                                        </div>
                                     </div>
                                     <div class="col-3">
                                         <button class="btn btn-primary btn-lg" type="submit">검색</button>
