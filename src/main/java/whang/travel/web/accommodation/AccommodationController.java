@@ -49,15 +49,15 @@ public class AccommodationController {
     @GetMapping("/detail/{accommoId}")
     public String AccommoDetail(@PathVariable Long accommoId, @AuthenticationPrincipal UserDetails user, Model model) {
 
+        Accommodation accommodation = accommoService.findAccommoById(accommoId).get();
+
+        log.info("숙소 검색={}", accommodation);
+
+        model.addAttribute("accommodation", accommodation);
         model.addAttribute("user", user);
 
         return "/accommodation/accommoDetail";
     }
-
-
-
-
-
 
 
     // 숙소 리스트

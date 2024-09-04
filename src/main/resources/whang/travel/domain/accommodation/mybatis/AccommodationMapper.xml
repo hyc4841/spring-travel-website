@@ -3,6 +3,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="whang.travel.domain.accommodation.mybatis.AccommodationMapper">
 
+    <resultMap id="resultMap" type="Accommodation">
+        <result property="service" column="service" typeHandler="org.apache.ibatis.type.ArrayTypeHandler"/>
+    </resultMap>
+
     <insert id="save" useGeneratedKeys="true" keyProperty="accommodationId">
         insert into accommodation (name, location, category, introduction, service, information, seller)
         values (#{name}, #{location}, #{category}, #{introduction}, #{service}, #{information}, #{seller})
@@ -20,7 +24,7 @@
     </update>
 
     <!-- 리스트에서 카드를 클릭하면 상세 페이지로 넘어갈 때 사용될 것. -->
-    <select id="findAccommoById" resultType="Accommodation">
+    <select id="findAccommoById" resultType="Accommodation" resultMap="resultMap">
         select accommodation_id, name, location, category, introduction, service, information, seller
         from accommodation
         where accommodation_id=#{accommoId}
@@ -29,23 +33,17 @@
     <!-- 사용자가 지역, 날짜, 인원을 넣고 검색을 눌렀을 때 숙소 리스트 뽑아줄 때 사용. -->
     <select id="findAccommoList" resultType="Accommodation">
         <!-- 지금 이 sql문은 방 검색에 알맞는 경우임 -->
-<!--    DISTINCT만 없애주면 기간에 이용가능한 방들이 나옴    -->
+        <!-- DISTINCT만 없애주면 기간에 이용가능한 방들이 나옴 -->
         <!-- 숙소만 딱 하나 나오게 할려면 다른 방법이 필요함. -->
         select DISTINCT accommodation_id, a.name, location, category, introduction, service, information, a.seller
-
         from accommodation a
-
         join room r on a.accommodation_id = r.accommodation
-
         left join reservation s on r.room_id = s.room
-
         where
         location like concat('%', #{region}, '%')
         and r.max_personnel &lt;= #{personnel}
-
         and (s.room is null or ((#{startDate} &gt;= s.start_date and #{startDate} &gt;= s.end_date)
         or (#{endDate} &lt;= s.start_date and #{endDate} &lt;= s.end_date)))
-
     </select>
 
     <!--숙소 삭제-->
