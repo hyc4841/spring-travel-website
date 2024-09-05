@@ -11,7 +11,7 @@ public class Accommodation {
     private String location;
     private String category;
     private String introduction;
-    private List<String> service;
+    private Object[] service;
     private String information;
     private Long seller;            // seller foreign key
 }

@@ -3,9 +3,18 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="whang.travel.domain.accommodation.mybatis.AccommodationMapper">
 
-    <resultMap id="resultMap" type="Accommodation">
+
+    <resultMap id="arrayHandler" type="Accommodation">
+        <result property="accommodationId" column="accommodation_id"/>
+        <result property="name" column="name"/>
+        <result property="location" column="location"/>
+        <result property="category" column="category"/>
+        <result property="introduction" column="introduction"/>
         <result property="service" column="service" typeHandler="org.apache.ibatis.type.ArrayTypeHandler"/>
+        <result property="information" column="information"/>
+        <result property="seller" column="seller"/>
     </resultMap>
+
 
     <insert id="save" useGeneratedKeys="true" keyProperty="accommodationId">
         insert into accommodation (name, location, category, introduction, service, information, seller)
@@ -24,7 +33,7 @@
     </update>
 
     <!-- 리스트에서 카드를 클릭하면 상세 페이지로 넘어갈 때 사용될 것. -->
-    <select id="findAccommoById" resultType="Accommodation" resultMap="resultMap">
+    <select id="findAccommoById" resultMap="arrayHandler">
         select accommodation_id, name, location, category, introduction, service, information, seller
         from accommodation
         where accommodation_id=#{accommoId}
@@ -54,3 +63,4 @@
     </delete>
 
 </mapper>
+

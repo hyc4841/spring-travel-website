@@ -14,6 +14,8 @@ import whang.travel.domain.accommodation.Accommodation;
 import whang.travel.domain.accommodation.AccommodationService;
 import whang.travel.web.accommodation.form.AccommoSearchCond;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
@@ -50,17 +52,32 @@ public class AccommodationController {
     public String AccommoDetail(@PathVariable Long accommoId, @AuthenticationPrincipal UserDetails user, Model model) {
 
         Accommodation accommodation = accommoService.findAccommoById(accommoId).get();
-
         log.info("숙소 검색={}", accommodation);
 
+        // service는 값이 여러개 여서 파싱 해서 분리해줘야함.
+        String[] service = parseService(accommodation.getService());
+
+        List<String> sservice = new ArrayList<>(List.of(service));
+
+        log.info("service={}", sservice);
+
+        model.addAttribute("service", sservice);
         model.addAttribute("accommodation", accommodation);
         model.addAttribute("user", user);
 
         return "/accommodation/accommoDetail";
     }
-
-
     // 숙소 리스트
 
     // 숙소 상세 화면
+
+    // service 파싱 함수
+
+    private String[] parseService(Object[] service) {
+        String data = (String) service[0];
+        data = data.replaceAll("\\[\\[|\\]\\]|\\s+", "");
+        return data.split(",");
+    }
+
 }
+

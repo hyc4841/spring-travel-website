@@ -232,8 +232,8 @@
                     <!--숙소 부대 시설 아이콘-->
                     <div class="row">
                         <!--여기는 사장님이 태그한 것들만 DB에서 확인해서 아이콘 넣을것.-->
-                        <span class="col-md-2">
-                            <i class="fa-solid fa-dumbbell">피트니스</i>
+                        <span th:each="word : ${service}" class="col-md-2">
+                            <i class="fa-solid fa-dumbbell" th:text="${word}">피트니스</i>
                         </span>
 
                         <span class="col-md-2">
@@ -287,6 +287,9 @@
                     <div class="row g-3">
 
                         <div class="col-md-12">
+                            <p th:text="${accommodation.introduction}">
+
+                            </p>
                         </div>
 
                     </div>
@@ -297,6 +300,9 @@
                     <div class="row g-3">
 
                         <div class="col-md-12">
+                            <p th:text="${accommodation.information}">
+
+                            </p>
                         </div>
 
                     </div>
@@ -317,6 +323,9 @@
                     <div class="row g-3">
 
                         <div class="col-md-12">
+                            <p th:text="${accommodation.location}">
+
+                            </p>
                         </div>
 
                     </div>
