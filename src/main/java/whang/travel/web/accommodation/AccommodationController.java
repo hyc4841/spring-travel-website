@@ -9,13 +9,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import whang.travel.domain.accommodation.Accommodation;
 import whang.travel.domain.accommodation.AccommodationService;
+import whang.travel.domain.accommodation.ServiceList;
 import whang.travel.web.accommodation.form.AccommoSearchCond;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
@@ -54,14 +51,11 @@ public class AccommodationController {
         Accommodation accommodation = accommoService.findAccommoById(accommoId).get();
         log.info("숙소 검색={}", accommodation);
 
-        // service는 값이 여러개 여서 파싱 해서 분리해줘야함.
+//         service는 값이 여러개 여서 파싱 해서 분리해줘야함.
         String[] service = parseService(accommodation.getService());
 
-        List<String> sservice = new ArrayList<>(List.of(service));
-
-        log.info("service={}", sservice);
-
-        model.addAttribute("service", sservice);
+        model.addAttribute("icons", ServiceList.values());
+        model.addAttribute("service", service);
         model.addAttribute("accommodation", accommodation);
         model.addAttribute("user", user);
 
@@ -72,7 +66,6 @@ public class AccommodationController {
     // 숙소 상세 화면
 
     // service 파싱 함수
-
     private String[] parseService(Object[] service) {
         String data = (String) service[0];
         data = data.replaceAll("\\[\\[|\\]\\]|\\s+", "");
