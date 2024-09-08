@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whang.travel.domain.image.mybatis.ImageMapper">
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="imageId">
+        insert into image (original_name, save_name, entity_type, entity_id)
+        values (#{originalName}, #{saveName}, #{entityType}, #{entityId})
+    </insert>
+
+    <!-- 주로 사용자가 작성한 게시글들을 리스트로 뽑아낼 걸로 기대함 -->
+    <select id="findImages" resultType="Image">
+        select image_id, original_name, save_name, entity_type, entity_id
+        from image
+        where
+        entity_type = #{entityType}
+        and entity_id = #{entityId}
+    </select>
+
+    <select id="findImage" resultType="Image">
+        select image_id, original_name, save_name, entity_type, entity_id
+        from image
+        where image_id = #{imageId}
+    </select>
+
+</mapper>

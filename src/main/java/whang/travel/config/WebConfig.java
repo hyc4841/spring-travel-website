@@ -5,7 +5,6 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import whang.travel.web.interceptor.LoginCheckInterceptor;
 
-@Configuration
 public class WebConfig implements WebMvcConfigurer { // 인터셉터를 등록하기 위해서 WebMvcConfigurer를 상속받음
 
     @Override

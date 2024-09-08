@@ -152,36 +152,37 @@
 
 <!--상단 숙소 이미지-->
 <div class="container overflow-hidden text-center mb-4">
+<!--  상단 소개 이미지는 5개까지만 그냥 서버에서 5개만 보내는 걸로.  -->
     <div class="row">
         <div class="col-md-6">
             <a href="#">
-                <img class="ratio ratio-1x1 img-fluid rounded" th:src="@{/img/1.jpg}" src="1.jpg" alt="숙소 테스트 이미지">
+                <img class="ratio ratio-1x1 img-fluid rounded" th:src="|/images/${Image1.saveName}|" src="1.jpg" alt="숙소 소개 이미지">
             </a>
         </div>
         <div class="col-md-6">
             <div class="row g-3" >
                 <div class="col-md-6 d-none d-md-block">
                     <a href="#">
-                        <img class="ratio ratio-1x1 img-fluid rounded" th:src="@{/img/2.jpg}" src="2.jpg" alt="숙소 테스트 이미지">
+                        <img class="ratio ratio-1x1 img-fluid rounded" th:src="|/images/${Image2.saveName}|" src="2.jpg" alt="숙소 소개 이미지">
                     </a>
 
                 </div>
 
                 <div class="col-md-6 d-none d-md-block">
                     <a href="#">
-                        <img class="ratio ratio-1x1 img-fluid rounded" th:src="@{/img/3.jpg}" src="3.jpg" alt="숙소 테스트 이미지">
+                        <img class="ratio ratio-1x1 img-fluid rounded" th:src="|/images/${Image3.saveName}|" src="3.jpg" alt="숙소 소개 이미지">
                     </a>
                 </div>
 
                 <div class="col-md-6 d-none d-md-block">
                     <a href="#">
-                        <img class="ratio ratio-1x1 img-fluid rounded" th:src="@{/img/4.jpg}" src="4.jpg" alt="숙소 테스트 이미지">
+                        <img class="ratio ratio-1x1 img-fluid rounded" th:src="|/images/${Image4.saveName}|" src="4.jpg" alt="숙소 소개 이미지">
                     </a>
                 </div>
 
                 <div class="col-md-6 d-none d-md-block">
                     <a href="#">
-                        <img class="ratio ratio-1x1 img-fluid rounded" th:src="@{/img/5.jpg}" src="5.jpg" alt="숙소 테스트 이미지">
+                        <img class="ratio ratio-1x1 img-fluid rounded" th:src="|/images/${Image5.saveName}|" src="5.jpg" alt="숙소 소개 이미지">
                     </a>
                 </div>
             </div>
@@ -243,7 +244,7 @@
 
                     <!--숙소 부대 시설 아이콘-->
                     <div class="row">
-                        <div th:each="service : ${accommodation.service}" th:switch="${service}" class="col">
+                        <div th:each="service : ${accommodation.service}" th:switch="${service}" class="col-auto">
                             <span th:case="'피트니스'">
                                 <i class="fa-solid fa-dumbbell">피트니스</i>
                             </span>

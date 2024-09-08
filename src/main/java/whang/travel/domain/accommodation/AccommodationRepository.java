@@ -13,8 +13,6 @@ public interface AccommodationRepository {
     void update(Long accommoId, Accommodation updateAccommo); // 추후에 업데이트 폼 만들어서 바꿔주기
 
 
-
-
     // 단건 조회 : 숙소 상세 페이지 들어갈 때
     Optional<Accommodation> findAccommoById(Long accommoId);
 

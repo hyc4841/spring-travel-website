@@ -40,6 +40,7 @@ public class SecurityConfig {
                                 .requestMatchers("/img/**").permitAll()
                                 .requestMatchers("/home").permitAll()
                                 .requestMatchers("/signup/**").permitAll()
+                                .requestMatchers("/images/**").permitAll()
                                 .requestMatchers("/").permitAll()
                                 .requestMatchers("/bulletinBoard/**").hasAnyRole("user", "admin")
                                 .requestMatchers("/accommodation/**").permitAll()
