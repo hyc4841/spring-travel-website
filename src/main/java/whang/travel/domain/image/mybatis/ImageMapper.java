@@ -3,7 +3,7 @@ package whang.travel.domain.image.mybatis;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import whang.travel.domain.image.Image;
-import whang.travel.domain.image.form.ImageSaveForm;
+import whang.travel.web.image.form.ImageSaveForm;
 
 import java.util.List;
 

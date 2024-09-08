@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 import whang.travel.domain.image.Image;
 import whang.travel.domain.image.ImageRepository;
-import whang.travel.domain.image.form.ImageSaveForm;
+import whang.travel.web.image.form.ImageSaveForm;
 
 import java.util.List;
 

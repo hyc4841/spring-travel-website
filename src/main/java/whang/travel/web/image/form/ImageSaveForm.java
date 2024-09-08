@@ -1,4 +1,4 @@
-package whang.travel.domain.image.form;
+package whang.travel.web.image.form;
 
 import lombok.Data;
 

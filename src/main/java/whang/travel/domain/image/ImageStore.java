@@ -3,7 +3,7 @@ package whang.travel.domain.image;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
-import whang.travel.domain.image.form.ImageNameForm;
+import whang.travel.web.image.form.ImageNameForm;
 
 import java.io.File;
 import java.io.IOException;

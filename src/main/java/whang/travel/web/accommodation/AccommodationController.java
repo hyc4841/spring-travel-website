@@ -87,12 +87,12 @@ public class AccommodationController {
         return "/accommodation/accommoDetail";
     }
 
-    @ResponseBody
-    @GetMapping("/images/{filename}")
-    public Resource downloadImage(@PathVariable String filename) throws MalformedURLException {
-        log.info("이미지 다운로드={}", filename);
-        return new UrlResource("file:" + imageStore.getFullPath(filename));
-    }
+//    @ResponseBody
+//    @GetMapping("/images/{filename}")
+//    public Resource downloadImage(@PathVariable String filename) throws MalformedURLException {
+//        log.info("이미지 다운로드={}", filename);
+//        return new UrlResource("file:" + imageStore.getFullPath(filename));
+//    }
 
 
     // service 파싱 함수
