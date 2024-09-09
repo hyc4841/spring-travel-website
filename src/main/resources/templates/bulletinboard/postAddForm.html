@@ -18,9 +18,9 @@
             text-decoration-line: none;
         }
         .preview {
-            width: 100px; /* 미리보기 이미지 크기 */
+            width: 400px; /* 미리보기 이미지 크기 */
             height: auto; /* 비율 유지 */
-            margin: 5px; /* 간격 */
+            margin: 5px 5px 5px 0px; /* 간격 */
         }
     </style>
 </head>
@@ -142,7 +142,9 @@
             <div class="col-lg-12">
                 <label for="images">이미지</label>
                 <input type="file" multiple="multiple" th:field="*{images}" name="file" id="images" accept="image/*">
-                <div id="previewContainer"></div> <!-- 미리보기 이미지를 담을 컨테이너 -->
+                <div class="row" id="previewContainer">
+                    
+                </div> <!-- 미리보기 이미지를 담을 컨테이너 -->
             </div>
 
             <div class="col-2">

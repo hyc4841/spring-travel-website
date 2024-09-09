@@ -55,6 +55,18 @@
         or (#{endDate} &lt;= s.start_date and #{endDate} &lt;= s.end_date)))
     </select>
 
+    <select id="findRoomList" resultType="Room">
+        select DISTINCT room_id, r.name, r.personnel, max_personnel, r.accommodation
+        from room r
+        join accommodation a on a.accommodation_id = r.accommodation
+        left join reservation s on r.room_id = s.room
+        where
+        r.accommodation = #{accommoId}
+        and r.max_personnel &lt;= #{searchCond.personnel}
+        and (s.room is null or ((#{searchCond.startDate} &gt;= s.start_date and #{searchCond.startDate} &gt;= s.end_date)
+        or (#{searchCond.endDate} &lt;= s.start_date and #{searchCond.endDate} &lt;= s.end_date)))
+    </select>
+
     <!--숙소 삭제-->
     <delete id="delete">
         delete

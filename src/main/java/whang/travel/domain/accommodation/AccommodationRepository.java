@@ -1,5 +1,6 @@
 package whang.travel.domain.accommodation;
 
+import whang.travel.domain.accommodation.mybatis.Room;
 import whang.travel.web.accommodation.form.AccommoSearchCond;
 
 import java.util.List;
@@ -18,6 +19,8 @@ public interface AccommodationRepository {
 
     // 다중조회 : (지역, 기간, 인원) 종합해서 숙소 리스트 검색
     List<Accommodation> findAccommoList(AccommoSearchCond accommoSearchCond); //
+
+    List<Room> findRoomList(Long accommoId, AccommoSearchCond searchCond);
 
     /*
     숙소 검색은 주로 지역 검색으로 이루어질 것임.

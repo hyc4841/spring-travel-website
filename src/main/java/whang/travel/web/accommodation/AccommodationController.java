@@ -2,9 +2,6 @@ package whang.travel.web.accommodation;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -15,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import whang.travel.domain.accommodation.Accommodation;
 import whang.travel.domain.accommodation.AccommodationService;
 import whang.travel.domain.accommodation.ServiceList;
+import whang.travel.domain.accommodation.mybatis.Room;
 import whang.travel.domain.image.Image;
 import whang.travel.domain.image.ImageRepository;
 import whang.travel.domain.image.ImageStore;
@@ -34,13 +32,12 @@ public class AccommodationController {
     // 지역명이 들어온 것으로 인식하고 지역 기반 검색으로 하면 됨.
 
     private final AccommodationService accommoService;
-    private final ImageStore imageStore;
     private final ImageRepository imageRepository;
 
     // img test
 
     @GetMapping("/list")
-    public String AccommoList(@Validated @ModelAttribute("searchCond") AccommoSearchCond accommoSearchCond,
+    public String AccommoList(@Validated @ModelAttribute("searchCond") AccommoSearchCond searchCond,
                               BindingResult bindingResult, Model model, @AuthenticationPrincipal UserDetails user) {
 
         if (bindingResult.hasErrors()) {
@@ -50,8 +47,9 @@ public class AccommodationController {
 
         // 넘겨야할 데이터 : 숙소 분류(category), 숙소 이름, 숙소 지역, 리뷰 개수, 별점, 썸네일 이미지
 
-        List<Accommodation> accommoList = accommoService.findAccommoList(accommoSearchCond);
+        List<Accommodation> accommoList = accommoService.findAccommoList(searchCond);
 
+        model.addAttribute("searchCond", searchCond);
         model.addAttribute("user", user);
         model.addAttribute("accommoList", accommoList);
 
@@ -59,7 +57,14 @@ public class AccommodationController {
     }
 
     @GetMapping("/detail/{accommoId}")
-    public String AccommoDetail(@PathVariable Long accommoId, @AuthenticationPrincipal UserDetails user, Model model) {
+    public String AccommoDetail(@PathVariable Long accommoId, @ModelAttribute("searchCond") AccommoSearchCond searchCond,
+                                @AuthenticationPrincipal UserDetails user, Model model) {
+
+        // 이용 가능한 방 리스트 보여줘야함. 만약에 날짜 선택 안하고 왔으면 숙소가 가지고 있는 모든방 보여주고
+        // 예약 버튼 누를 때 날짜 선택하도록 만듬.
+        // 선택 날짜를 여기까지 끌고 와야 하는데....
+        List<Room> roomList = accommoService.findRoomList(accommoId, searchCond);
+        log.info("방찾기={}", roomList);
 
         // 숙소 소개용 사진 이름을 보내줘야함
         List<Image> accommoImages = imageRepository.findImages("accommodation", accommoId);
@@ -71,7 +76,6 @@ public class AccommodationController {
         // service는 값이 여러개 여서 파싱 해서 분리해줘야함.
         String[] service = parseService(accommodation.getService());
 
-
         // 메인 페이지에 이미지 5개 보내기. 다른 방법을 찾아보자
         model.addAttribute("Image1", accommoImages.get(0));
         model.addAttribute("Image2", accommoImages.get(1));
@@ -79,6 +83,7 @@ public class AccommodationController {
         model.addAttribute("Image4", accommoImages.get(3));
         model.addAttribute("Image5", accommoImages.get(4));
 
+        model.addAttribute("roomList", roomList);
         model.addAttribute("icons", ServiceList.values());
         model.addAttribute("service", service);
         model.addAttribute("accommodation", accommodation);
@@ -86,14 +91,6 @@ public class AccommodationController {
 
         return "/accommodation/accommoDetail";
     }
-
-//    @ResponseBody
-//    @GetMapping("/images/{filename}")
-//    public Resource downloadImage(@PathVariable String filename) throws MalformedURLException {
-//        log.info("이미지 다운로드={}", filename);
-//        return new UrlResource("file:" + imageStore.getFullPath(filename));
-//    }
-
 
     // service 파싱 함수
     private String[] parseService(Object[] service) {

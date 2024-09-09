@@ -45,6 +45,13 @@ public class MybatisAccommoRepository implements AccommodationRepository {
     }
 
     @Override
+    public List<Room> findRoomList(Long accommoId, AccommoSearchCond searchCond) {
+        List<Room> roomList = accommodationMapper.findRoomList(accommoId, searchCond);
+        log.info("예약 가능한 숙소={}", roomList);
+        return roomList;
+    }
+
+    @Override
     public void delete(Long accommoId) {
         log.info("숙소 삭제");
         accommodationMapper.delete(accommoId);

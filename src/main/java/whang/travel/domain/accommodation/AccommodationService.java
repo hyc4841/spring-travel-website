@@ -1,5 +1,6 @@
 package whang.travel.domain.accommodation;
 
+import whang.travel.domain.accommodation.mybatis.Room;
 import whang.travel.web.accommodation.form.AccommoSearchCond;
 
 import java.util.List;
@@ -10,5 +11,7 @@ public interface AccommodationService {
     public Optional<Accommodation> findAccommoById(Long accommoId);
 
     List<Accommodation> findAccommoList(AccommoSearchCond accommoSearchCond);
+
+    List<Room> findRoomList(Long accommoId, AccommoSearchCond searchCond);
 
 }
