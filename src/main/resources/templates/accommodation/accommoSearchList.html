@@ -186,6 +186,7 @@
             <div th:each="accommo : ${accommoList}" class="col-md-8 border-bottom mb-4">
                 <a th:href="@{/accommodation/detail/{accommoId}(accommoId=${accommo.accommodationId}, startDate=${searchCond.startDate}, endDate=${searchCond.endDate}, personnel=${searchCond.personnel})}" href="#">
                     <div class="row g-0 border rounded flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+
                         <div class="col-auto d-none d-lg-block rounded">
                             <svg class="bd-placeholder-img" width="300" height="200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
                         </div>
@@ -196,7 +197,6 @@
 
 
                             <div class="mb-1 text-muted">숙소 지역</div>
-
 
                             <div class="mb-1 text-muted">
                         <span class="badge rounded-pill bg-danger"> <!--알약모양 뱃지-->

@@ -66,7 +66,9 @@
     /* border: 1px solid #ccc; 테두리 추가 */
     border-radius: 10px; 
 }
+
 table {
+    /* 강제로 round 효과 주기 */
     border-collapse: separate; /* 테두리 분리 */
     border-spacing: 0; /* 간격 설정 */
     border-radius: 10px; /* 원하는 반경 설정 */
