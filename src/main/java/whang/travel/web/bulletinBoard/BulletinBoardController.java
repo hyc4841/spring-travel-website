@@ -14,12 +14,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import whang.travel.domain.bulletinboard.Post;
 import whang.travel.domain.bulletinboard.PostService;
 import whang.travel.domain.bulletinboard.DisplayPostForm;
+import whang.travel.domain.image.ImageRepository;
 import whang.travel.domain.member.Member;
 import whang.travel.domain.member.MemberRepository;
 import whang.travel.web.bulletinBoard.form.SavePostForm;
 import whang.travel.web.bulletinBoard.form.UpdatePostForm;
 import whang.travel.web.search.form.SearchForm;
 
+import java.io.IOException;
 import java.util.List;
 
 @Slf4j
@@ -71,7 +73,7 @@ public class BulletinBoardController {
 
     @PostMapping("/add")
     public String postAdd(@Validated @ModelAttribute("post") SavePostForm post, BindingResult bindingResult,
-                          RedirectAttributes redirectAttributes) {
+                          RedirectAttributes redirectAttributes) throws IOException {
         if (bindingResult.hasErrors()) {
             log.info("오류 발생={}", bindingResult);
             return "bulletinboard/postAddForm";
@@ -90,9 +92,7 @@ public class BulletinBoardController {
     @GetMapping("/detail/{postId}")
     public String showPost(@PathVariable Long postId, @AuthenticationPrincipal UserDetails user, Model model) {
         // 게시물을 가져온다.
-        Post post = postService.findPostByPostId(postId).get();
-        // DB접근해서 게시 글을 가져와서 보여준다
-        // 수정 화면에서도 DB에 접근해서 가져와서 보여주는 식으로 하자
+        Post post = postService.findPostByPostId(postId).get(); // 서비스 단계에서 이미지도 찾아온다
 
         model.addAttribute("post", post);
         model.addAttribute("user", user);
@@ -133,4 +133,7 @@ public class BulletinBoardController {
         redirectAttributes.addAttribute("postId", postId);
         return "redirect:/bulletinBoard/detail/{postId}";
     }
+
+    // 게시글 삭제하기 기능 추가하기
+
 }

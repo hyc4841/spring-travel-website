@@ -2,8 +2,11 @@ package whang.travel.domain.bulletinboard;
 
 import lombok.Data;
 import lombok.Getter;
+import org.springframework.web.multipart.MultipartFile;
+import whang.travel.domain.image.Image;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class Post {
@@ -22,5 +25,14 @@ public class Post {
     private Date postDate;
     // 최종 수정 일자
     private Date postEditDate;
+    // 이미지
+    private List<Image> images;
 
+    public Post(Long memberId, String title, String content, String category, Date postDate) {
+        this.memberId = memberId;
+        this.title = title;
+        this.content = content;
+        this.category = category;
+        this.postDate = postDate;
+    }
 }

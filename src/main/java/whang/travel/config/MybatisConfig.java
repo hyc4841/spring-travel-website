@@ -9,6 +9,10 @@ import whang.travel.domain.bulletinboard.PostService;
 import whang.travel.domain.bulletinboard.PostServiceImpl;
 import whang.travel.domain.bulletinboard.mybatis.MybatisPostRepository;
 import whang.travel.domain.bulletinboard.mybatis.PostMapper;
+import whang.travel.domain.image.ImageRepository;
+import whang.travel.domain.image.ImageStore;
+import whang.travel.domain.image.mybatis.ImageMapper;
+import whang.travel.domain.image.mybatis.MybatisImageRepository;
 import whang.travel.domain.item.ItemRepository;
 import whang.travel.domain.item.ItemService;
 import whang.travel.domain.item.ItemServiceImpl;
@@ -27,6 +31,7 @@ public class MybatisConfig {
     private final ItemMapper itemMapper;
     private final MemberMapper memberMapper;
     private final PostMapper postMapper;
+    private final ImageMapper imageMapper;
 
     // 아이템 부분
     @Bean
@@ -51,12 +56,22 @@ public class MybatisConfig {
 
     @Bean
     public PostService postService() {
-        return new PostServiceImpl(postRepository());
+        return new PostServiceImpl(postRepository(), imageRepository(), imageStore());
     }
 
     @Bean
     public PostRepository postRepository() {
         return new MybatisPostRepository(postMapper);
+    }
+
+    @Bean
+    public ImageRepository imageRepository() {
+        return new MybatisImageRepository(imageMapper);
+    }
+
+    @Bean
+    public ImageStore imageStore() {
+        return new ImageStore();
     }
 
 }

@@ -6,6 +6,13 @@
     <link th:href="@{/css/bootstrap.min.css}"
           href="../../static/css/bootstrap.css" rel="stylesheet">
 </head>
+
+<style>
+    a {
+        text-decoration-line: none;
+    }
+
+</style>
 <body>
 
 <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
@@ -45,7 +52,7 @@
                         <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#people-circle"/></svg>
                         <span th:if="${not #strings.isEmpty(user)}" th:text="${user.username}">
                                 로그인한 사용자 이름
-                            </span>
+                        </span>
                     </a>
 
                     <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">

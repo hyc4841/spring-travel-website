@@ -22,16 +22,8 @@ public class MybatisPostRepository implements PostRepository {
 
     @Override
     public Post save(SavePostForm savePost) {
-
-        Post post = new Post();
-        post.setMemberId(savePost.getMemberId());
-        post.setTitle(savePost.getTitle());
-        post.setContent(savePost.getContent());
-        post.setCategory(savePost.getCategory());
-        post.setPostDate(new Date());
-
+        Post post = new Post(savePost.getMemberId(), savePost.getTitle(), savePost.getContent(), savePost.getCategory(), new Date());
         postMapper.save(post);
-
         return post;
     }
 

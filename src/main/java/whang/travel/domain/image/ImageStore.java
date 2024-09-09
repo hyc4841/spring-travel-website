@@ -21,7 +21,7 @@ public class ImageStore {
         return fileDir + fileName;
     }
 
-    public List<ImageNameForm> storeFiles(List<MultipartFile> multipartFiles) throws IOException {
+    public List<ImageNameForm> storeImages(List<MultipartFile> multipartFiles) throws IOException {
         List<ImageNameForm> storeImageResult = new ArrayList<>();
         for (MultipartFile multipartFile : multipartFiles) {
             if (!multipartFile.isEmpty()) {
@@ -32,7 +32,7 @@ public class ImageStore {
     }
 
     public ImageNameForm storeImage(MultipartFile multipartFile) throws IOException {
-        if (!multipartFile.isEmpty()) {
+        if (multipartFile.isEmpty()) {
             return null;
         }
 
