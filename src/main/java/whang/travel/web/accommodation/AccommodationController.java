@@ -60,6 +60,9 @@ public class AccommodationController {
     public String AccommoDetail(@PathVariable Long accommoId, @ModelAttribute("searchCond") AccommoSearchCond searchCond,
                                 @AuthenticationPrincipal UserDetails user, Model model) {
 
+        // 방 가격 만약에 데이터베이스 조회해서 설정해둔 가격이 따로 있으면 그에 맞는 가격 보여줘야함.
+
+
         // 이용 가능한 방 리스트 보여줘야함. 만약에 날짜 선택 안하고 왔으면 숙소가 가지고 있는 모든방 보여주고
         // 예약 버튼 누를 때 날짜 선택하도록 만듬.
         // 선택 날짜를 여기까지 끌고 와야 하는데....
@@ -83,7 +86,6 @@ public class AccommodationController {
         model.addAttribute("Image3", accommoImages.get(2));
         model.addAttribute("Image4", accommoImages.get(3));
         model.addAttribute("Image5", accommoImages.get(4));
-
          */
 
         model.addAttribute("roomList", roomList);

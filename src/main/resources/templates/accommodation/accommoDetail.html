@@ -368,15 +368,18 @@
                                                 <h5 class="card-title" th:text="${room.name}">방 이름</h5>
                                             </div>
 
+<!--                                            상세보기 버튼 주소 바꿔야함.-->
                                             <div class="col-md-3 offset-9" style="background-color: aqua;">
-                                                <button class="btn btn-sm btn-primary" style="min-width: 93.26px; float:right;">상세 보기 ></button>
+                                                <button class="btn btn-sm btn-primary" style="min-width: 93.26px; float:right;"
+                                                        th:onclick="|location.href='@{/reservation/add/{roomId}(roomId=${room.roomId})}'|">상세 보기 ></button>
                                             </div>
 
                                             <div class="col-12 mt-3 rounded p-3" style="background-color: aqua;">
                                                 <p class="card-text" style="float: right;"><strong th:text="${room.basePrice}">가격</strong></p>
                                                 <p class="card-text mb-0"><small class="text-body-secondary">입실 [[${room.checkIn}]]</small></p>
                                                 <p class="card-text mt-0"><small class="text-body-secondary">퇴실  [[${room.checkOut}]]</small></p>
-                                                <button class="btn btn-sm btn-primary" type="button" style="min-width: 73.6px; float: right;" th:href="@{/reservation/add/{roomId}(roomId=${room.roomId})}">예약하기</button>
+                                                <button class="btn btn-sm btn-primary" type="button" style="min-width: 73.6px; float: right;"
+                                                        th:onclick="|location.href='@{/reservation/add/{roomId}(roomId=${room.roomId})}'|">예약하기</button>
                                             </div>
                                         </div>
                                     </div>
