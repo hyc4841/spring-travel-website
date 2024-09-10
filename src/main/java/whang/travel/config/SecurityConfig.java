@@ -42,6 +42,7 @@ public class SecurityConfig {
                                 .requestMatchers("/signup/**").permitAll()
                                 .requestMatchers("/images/**").permitAll()
                                 .requestMatchers("/").permitAll()
+                                .requestMatchers("/error").permitAll()
                                 .requestMatchers("/bulletinBoard/**").hasAnyRole("user", "admin")
                                 .requestMatchers("/accommodation/**").permitAll()
                                 .anyRequest().authenticated()

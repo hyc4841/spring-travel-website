@@ -31,4 +31,8 @@ public class AccommodationServiceImpl implements AccommodationService {
     public List<Room> findRoomList(Long accommoId, AccommoSearchCond searchCond) {
         return accommoRepository.findRoomList(accommoId, searchCond);
     }
+
+    public void save(Accommodation accommodation) {
+        accommoRepository.save(accommodation);
+    }
 }

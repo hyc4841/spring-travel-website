@@ -14,4 +14,6 @@ public interface AccommodationService {
 
     List<Room> findRoomList(Long accommoId, AccommoSearchCond searchCond);
 
+    void save(Accommodation accommodation);
+
 }

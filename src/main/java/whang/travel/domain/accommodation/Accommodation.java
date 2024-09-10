@@ -13,5 +13,6 @@ public class Accommodation {
     private String introduction;
     private Object[] service;
     private String information;
+    private String region;
     private Long seller;            // seller foreign key
 }

@@ -77,11 +77,14 @@ public class AccommodationController {
         String[] service = parseService(accommodation.getService());
 
         // 메인 페이지에 이미지 5개 보내기. 다른 방법을 찾아보자
+        /*
         model.addAttribute("Image1", accommoImages.get(0));
         model.addAttribute("Image2", accommoImages.get(1));
         model.addAttribute("Image3", accommoImages.get(2));
         model.addAttribute("Image4", accommoImages.get(3));
         model.addAttribute("Image5", accommoImages.get(4));
+
+         */
 
         model.addAttribute("roomList", roomList);
         model.addAttribute("icons", ServiceList.values());
@@ -99,6 +102,23 @@ public class AccommodationController {
         return data.split(",");
     }
 
+    @PostMapping("/addd")
+    public String addAccommodation(@Validated @ModelAttribute("accommodation") Accommodation accommodation, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            log.info("에러발생={}", bindingResult);
+            return "/accommodation/addAccommo";
+        }
+        accommoService.save(accommodation);
+        return "redirect:/accommodation/addd";
+    }
+
+
+    @GetMapping("/addd")
+    public String addAccommodationview(@ModelAttribute("accommodation") Accommodation accommodation) {
+
+
+        return "/accommodation/addAccommo";
+    }
 
 
 }
