@@ -14,16 +14,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import whang.travel.domain.bulletinboard.Post;
 import whang.travel.domain.bulletinboard.PostService;
 import whang.travel.domain.bulletinboard.DisplayPostForm;
-import whang.travel.domain.image.ImageRepository;
 import whang.travel.domain.member.Member;
 import whang.travel.domain.member.MemberRepository;
 import whang.travel.web.bulletinBoard.form.SavePostForm;
 import whang.travel.web.bulletinBoard.form.UpdatePostForm;
-import whang.travel.web.search.form.SearchForm;
+import whang.travel.web.bulletinBoard.form.SearchForm;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Controller

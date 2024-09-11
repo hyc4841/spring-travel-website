@@ -141,9 +141,9 @@
             <!-- 이미지만 올라가도록 제한해야함. 완료-->
             <div class="col-lg-12">
                 <label for="images">이미지</label>
-                <input type="file" multiple="multiple" th:field="*{images}" name="file" id="images" accept="image/*">
+                <input type="file" class="form-control" multiple="multiple" th:field="*{images}" name="file" id="images" accept="image/*">
+
                 <div class="row" id="previewContainer">
-                    
                 </div> <!-- 미리보기 이미지를 담을 컨테이너 -->
             </div>
 

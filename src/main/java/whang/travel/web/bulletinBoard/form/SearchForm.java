@@ -1,4 +1,4 @@
-package whang.travel.web.search.form;
+package whang.travel.web.bulletinBoard.form;
 
 import lombok.Data;
 

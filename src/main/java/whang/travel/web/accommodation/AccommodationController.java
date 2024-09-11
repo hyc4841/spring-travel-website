@@ -90,7 +90,7 @@ public class AccommodationController {
 
         model.addAttribute("roomList", roomList);
         model.addAttribute("icons", ServiceList.values());
-        model.addAttribute("service", service);
+        model.addAttribute("services", service);
         model.addAttribute("accommodation", accommodation);
         model.addAttribute("user", user);
 
@@ -104,23 +104,24 @@ public class AccommodationController {
         return data.split(",");
     }
 
-    @PostMapping("/addd")
+    @GetMapping("/add")
+    public String addAccommodationview(@ModelAttribute("accommodation") Accommodation accommodation) {
+        return "/accommodation/addAccommo";
+    }
+
+    @PostMapping("/add")
     public String addAccommodation(@Validated @ModelAttribute("accommodation") Accommodation accommodation, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             log.info("에러발생={}", bindingResult);
             return "/accommodation/addAccommo";
         }
+        
         accommoService.save(accommodation);
         return "redirect:/accommodation/addd";
     }
 
 
-    @GetMapping("/addd")
-    public String addAccommodationview(@ModelAttribute("accommodation") Accommodation accommodation) {
 
-
-        return "/accommodation/addAccommo";
-    }
 
 
 }

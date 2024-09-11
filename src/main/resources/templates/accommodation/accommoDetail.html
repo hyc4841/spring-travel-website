@@ -19,8 +19,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
     <script src="https://kit.fontawesome.com/3c3a4f4683.js" crossorigin="anonymous"></script>
 
-    <link rel="stylesheet" href="myProjects/webProject/icofont/css/icofont.min.css">
-
     <!-- JS -->
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
@@ -252,7 +250,6 @@
 
                         별점(4.8)
                     </span>
-
                     <span class="text-secondary">
                         "00"명 평가
                     </span>
@@ -285,51 +282,53 @@
 
                 <div class="col-md-12 p-3 border-top border-bottom">
                     <h4>서비스 및 부대시설</h4>
-
                     <!--숙소 부대 시설 아이콘-->
                     <div class="row">
-                        <div th:each="service : ${accommodation.service}" th:switch="${service}" class="col-auto">
+                        <div th:each="service : ${services}" th:switch="${service}" class="col-auto">
                             <span th:case="'피트니스'">
                                 <i class="fa-solid fa-dumbbell">피트니스</i>
                             </span>
-
                             <span th:case="'조식'">
                                 <i class="fa-solid fa-mug-saucer">조식</i>
                             </span>
-
                             <span th:case="'수영장'">
                                 <i class="fa-solid fa-person-swimming">수영장</i>
                             </span>
-
-                            <span th:case="'바베큐 시설'">
+                            <span th:case="'바베큐'">
                                 <i class="fa-solid fa-bacon">바베큐</i>
                             </span>
-
                             <span th:case="'샤워장'">
                                 <i class="fa fa-shower">샤워장</i>
                             </span>
                             <span th:case="'와이파이'" >
                                 <i class="fa-solid fa-wifi">와이파이</i>
                             </span>
-
                             <span th:case="'레스토랑'">
                                 <i class="fa-solid fa-utensils">레스토랑</i>
                             </span>
-
                             <span th:case="'금연'" >
                                 <i class="fa-solid fa-ban-smoking">금연</i>
                             </span>
-
                             <span th:case="'비즈니스 센터'">
                                 <i class="fa-solid fa-briefcase">비즈니스 센터</i>
                             </span>
-
                             <span th:case="'스파'">
                                 <i class="fa-solid fa-spa">스파</i>
                             </span>
-
                             <span th:case="'TV'">
                                 <i class="fa-solid fa-tv">TV</i>
+                            </span>
+                            <span th:case="'자전거 대여'">
+                                <i class="fa-solid fa-bicycle">자전거 대여</i>
+                            </span>
+                            <span th:case="'공용 주방'">
+                                <i class="fa-solid fa-kitchen-set">공용 주방</i>
+                            </span>
+                            <span th:case="'헬스장'">
+                                <i class="fa-solid fa-dumbbell">헬스장</i>
+                            </span>
+                            <span th:case="'주방시설'">
+                                <i class="fa-solid fa-kitchen-set">주방</i>
                             </span>
                         </div>
                         <!--여기는 사장님이 태그한 것들만 DB에서 확인해서 아이콘 넣을것.-->
@@ -337,24 +336,12 @@
                     </div>
                 </div>
 
-
-                <div class="col-md-12 border-bottom mt-5">
-                    <div class="row g-3">
-                        <div class="col-md-12">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-12 border-bottom mt-5">
+                <div class="col-md-12 border-bottom">
                     <h2>객실 선택</h2>
-                    
-
-
                     <div class="row">
-                        <div class="col-md-12" th:each="room : ${roomList}">
+                        <div class="col-md-12 mb-3" th:each="room : ${roomList}">
                             <div class="card">
                                 <div class="row p-3">
-
                                     <!--            썸네일 부분-->
                                     <div class="col-md-4 d-none d-sm-block">
                                         <svg id="roomImg" class="bd-placeholder-img" width="100%" height="250"  xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"/><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image</text></svg>
@@ -364,13 +351,13 @@
                                     <div class="col-md-8">
                                         <div class="row card-body">
                                             
-                                            <div class="col-12" style="background-color: aqua;">
+                                            <div class="col-12">
                                                 <h5 class="card-title" th:text="${room.name}">방 이름</h5>
                                             </div>
 
 <!--                                            상세보기 버튼 주소 바꿔야함.-->
-                                            <div class="col-md-3 offset-9" style="background-color: aqua;">
-                                                <button class="btn btn-sm btn-primary" style="min-width: 93.26px; float:right;"
+                                            <div class="col-3 offset-9">
+                                                <button class="btn btn-sm btn-primary" style="min-width: 94px; float:right;"
                                                         th:onclick="|location.href='@{/reservation/add/{roomId}(roomId=${room.roomId})}'|">상세 보기 ></button>
                                             </div>
 
@@ -390,7 +377,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-12 border-bottom mt-5">
+                <div class="col-md-12 border-bottom">
                     <h2>숙소 소개</h2>
                     <div class="row g-3">
 
@@ -403,7 +390,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-12 border-bottom mt-5">
+                <div class="col-md-12 border-bottom">
                     <h2>숙소 이용 정보</h2>
                     <div class="row g-3">
 
@@ -416,7 +403,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-12 border-bottom mt-5">
+                <div class="col-md-12 border-bottom">
                     <h2>취소 및 환불 규정</h2>
                     <div class="row g-3">
 
@@ -426,7 +413,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-12 border-bottom mt-5">
+                <div class="col-md-12 border-bottom">
                     <h2>위치</h2>
                     <div class="row g-3">
 
@@ -439,27 +426,22 @@
                     </div>
                 </div>
 
-                <div class="col-md-12 border-bottom mt-5">
+                <div class="col-md-12 border-bottom mb-5">
                     <h2 class="border-bottom">리뷰</h2>
                     <div class="row g-3">
-
                         <div class="col-md-12">
+
                         </div>
 
                     </div>
                 </div>
-
             </div>
-
         </div>
 
         <!--오른쪽 부수 컨텐츠-->
         <div class="col-md-4">
-
-            <div class="row g-4">
-
                 <!-- 카카오맵-->
-                <div class="col-md-12 d-none d-lg-block">
+                <div class="col-md-12 d-none d-lg-block mb-3">
                     <div id="map" class="rounded" style="width:100%; height:250px;"></div>
                 </div>
 
@@ -472,9 +454,6 @@
                         </div>
                     </div>
                 </div>
-
-            </div>
-
         </div>
 
     </div>
