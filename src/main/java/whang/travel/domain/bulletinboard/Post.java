@@ -15,6 +15,8 @@ public class Post {
     private Long postId;
     // 작성자(맴버 외래 키)
     private Long memberId;
+
+    private String memberLoginId; // 멤버 로그인 id 보여주기용
     // 제목
     private String title; // 100자
     // 내용

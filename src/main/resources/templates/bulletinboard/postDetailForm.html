@@ -16,6 +16,9 @@
             height: auto;
             margin: 5px 5px 5px 0px;
         }
+        a {
+            text-decoration-line: none;
+        }
     </style>
 </head>
 <body>
@@ -132,9 +135,9 @@
             </div>
 
             <div class="col-2">
-                <label for="memberId">작성자</label>
-                <input type="text" id="memberId" class="form-control"
-                       th:field="*{memberId}" readonly>
+                <label for="memberLoginId">작성자</label>
+                <input type="text" id="memberLoginId" class="form-control"
+                       th:field="*{memberLoginId}" readonly>
             </div>
 
         </div>

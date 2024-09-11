@@ -23,6 +23,7 @@ import whang.travel.web.search.form.SearchForm;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Controller
@@ -31,7 +32,7 @@ import java.util.List;
 public class BulletinBoardController {
 
     private final PostService postService;
-    private final MemberRepository memberRepository;
+    private final MemberRepository memberRepository; // 바로 repository에 접근하는게 맞는 걸까?
 
     @GetMapping("/list")
     // 게시판 목록 화면
@@ -58,18 +59,7 @@ public class BulletinBoardController {
     }
 
     // 현재 로그인한 유저의 id를 찾기 위한 메소드
-    private Member findMember(HttpServletRequest request, @AuthenticationPrincipal UserDetails curMember) {
-        String username = curMember.getUsername();
-        Member member = memberRepository.findByLoginId(username).get();
-        return member;
-        /*
-        spring security 도입하면서 이 부분은 사용이 불가능해짐
-        // 현재 로그인한 멤버 찾기
-        HttpSession session = request.getSession();
-        Member loginMember = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
-        return loginMember.getId();
-         */
-    }
+
 
     @PostMapping("/add")
     public String postAdd(@Validated @ModelAttribute("post") SavePostForm post, BindingResult bindingResult,
@@ -94,6 +84,11 @@ public class BulletinBoardController {
         // 게시물을 가져온다.
         Post post = postService.findPostByPostId(postId).get(); // 서비스 단계에서 이미지도 찾아온다
 
+        // 작성자를 멤버 로그인 id로 보여주기.
+        Member member = memberRepository.findById(post.getMemberId()).get();
+        String memberId = member.getMemberId();
+        post.setMemberLoginId(memberId);
+
         model.addAttribute("post", post);
         model.addAttribute("user", user);
 
@@ -103,14 +98,12 @@ public class BulletinBoardController {
     // 글 수정 화면
     @GetMapping("/edit/{postId}")
     public String updatePostForm(@PathVariable Long postId, @AuthenticationPrincipal UserDetails user, Model model) {
-        Post post = postService.findPostByPostId(postId).get();
 
-        UpdatePostForm updatePost = new UpdatePostForm();
-        updatePost.setEditTitle(post.getTitle());
-        updatePost.setEditContent(post.getContent());
-        updatePost.setEditCategory(post.getCategory());
-        updatePost.setMemberId(post.getMemberId());
-        updatePost.setPostId(post.getPostId());
+        Post post = postService.findPostByPostId(postId).get();
+        Member member = memberRepository.findById(post.getMemberId()).get();
+
+        UpdatePostForm updatePost =
+                new UpdatePostForm(post.getPostId(), member.getMemberId(), post.getTitle(), post.getContent(), post.getCategory(), post.getMemberId());
 
         model.addAttribute("updatePost", updatePost);
         model.addAttribute("user", user);
@@ -124,9 +117,10 @@ public class BulletinBoardController {
 
         if (bindingResult.hasErrors()) {
             log.info("글 수정 오류={}", bindingResult);
-
             return "/bulletinboard/postUpdateForm"; // 오류와 함께 다시 글 수정 화면으로
         }
+        Long memberId = memberRepository.findIdByLoginId(updatePost.getMemberLoginId());
+        updatePost.setMemberId(memberId);
 
         postService.update(postId, updatePost);
 
@@ -135,5 +129,12 @@ public class BulletinBoardController {
     }
 
     // 게시글 삭제하기 기능 추가하기
+
+
+    private Member findMember(HttpServletRequest request, @AuthenticationPrincipal UserDetails curMember) {
+        String username = curMember.getUsername();
+        Member member = memberRepository.findByLoginId(username).get();
+        return member;
+    }
 
 }
