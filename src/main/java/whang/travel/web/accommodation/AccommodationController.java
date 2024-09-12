@@ -11,14 +11,11 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import whang.travel.domain.accommodation.Accommodation;
 import whang.travel.domain.accommodation.AccommodationService;
-import whang.travel.domain.accommodation.ServiceList;
 import whang.travel.domain.accommodation.mybatis.Room;
 import whang.travel.domain.image.Image;
 import whang.travel.domain.image.ImageRepository;
-import whang.travel.domain.image.ImageStore;
 import whang.travel.web.accommodation.form.AccommoSearchCond;
 
-import java.net.MalformedURLException;
 import java.util.List;
 
 @Slf4j
@@ -88,11 +85,11 @@ public class AccommodationController {
         model.addAttribute("Image5", accommoImages.get(4));
          */
 
-        model.addAttribute("roomList", roomList);
-        model.addAttribute("icons", ServiceList.values());
-        model.addAttribute("services", service);
-        model.addAttribute("accommodation", accommodation);
-        model.addAttribute("user", user);
+        model.addAttribute("searchCond", searchCond); // 숙소 검색 조건인데. 여기에 사용자가 지정한 입실, 퇴실 날짜, 인원, 지역 등이 담겨 있음
+        model.addAttribute("roomList", roomList); // 날짜 조건에 맞는 방 리스트
+        model.addAttribute("serviceList", service);  // 해당 숙소의 서비스 리스트
+        model.addAttribute("accommodation", accommodation); // 숙소 정보
+        model.addAttribute("user", user); // 현재 로그인한 유저
 
         return "/accommodation/accommoDetail";
     }
