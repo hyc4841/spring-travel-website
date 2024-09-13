@@ -94,6 +94,8 @@ public class AccommodationController {
         return "/accommodation/accommoDetail";
     }
 
+
+
     // service 파싱 함수
     private String[] parseService(Object[] service) {
         String data = (String) service[0];
@@ -102,7 +104,7 @@ public class AccommodationController {
     }
 
     @GetMapping("/add")
-    public String addAccommodationview(@ModelAttribute("accommodation") Accommodation accommodation) {
+    public String addAccommodationView(@ModelAttribute("accommodation") Accommodation accommodation) {
         return "/accommodation/addAccommo";
     }
 

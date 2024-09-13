@@ -51,8 +51,8 @@
         where
         a.region=#{region}
         and r.max_personnel &lt;= #{personnel}
-        and (s.room is null or ((#{startDate} &gt;= s.start_date and #{startDate} &gt;= s.end_date)
-        or (#{endDate} &lt;= s.start_date and #{endDate} &lt;= s.end_date)))
+        and (s.room is null or ((#{startDate} &gt;= s.check_in and #{startDate} &gt;= s.check_out)
+        or (#{endDate} &lt;= s.check_in and #{endDate} &lt;= s.check_out)))
     </select>
 
     <select id="findRoomList" resultType="Room">
@@ -63,8 +63,8 @@
         where
         r.accommodation = #{accommoId}
         and r.max_personnel &lt;= #{searchCond.personnel}
-        and (s.room is null or ((#{searchCond.startDate} &gt;= s.start_date and #{searchCond.startDate} &gt;= s.end_date)
-        or (#{searchCond.endDate} &lt;= s.start_date and #{searchCond.endDate} &lt;= s.end_date)))
+        and (s.room is null or ((#{searchCond.startDate} &gt;= s.check_in and #{searchCond.startDate} &gt;= s.check_out)
+        or (#{searchCond.endDate} &lt;= s.check_in and #{searchCond.endDate} &lt;= s.check_out)))
     </select>
 
     <!--숙소 삭제-->

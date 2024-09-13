@@ -43,8 +43,10 @@ public class SecurityConfig {
                                 .requestMatchers("/images/**").permitAll()
                                 .requestMatchers("/").permitAll()
                                 .requestMatchers("/error").permitAll()
-                                .requestMatchers("/bulletinBoard/**").hasAnyRole("user", "admin")
                                 .requestMatchers("/accommodation/**").permitAll()
+                                .requestMatchers("/reservation/**").permitAll()
+                                .requestMatchers("/bulletinBoard/**").hasAnyRole("user", "admin")
+
                                 .anyRequest().authenticated()
                 )
                 // 로그인 관련 설정

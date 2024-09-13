@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="whang.travel.domain.reservation.mybatis.ReservationMapper">
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="reservationId">
+        insert into reservation (MEMBER, SELLER, ACCOMMODATION, ROOM, PERSONNEL, R_DATE, CHECK_IN, CHECK_OUT)
+        values (#{member}, #{seller}, #{accommodation}, #{room}, #{personnel}, #{rDate}, #{checkIn}, #{checkOut})
+    </insert>
+
+<!--    업데이트 어떤거 고칠지 결정해서 수정하자-->
+    <update id="update">
+        update reservation set
+        MEMBER=#{updateForm.member}, SELLER=#{updateForm.seller}, ACCOMMODATION=#{updateForm.accommodation},
+        ROOM=#{updateForm.room}, PERSONNEL=#{updateForm.personnel}, R_DATE=#{updateForm.rDate},
+        CHECK_IN=#{updateForm.checkIn}, CHECK_OUT=#{updateForm.checkOut}
+        where reservation_id=#{reservationId}
+    </update>
+
+<!--  예약 id로 단건 조회  -->
+    <select id="findReservationById" resultType="Reservation">
+        select *
+        from reservation
+        where reservation_id=#{reservationId}
+    </select>
+
+<!--    예약 유저와 검색 조건으로 예약 다중 조회 -->
+    <select id="findReservationList" resultType="Reservation">
+        select *
+        from reservation
+        where member = #{memberId}
+    </select>
+
+
+    <delete id="delete">
+        delete from orders
+        where order_num=#{orderNum}
+    </delete>
+
+
+    <select id="findIdByMemberLoginId" resultType="Long">
+        select id
+        from member
+        where member_id=#{findMemberIdByMemberLoginId}
+    </select>
+
+
+</mapper>

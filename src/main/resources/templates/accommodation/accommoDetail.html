@@ -355,7 +355,7 @@
                                                 <h5 class="card-title" th:text="${room.name}">방 이름</h5>
                                             </div>
 
-<!--                                            상세보기 버튼 주소 바꿔야함.-->
+                                            <!-- 상세보기 버튼 주소 바꿔야함.-->
                                             <div class="col-3 offset-9">
                                                 <button class="btn btn-sm btn-primary" style="min-width: 94px; float:right;"
                                                         th:onclick="|location.href='@{/reservation/add/{roomId}(roomId=${room.roomId})}'|">상세 보기 ></button>
@@ -365,8 +365,7 @@
                                                 <p class="card-text" style="float: right;"><strong th:text="${room.basePrice}">가격</strong></p>
                                                 <p class="card-text mb-0"><small class="text-body-secondary">입실 [[${room.checkIn}]]</small></p>
                                                 <p class="card-text mt-0"><small class="text-body-secondary">퇴실  [[${room.checkOut}]]</small></p>
-                                                <button class="btn btn-sm btn-primary" type="button" style="min-width: 73.6px; float: right;"
-                                                        th:onclick="|location.href='@{/reservation/add/{roomId}(roomId=${room.roomId})}'|">예약하기</button>
+                                                <button th:id="${room.roomId}" class="btn btn-sm btn-primary" type="button" style="min-width: 73.6px; float: right;">예약하기</button>
                                                 <!-- 넘어가야할 데이터 : 선택한 입실, 퇴실 날짜, 현재 예약하려는 이용자, 예약하기 전에 누가 먼저 해당 날짜에 예약했을 수도 있으니까 검증하는 부분도 백 쪽에서 넣어야 함.-->
                                             </div>
                                         </div>
@@ -528,8 +527,49 @@ geocoder.addressSearch('[[${accommodation.location}]]', function(result, status)
   centeredSlides: false, // 슬라이드 중앙 정렬
 });
 
+    const xhr = new XMLHttpRequest();
+
+xhr.onload = function() {
+    if (xhr.readyState === 4) { // 요청이 완료되면
+        if (xhr.status === 200) {
+            console.log(xhr.responseText);
+            const response = JSON.parse(xhr.responseText); // 응답 처리
+            console.log('응답:', response);
+        } else {
+            console.error('오류 발생:', xhr.statusText);
+        }
+    }
+};
+
+xhr.onerror = function() {
+    console.log("에러 발생함");
+};
+
+document.body.addEventListener("click", function(event) {
+    if (event.target.tagName === "BUTTON") {
+        console.log("버튼 누름")
+        const roomId = event.target.id;
+        xhr.open("POST", `http://localhost:8080/reservation/check/${roomId}`, true); // 전송 방식, URL
+        xhr.setRequestHeader('Content-Type', 'application/json'); // 컨텐츠 타입 정하기
+
+        const reservation = {
+            // 멤버 정보는 진짜 넘기기 직전에
+            // 예약 날짜도 예약 확정될 때 그때 정해주기
+            // 숙소 판매자도 예약 확정될 때
+            accommodation: [[${accommodation.accommodationId}]],
+            room: roomId,
+            personnel: [[${searchCond.personnel}]],
+            checkIn: [[${searchCond.startDate}]],
+            checkOut: [[${searchCond.endDate}]]
+        };
+        xhr.send(JSON.stringify(reservation));
+    }
+});
+
 
 </script>
+
+<!--<script th:src="@{/script/reservationApi.js}"></script>-->
 
 <script th:src="@{/script/bootstrap.bundle.min.js}"
         src="../../static/script/bootstrap.bundle.min.js"></script>
