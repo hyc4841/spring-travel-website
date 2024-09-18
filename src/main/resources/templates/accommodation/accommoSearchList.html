@@ -184,7 +184,7 @@
 
             <!--아이템 카드-->
             <div th:each="accommo : ${accommoList}" class="col-md-8 border-bottom mb-4">
-                <a th:href="@{/accommodation/detail/{accommoId}(accommoId=${accommo.accommodationId}, startDate=${searchCond.startDate}, endDate=${searchCond.endDate}, personnel=${searchCond.personnel})}" href="#">
+                <a th:href="@{/accommodation/detail/{accommoId}(accommoId=${accommo.accommodationId}, checkIn=${searchCond.checkIn}, checkOut=${searchCond.checkOut}, personnel=${searchCond.personnel})}" href="#">
                     <div class="row g-0 border rounded flex-md-row mb-4 shadow-sm h-md-250 position-relative">
 
                         <div class="col-auto d-none d-lg-block rounded">

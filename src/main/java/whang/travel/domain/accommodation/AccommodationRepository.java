@@ -22,10 +22,7 @@ public interface AccommodationRepository {
 
     List<Room> findRoomList(Long accommoId, AccommoSearchCond searchCond);
 
-    /*
-    숙소 검색은 주로 지역 검색으로 이루어질 것임.
-    지역 + 날짜 + 가능 인원
-     */
+    Room findRoomById(Long roomId);
 
     // 삭제
     void delete(Long accommoId);

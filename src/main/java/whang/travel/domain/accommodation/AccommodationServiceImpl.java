@@ -32,6 +32,11 @@ public class AccommodationServiceImpl implements AccommodationService {
         return accommoRepository.findRoomList(accommoId, searchCond);
     }
 
+    @Override
+    public Room findRoomById(Long roomId) {
+        return accommoRepository.findRoomById(roomId);
+    }
+
     public void save(Accommodation accommodation) {
         accommoRepository.save(accommodation);
     }

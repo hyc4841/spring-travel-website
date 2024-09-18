@@ -22,5 +22,7 @@ public interface AccommodationMapper {
     List<Room> findRoomList(@Param("accommoId") Long accommoId,
                             @Param("searchCond") AccommoSearchCond searchCond);
 
+    Room findRoomById(Long roomId);
+
     void delete(Long accommoId);
 }

@@ -5,11 +5,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import whang.travel.domain.accommodation.AccommodationRepository;
 import whang.travel.domain.accommodation.AccommodationService;
+import whang.travel.domain.accommodation.mybatis.Room;
 import whang.travel.domain.reservation.Reservation;
 import whang.travel.domain.reservation.mybatis.ReservationService;
 import whang.travel.web.reservation.form.ReservationApiResponse;
@@ -17,24 +20,23 @@ import whang.travel.web.reservation.form.ReservationApiResponse;
 @Slf4j
 @RequestMapping("/reservation")
 @RequiredArgsConstructor
-@RestController
+@Controller
 public class ReservationController {
 
     private final ReservationService reservationService;
     private final AccommodationService accommodationService;
 
-    // Api로 하려면 화면 이동은 프론트에서 하고 서버는 데이터만 준다. csr
-    @PostMapping("/check/{roomId}")
-    public HttpEntity<Reservation> reservationView(@RequestBody Reservation reservation,
-                                      Model model, HttpServletResponse response) {
+    @GetMapping("/checkout/{roomId}")
+    public String reservationView(@PathVariable Long roomId, @ModelAttribute("reservation") Reservation reservation,
+                                  Model model, @AuthenticationPrincipal UserDetails user) {
 
-        log.info("넘어온 예약 정보={}", reservation);
-        model.addAttribute("reservation", reservation);
+        Room room = accommodationService.findRoomById(roomId);
+        model.addAttribute("room", room);
+        // 예약할 때 무슨 데이터가 넘어가야 할까?
 
-        response.setContentType("application/json");
-        response.setStatus(HttpServletResponse.SC_OK);
+        // 예약자, 숙소 이름
 
-        return ;
+        return "/reservation/addReservation";
     }
 
     @PostMapping("")

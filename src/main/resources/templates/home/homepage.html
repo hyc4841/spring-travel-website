@@ -144,15 +144,15 @@
 
                                         <button class="btn btn-outline-dark mb-3" type="button" id="dateSelect" style="width:100%">
                                             여행 기간
-                                            <input class="form-control" type="hidden" th:field="*{startDate}"
+                                            <input class="form-control" type="hidden" th:field="*{checkIn}"
                                                    th:errorclass="field-error" id="startDate" placeholder="시작">
-                                            <input class="form-control" type="hidden" th:field="*{endDate}"
+                                            <input class="form-control" type="hidden" th:field="*{checkOut}"
                                                    th:errorclass="field-error" id="endDate" placeholder="끝">
                                         </button>
-                                        <div class="field-error" th:errors="*{startDate}">
+                                        <div class="field-error" th:errors="*{checkIn}">
                                             시작 날 오류
                                         </div>
-                                        <div class="field-error" th:errors="*{endDate}">
+                                        <div class="field-error" th:errors="*{checkOut}">
                                             끝 날 오류
                                         </div>
 

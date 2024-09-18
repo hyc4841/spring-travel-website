@@ -12,10 +12,10 @@ public class AccommoSearchCond {
     private String region;
     // 시작 날짜
     @NotBlank
-    private String startDate;
+    private String checkIn;
     // 종료 날짜
     @NotBlank
-    private String endDate;
+    private String checkOut;
     // 인원
     @NotNull
     private Integer personnel;
