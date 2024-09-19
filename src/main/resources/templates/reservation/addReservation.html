@@ -122,23 +122,20 @@
                                 <p>객실</p>
                             </div>
 
-                            <div class="col-sm-3">
+                            <div class="col">
                                 <p>일정</p>
                             </div>
 
-                            <div class="col-sm-4">
+                            <div class="col">
                                 <input th:value="*{checkIn}" style="border: none; background: none; font-size: inherit; color: inherit; width: auto;" disabled readonly>
                             </div>
-                            <div class="col-sm-1">
+                            <div class="col">
                                 <p>~</p>
                             </div>
 
-                            <div class="col-sm-4">
+                            <div class="col">
                                 <input th:value="*{checkOut}" style="border: none; background: none; font-size: inherit; color: inherit; width: auto;" disabled readonly>
                             </div>
-
-<!--
--->
 
                         </div>
                     </div>
@@ -166,14 +163,14 @@
                         <div class="row g-3">
                             <div class="col-sm-6">
                                 <label for="customer" class="form-label">에약자 이름</label>
-                                <input type="text" class="form-control" id="customer" th:value="*{customer}"
+                                <input type="text" class="form-control" id="customer" th:field="*{customer}"
                                        placeholder="홍길동" required>
                             </div>
 
                             <div class="col-12">
                                 <label for="number" class="form-label">휴대폰 번호</label>
                                 <div class="input-group has-validation">
-                                    <input type="text" class="form-control" id="number" th:value="*{number}"
+                                    <input type="text" class="form-control" id="number" th:field="*{number}"
                                            placeholder="010-1234-5678" required>
 
                                 </div>
@@ -214,7 +211,7 @@
 
                         <hr class="my-4">
 
-                        <button class="w-100 btn btn-primary btn-lg" type="submit">예약하기</button>
+                        <button id="resbtn" class="w-100 btn btn-primary btn-lg" type="button">예약하기</button>
                     </div>
                 </div>
             </div>
@@ -234,5 +231,84 @@
 
 <script th:src="@{/script/bootstrap.bundle.min.js}"
         src="../../static/script/bootstrap.bundle.min.js"></script>
+
+<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+<!-- jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+<!-- iamport.payment.js -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script>
+
+const reservation = document.getElementById('resbtn');
+reservation.setAttribute('onclick', 'resVa()');
+
+var amount = 100;
+
+var IMP = window.IMP;
+
+function resVa() {
+    IMP.init("imp76142328"); // 가맹점 식별코드로 Iamport 초기화
+    IMP.request_pay({
+        pg: 'kakaopay.TC0ONETIME',   // PG사 설정
+        pay_method : "card", // 결제 방법
+        merchant_uid : "20230901ABDE", // 주문 번호
+        name : "방 예약", // 상품 이름
+        amount: amount, // 결제 가격
+        buyer_name : "홍길동", // 구매자 이름 (buyer_ 부분은 꼭 작성하지 않아도된다. (선택사항))
+        buyer_tel : "010-5555-1111", // 구매자 연락처
+        buyer_postcode : 52030, // 구매자 우편번호
+        buyer_addr : "서울시 은평구" // 구매자 주소
+    }, function(rsp) {
+        if (rsp.success) {
+            console.log(rsp);
+
+            axios({
+                method: "post",
+                url: `/payment/validation/${rsp.imp_uid}`
+            }).then(res =>{
+                if (amount == res.data.response.amount) {
+                    axios({
+                        url: `/reservation/checkout/[[${room.roomId}]]`,
+                        method: "post",
+                        data: "data",
+                        dataType: "json",
+                        headers: {'Content-Type': 'application/json'}
+                    }).then(res => {
+                        // 장바구니 삭제 부분
+                        /*
+                        let productIds = orders.map(order => order.productId);
+                            axios({
+                                url: `/cart/delete/pay/success`,
+                                method: "post",
+                                data: {
+                                    userIdNo: res.data,
+                                    productIds: productIds
+                                }
+                            })
+                                */
+                        msg += '고유ID : ' + rsp.imp_uid;
+                        msg += '상점 거래ID : ' + rsp.merchant_uid;
+                        msg += '결제 금액 : ' + rsp.paid_amount;
+                        msg += '카드 승인번호 : ' + rsp.apply_num;
+                        alert(msg)
+                    }).catch(error => {
+                        alert("주문정보 저장을 실패 했습니다.")
+                    });
+                }
+            }).catch(error => {
+                alert('결제에 실패하였습니다. ' + rsp.error_msg);
+            });
+        } else {
+            console.error("결제 실패 : " + rsp.error_msg);
+        }
+    });
+}
+
+</script>
+
+
 </body>
 </html>

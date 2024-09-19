@@ -22,9 +22,12 @@ configurations {
 
 repositories {
 	mavenCentral()
+	maven { url 'https://jitpack.io' }
 }
 
 dependencies {
+	// 포트원. 결재
+	implementation 'com.github.iamport:iamport-rest-client-java:0.1.6'
 
 	implementation 'org.springframework.boot:spring-boot-starter-validation' // 이거 추가 안해주면 스프링 검증 기능 못씀
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'

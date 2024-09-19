@@ -22,8 +22,9 @@ public class Member {
     @NotBlank
     private String address;
 
-
     private String role; // user 및 admin 등등
+    private String number;
+
 
     public Member(String firstName, String lastName, String memberId, String password, String email, String address, String role) {
         this.firstName = firstName;
