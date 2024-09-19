@@ -4,8 +4,8 @@
 <mapper namespace="whang.travel.domain.reservation.mybatis.ReservationMapper">
 
     <insert id="save" useGeneratedKeys="true" keyProperty="reservationId">
-        insert into reservation (MEMBER, SELLER, ACCOMMODATION, ROOM, PERSONNEL, R_DATE, CHECK_IN, CHECK_OUT)
-        values (#{member}, #{seller}, #{accommodation}, #{room}, #{personnel}, #{rDate}, #{checkIn}, #{checkOut})
+        insert into reservation (MEMBER, SELLER, ACCOMMODATION, ROOM, PERSONNEL, R_DATE, CHECK_IN, CHECK_OUT, CUSTOMER, NUMBER, AMOUNT)
+        values (#{member}, #{seller}, #{accommodation}, #{room}, #{personnel}, #{rDate}, #{checkIn}, #{checkOut}, #{customer}, #{number}, #{amount})
     </insert>
 
 <!--    업데이트 어떤거 고칠지 결정해서 수정하자-->

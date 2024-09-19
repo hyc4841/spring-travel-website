@@ -19,5 +19,6 @@ public class Reservation {
     private LocalDate checkOut;
     private String customer;
     private String number;
+    private Integer amount;
 
 }

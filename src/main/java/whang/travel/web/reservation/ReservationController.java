@@ -37,7 +37,6 @@ public class ReservationController {
     private final ReservationService reservationService;
     private final AccommodationService accommodationService;
 
-
     private IamportClient iamportClient;
 
     @Value("${imp.api.key}")
@@ -60,20 +59,28 @@ public class ReservationController {
             reservation.setNumber(member.get().getNumber());
         }
 
-
         Room room = accommodationService.findRoomById(roomId);
         model.addAttribute("room", room);
         // 예약할 때 무슨 데이터가 넘어가야 할까?
-
         // 예약자, 숙소 이름
 
         return "/reservation/addReservation";
     }
 
     @PostMapping("/checkout/{roomId}")
-    public ResponseEntity<String> addReservation() {
+    public ResponseEntity<String> addReservation(@RequestBody Reservation reservation, @AuthenticationPrincipal UserDetails user) {
+        String loginId = user.getUsername();
+        Long memberId = memberRepository.findIdByLoginId(loginId);
+
+        // 판매자 가져오기 => 숙소 id로 가져올 수 있다.
+        // 숙소 가져오기
+        // 예약 날짜
+        //
+
         try {
-            log.info("결재 성공");
+            reservation.setMember(memberId);
+            Reservation save = reservationService.save(reservation);
+            log.info("결재 성공={}", save);
             return ResponseEntity.ok().build();
         } catch (RuntimeException e) {
             log.info("오류 발생");
@@ -82,7 +89,7 @@ public class ReservationController {
     }
 
 
-    @PostMapping("/payment/validate/{imp_uid}")
+    @PostMapping("/payment/validation/{imp_uid}")
     @ResponseBody
     public IamportResponse<Payment> paymentValidation(@PathVariable String imp_uid) {
         IamportResponse<Payment> payment = iamportClient.paymentByImpUid(imp_uid);
