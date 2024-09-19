@@ -94,8 +94,6 @@ public class AccommodationController {
         return "/accommodation/accommoDetail";
     }
 
-
-
     // service 파싱 함수
     private String[] parseService(Object[] service) {
         String data = (String) service[0];

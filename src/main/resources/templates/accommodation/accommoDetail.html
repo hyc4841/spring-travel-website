@@ -530,46 +530,6 @@ geocoder.addressSearch('[[${accommodation.location}]]', function(result, status)
   centeredSlides: false, // 슬라이드 중앙 정렬
 });
 
-/*
-const xhr = new XMLHttpRequest();
-xhr.onload = function() {
-    if (xhr.readyState === 4) { // 요청이 완료되면
-        if (xhr.status === 200) {
-            console.log(xhr.responseText);
-            const response = JSON.parse(xhr.responseText); // 응답 처리
-            console.log('응답:', response);
-        } else {
-            console.error('오류 발생:', xhr.statusText);
-        }
-    }
-};
-
-xhr.onerror = function() {
-    console.log("에러 발생함");
-};
-
-document.body.addEventListener("click", function(event) {
-    if (event.target.tagName === "BUTTON") {
-        console.log("버튼 누름")
-        const roomId = event.target.id;
-        xhr.open("POST", `http://localhost:8080/reservation/check/${roomId}`, true); // 전송 방식, URL
-        xhr.setRequestHeader('Content-Type', 'application/json'); // 컨텐츠 타입 정하기
-
-        const reservation = {
-            // 멤버 정보는 진짜 넘기기 직전에
-            // 예약 날짜도 예약 확정될 때 그때 정해주기
-            // 숙소 판매자도 예약 확정될 때
-            accommodation: [[${accommodation.accommodationId}]],
-            room: roomId,
-            personnel: [[${searchCond.personnel}]],
-            checkIn: [[${searchCond.checkIn}]],
-            checkOut: [[${searchCond.checkOut}]]
-        };
-        xhr.send(JSON.stringify(reservation));
-    }
-});
-*/
-
 </script>
 
 <!--<script th:src="@{/script/reservationApi.js}"></script>-->

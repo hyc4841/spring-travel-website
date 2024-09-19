@@ -247,5 +247,10 @@
 
 <script th:src="@{/script/portone.js}"></script>
 
+<script>
+    localStorage.clear();
+    localStorage.setItem('roomId', [[${room.roomId}]]);
+</script>
+
 </body>
 </html>

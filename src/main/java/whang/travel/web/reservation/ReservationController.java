@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import whang.travel.domain.accommodation.Accommodation;
 import whang.travel.domain.accommodation.AccommodationRepository;
 import whang.travel.domain.accommodation.AccommodationService;
 import whang.travel.domain.accommodation.mybatis.Room;
@@ -71,12 +72,10 @@ public class ReservationController {
     public ResponseEntity<String> addReservation(@RequestBody Reservation reservation, @AuthenticationPrincipal UserDetails user) {
         String loginId = user.getUsername();
         Long memberId = memberRepository.findIdByLoginId(loginId);
-
         // 판매자 가져오기 => 숙소 id로 가져올 수 있다.
         // 숙소 가져오기
         // 예약 날짜
         //
-
         try {
             reservation.setMember(memberId);
             Reservation save = reservationService.save(reservation);
@@ -88,7 +87,6 @@ public class ReservationController {
         }
     }
 
-
     @PostMapping("/payment/validation/{imp_uid}")
     @ResponseBody
     public IamportResponse<Payment> paymentValidation(@PathVariable String imp_uid) {
@@ -96,4 +94,18 @@ public class ReservationController {
         log.info("결제 요청 응답. 결제 내역 - 주문 번호: {}", payment.getResponse().getMerchantUid());
         return payment;
     }
+
+    @GetMapping("/room/{roomId}")
+    @ResponseBody
+    public ResponseEntity<Room> findRoom(@PathVariable Long roomId) {
+        Room room = accommodationService.findRoomById(roomId);
+        Long accommodationId = room.getAccommodation();
+
+        Accommodation accommodation = accommodationService.findAccommoById(accommodationId).get();
+        Long seller = accommodation.getSeller();
+
+        log.info("예약하려는 방 찾기={}", room);
+        return ResponseEntity.ok(room);
+    }
+
 }
