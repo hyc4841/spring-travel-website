@@ -115,7 +115,7 @@ public class ReservationController {
         Accommodation accommodation = accommodationService.findAccommoById(accommodationId).get();
         Long seller = accommodation.getSeller();
 
-        log.info("예약하려는 방 찾기={}", room);
+        log.info("현재 예약하려는 방={}", room);
         return ResponseEntity.ok(room);
     }
 
