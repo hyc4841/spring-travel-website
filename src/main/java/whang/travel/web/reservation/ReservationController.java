@@ -4,28 +4,27 @@ import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
 import jakarta.annotation.PostConstruct;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import whang.travel.domain.accommodation.Accommodation;
-import whang.travel.domain.accommodation.AccommodationRepository;
 import whang.travel.domain.accommodation.AccommodationService;
 import whang.travel.domain.accommodation.mybatis.Room;
 import whang.travel.domain.member.Member;
 import whang.travel.domain.member.MemberRepository;
 import whang.travel.domain.reservation.Reservation;
 import whang.travel.domain.reservation.mybatis.ReservationService;
-import whang.travel.web.reservation.form.ReservationApiResponse;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Optional;
 
@@ -70,8 +69,10 @@ public class ReservationController {
         return "/reservation/addReservation";
     }
 
+
     @PostMapping("/checkout/{roomId}")
-    public String addReservation(@PathVariable Long roomId, @ModelAttribute("reservation") Reservation reservation, @AuthenticationPrincipal UserDetails user) {
+    public String saveReservation(@PathVariable Long roomId, @ModelAttribute("reservation") Reservation reservation,
+                                  @AuthenticationPrincipal UserDetails user) {
         if (user != null) {
             String loginId = user.getUsername();
             Long memberId = memberRepository.findIdByLoginId(loginId);
@@ -80,6 +81,8 @@ public class ReservationController {
 
         Room room = accommodationService.findRoomById(roomId);
         Accommodation accommodation = accommodationService.findAccommoById(room.getAccommodation()).get();
+
+        // 만약 해당 기간에 먼저 예약된 방이 있으면 오류를 내보내줘야함.
 
         reservation.setSeller(accommodation.getSeller());
         reservation.setAmount(room.getBasePrice());
@@ -92,6 +95,9 @@ public class ReservationController {
         log.info("정상 작동, 넘어온 예약정보={}", reservation);
         return "redirect:/home";
     }
+
+
+
 
     @PostMapping("/payment/validation/{imp_uid}")
     @ResponseBody
@@ -111,6 +117,22 @@ public class ReservationController {
 
         log.info("예약하려는 방 찾기={}", room);
         return ResponseEntity.ok(room);
+    }
+
+    @GetMapping("/find/{roomId}")
+    @ResponseBody
+    public ResponseEntity<Optional<Reservation>> findRommByCond(@PathVariable Long roomId, @RequestParam LocalDate checkIn,
+                                                                @RequestParam LocalDate checkOut) {
+        Reservation reservationCond = new Reservation(roomId, checkIn, checkOut);
+        log.info("들어온 데이터={}", roomId);
+
+        Optional<Reservation> reservationByCond = reservationService.findReservationByCond(reservationCond);
+        if (reservationByCond.isPresent()) { // 해당 기간에 예약 내역이 나오게 되면
+            log.info("이미 예약 내역이 있음={}", reservationByCond);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(reservationByCond);
+        }
+
+        return ResponseEntity.ok(reservationByCond);
     }
 
 }

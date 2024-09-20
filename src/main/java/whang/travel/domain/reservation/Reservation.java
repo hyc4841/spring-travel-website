@@ -21,4 +21,12 @@ public class Reservation {
     private String number;
     private Integer amount;
 
+    public Reservation(Long room, LocalDate checkIn, LocalDate checkOut) {
+        this.room = room;
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
+    }
 }
+
+
+

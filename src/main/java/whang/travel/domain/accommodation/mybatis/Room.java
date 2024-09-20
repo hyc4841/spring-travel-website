@@ -18,3 +18,8 @@ public class Room {
     private Long accommodation;     // foreign key accommodation
 
 }
+
+
+
+
+

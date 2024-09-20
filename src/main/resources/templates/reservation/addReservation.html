@@ -176,16 +176,28 @@
                         <div class="row p-3">
 
                             <div class="col-sm-12">
-                                <p class="h4"><strong th:text="${accommodation.name}">숙소 이름</strong></h5>
+                                <p class="h4"><strong th:text="${accommodation.name}">숙소 이름</strong></p>
                             </div>
 
                             <div class="col-sm-12">
                                 <p class="h5"><strong th:text="${room.name}">객실</strong></p>
                             </div>
 
-                            <div class="col">
-                                <p class="h6">일정 : [[${reservation.checkIn}]] ~ [[${reservation.checkOut}]]</p>
+                            <div class="col-1">
+                                <p class="h6">일정</p>
                             </div>
+                            <div class="col-1">
+                                <p id="checkIn" class="h6" th:text="${reservation.checkIn}"></p>
+                            </div>
+
+                            <div class="col-1">
+                                <p class="h6">~</p>
+                            </div>
+
+                            <div class="col-1"></div>
+                                <p id="checkOut" class="h6" th:text="${reservation.checkOut}"></p>
+                            </div>
+
                         </div>
                     </div>
 
@@ -195,7 +207,7 @@
                                     <h5>결제 정보</h5>
                                 </div>
                                 <div class="col">
-                                    <p id="price" class="h5">결재 가격 : [[${room.basePrice}]]</h5>
+                                    <p id="price" class="h5">결재 가격 : [[${room.basePrice}]]</p>
                                     </div>
 
                                 <div class="col-12">
@@ -204,10 +216,7 @@
                             </div>
 
                         </div>
-
                 </div>
-
-            </div>
         </main>
     </form>
 

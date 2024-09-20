@@ -24,6 +24,14 @@
         where reservation_id=#{reservationId}
     </select>
 
+<!-- 해당 기간 내에 예약 내역이 있으면 예약이 되어선 안된다 -->
+    <select id="findReservationByCond" resultType="Reservation">
+        select *
+        from reservation
+        where room = #{room}
+        and ((#{checkIn} = check_in and #{checkIn} &gt;= check_in and #{checkIn} &lt;= check_out)
+        or (#{checkOut} &gt;= check_in #{checkOut} &lt; check_out))
+    </select>
 <!--    예약 유저와 검색 조건으로 예약 다중 조회 -->
     <select id="findReservationList" resultType="Reservation">
         select *

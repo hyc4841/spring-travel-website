@@ -9,6 +9,7 @@ import whang.travel.web.reservation.form.ReservationSearchCond;
 import whang.travel.web.reservation.form.UpdateReservationForm;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Repository
@@ -43,6 +44,14 @@ public class mybatisReservationRepository implements ReservationRepository {
         log.info("멤버 id와 검색 조건으로 예약 리스트 조회={}", reservationList);
         return reservationList;
     }
+
+    @Override
+    public Optional<Reservation> findReservationByCond(Reservation reservation) {
+        Optional<Reservation> reservationByCond = reservationMapper.findReservationByCond(reservation);
+        log.info("해당 기간에 기존에 예약된 내역이 있는지={}", reservationByCond);
+        return reservationByCond;
+    }
+
 
     @Override
     public void delete(Long reservationId) {

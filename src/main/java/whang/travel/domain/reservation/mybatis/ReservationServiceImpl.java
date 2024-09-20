@@ -10,6 +10,7 @@ import whang.travel.web.reservation.form.ReservationSearchCond;
 import whang.travel.web.reservation.form.UpdateReservationForm;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -36,6 +37,11 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public List<Reservation> findReservationList(Long memberId, ReservationSearchCond searchCond) {
         return reservationRepository.findReservationList(memberId,searchCond);
+    }
+
+    @Override
+    public Optional<Reservation> findReservationByCond(Reservation reservation) {
+        return reservationRepository.findReservationByCond(reservation);
     }
 
     @Override

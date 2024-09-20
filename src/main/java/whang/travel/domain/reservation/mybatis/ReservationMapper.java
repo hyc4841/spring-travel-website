@@ -7,6 +7,7 @@ import whang.travel.web.reservation.form.ReservationSearchCond;
 import whang.travel.web.reservation.form.UpdateReservationForm;
 
 import java.util.List;
+import java.util.Optional;
 
 @Mapper
 public interface ReservationMapper {
@@ -19,5 +20,9 @@ public interface ReservationMapper {
 
     List<Reservation> findReservationList(@Param("memberId") Long memberId, @Param("searchCond") ReservationSearchCond searchCond);
 
+    Optional<Reservation> findReservationByCond(Reservation reservation);
+
     void delete(Long reservationId);
+
+
 }
