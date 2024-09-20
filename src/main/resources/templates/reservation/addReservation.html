@@ -109,56 +109,6 @@
         <main>
             <div class="row g-5">
 
-                <!-- 우측 결제 정보와 결제 버튼이 들어갈 자리 -->
-                <div class="col-md-5 col-lg-4 order-md-last">
-
-                    <div class="card">
-                        <div class="row p-3">
-
-                            <div class="col-sm-12">
-                                <h5><strong>[[${room.name}]]</strong></h5>
-                            </div>
-
-                            <div class="col-sm-12">
-                                <p>객실</p>
-                            </div>
-
-                            <div class="col">
-                                <p>일정</p>
-                            </div>
-
-                            <div class="col">
-                                <input id="checkIn" th:field="*{checkIn}" style="border: none; background: none; font-size: inherit; color: inherit; width: auto;" disabled readonly>
-                            </div>
-                            <div class="col">
-                                <p>~</p>
-                            </div>
-
-                            <div class="col">
-                                <input id="checkOut" th:field="*{checkOut}" style="border: none; background: none; font-size: inherit; color: inherit; width: auto;" disabled readonly>
-                            </div>
-
-                        </div>
-                    </div>
-
-                        <div class="card">
-                            <div class="row">
-                                <div class="col-12">
-                                    <h5>결제 정보</h5>
-                                </div>
-                                <div class="col">
-                                    <label>결재 가격</label>
-                                    <input id="amount" th:field="*{amount}" style="border: none; background: none; font-size: inherit; color: inherit; width: auto;" disabled readonly>
-                                </div>
-                                <div class="col-12">
-                                    <button type="submit" class="btn btn-lg btn-primary">결제하기</button>
-                                </div>
-                            </div>
-
-                        </div>
-
-                </div>
-
                 <!-- 좌측 예약자 정보 입력 인증 정보 들어갈 자리 -->
                 <div class="col-md-7 col-lg-8">
                     <a href="#" style="float: left; margin-right: 10px;"><i class="fa-solid fa-arrow-left"></i></a>
@@ -172,11 +122,11 @@
                                        placeholder="홍길동" required>
                             </div>
 
-                            <div class="col-12">
+                            <div class="col-6">
                                 <label for="number" class="form-label">휴대폰 번호</label>
                                 <div class="input-group has-validation">
                                     <input type="text" class="form-control" id="number" th:field="*{number}"
-                                           placeholder="010-1234-5678" required>
+                                           placeholder="-없이 입력하세요" required>
 
                                 </div>
                             </div>
@@ -186,13 +136,14 @@
                         <hr class="my-4">
 
                         <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="same-address">
-                            <label class="form-check-label" for="same-address">도보</label>
+                            <p>여기는 방문 방법</p>
+<!--                            <input type="checkbox" class="form-check-input" id="same-address">-->
+<!--                            <label class="form-check-label" for="same-address">도보</label>-->
                         </div>
 
                         <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="save-info">
-                            <label class="form-check-label" for="save-info">차량</label>
+<!--                            <input type="checkbox" class="form-check-input" id="save-info">-->
+<!--                            <label class="form-check-label" for="save-info">차량</label>-->
                         </div>
 
                         <hr class="my-4">
@@ -201,24 +152,61 @@
 
                         <div class="my-3">
                             <div class="form-check">
-                                <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked required>
-                                <label class="form-check-label" for="credit">Credit card</label>
+<!--                                <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked required>-->
+<!--                                <label class="form-check-label" for="credit">Credit card</label>-->
                             </div>
                             <div class="form-check">
-                                <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required>
-                                <label class="form-check-label" for="debit">Debit card</label>
+<!--                                <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required>-->
+<!--                                <label class="form-check-label" for="debit">Debit card</label>-->
                             </div>
                             <div class="form-check">
-                                <input id="paypal" name="paymentMethod" type="radio" class="form-check-input" required>
-                                <label class="form-check-label" for="paypal">PayPal</label>
+<!--                                <input id="paypal" name="paymentMethod" type="radio" class="form-check-input" required>-->
+<!--                                <label class="form-check-label" for="paypal">PayPal</label>-->
                             </div>
                         </div>
 
                         <hr class="my-4">
-
-                        <button id="resbtn" class="w-100 btn btn-primary btn-lg" type="button">예약하기</button>
                     </div>
                 </div>
+
+                <!-- 우측 결제 정보와 결제 버튼이 들어갈 자리 -->
+                <div class="col-md-5 col-lg-4 order-md-last">
+
+                    <div class="card mb-3">
+                        <div class="row p-3">
+
+                            <div class="col-sm-12">
+                                <p class="h4"><strong th:text="${accommodation.name}">숙소 이름</strong></h5>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <p class="h5"><strong th:text="${room.name}">객실</strong></p>
+                            </div>
+
+                            <div class="col">
+                                <p class="h6">일정 : [[${reservation.checkIn}]] ~ [[${reservation.checkOut}]]</p>
+                            </div>
+                        </div>
+                    </div>
+
+                        <div class="card p-3">
+                            <div class="row align-items-center">
+                                <div class="col-12">
+                                    <h5>결제 정보</h5>
+                                </div>
+                                <div class="col">
+                                    <p id="price" class="h5">결재 가격 : [[${room.basePrice}]]</h5>
+                                    </div>
+
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-lg btn-primary">결제하기</button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                </div>
+
             </div>
         </main>
     </form>
