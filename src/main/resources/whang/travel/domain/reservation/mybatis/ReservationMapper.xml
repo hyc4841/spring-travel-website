@@ -30,7 +30,7 @@
         from reservation
         where room = #{room}
         and ((#{checkIn} = check_in and #{checkIn} &gt;= check_in and #{checkIn} &lt;= check_out)
-        or (#{checkOut} &gt;= check_in #{checkOut} &lt; check_out))
+        or (#{checkOut} &gt; check_in #{checkOut} &lt;= check_out))
     </select>
 <!--    예약 유저와 검색 조건으로 예약 다중 조회 -->
     <select id="findReservationList" resultType="Reservation">

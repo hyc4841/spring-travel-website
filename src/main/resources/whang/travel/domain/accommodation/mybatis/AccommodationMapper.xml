@@ -50,9 +50,9 @@
         left join reservation s on r.room_id = s.room
         where
         a.region=#{region}
-        and r.max_personnel &lt;= #{personnel}
-        and (s.room is null or ((#{checkIn} &gt;= s.check_in and #{checkIn} &gt;= s.check_out)
-        or (#{checkOut} &lt;= s.check_in and #{checkOut} &lt;= s.check_out)))
+        and (r.personnel &lt;= #{personnel} and r.max_personnel &gt;= #{personnel})
+        and (s.room is null or ((#{checkIn} &lt; s.check_in and #{checkOut} &lt;= s.check_in)
+        or (#{checkIn} &gt;= s.check_out and #{checkOut} &gt; s.check_out)))
     </select>
 
     <select id="findRoomList" resultType="Room">
@@ -62,10 +62,12 @@
         left join reservation s on r.room_id = s.room
         where
         r.accommodation = #{accommoId}
-        and r.max_personnel &lt;= #{searchCond.personnel}
-        and (s.room is null or ((#{searchCond.checkIn} &gt;= s.check_in and #{searchCond.checkIn} &gt;= s.check_out)
-        or (#{searchCond.checkOut} &lt;= s.check_in and #{searchCond.checkOut} &lt;= s.check_out)))
+        and (r.personnel &lt;= #{searchCond.personnel} and r.max_personnel &gt;= #{searchCond.personnel})
+        and (s.room is null or ((#{searchCond.checkIn} &lt; s.check_in and #{searchCond.checkOut} &lt;= s.check_in)
+        or (#{searchCond.checkIn} &gt;= s.check_out and #{searchCond.checkOut} &gt; s.check_out)))
     </select>
+<!--    < &lt;    -->
+<!--    > &gt;    -->
 
     <select id="findRoomById" resultType="Room">
         select *
