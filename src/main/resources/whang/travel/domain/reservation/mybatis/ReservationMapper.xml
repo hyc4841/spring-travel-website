@@ -25,12 +25,12 @@
     </select>
 
 <!-- 해당 기간 내에 예약 내역이 있으면 예약이 되어선 안된다 -->
+<!--    만약 해당 조건에 예약 내역이 나오면 예약 되지 않도록 한다.-->
     <select id="findReservationByCond" resultType="Reservation">
-        select *
+        select RESERVATION_ID, MEMBER, SELLER, ACCOMMODATION, ROOM, PERSONNEL, R_DATE, CHECK_IN, CHECK_OUT, CUSTOMER, NUMBER, AMOUNT
         from reservation
         where room = #{room}
-        and ((#{checkIn} = check_in and #{checkIn} &gt;= check_in and #{checkIn} &lt;= check_out)
-        or (#{checkOut} &gt; check_in #{checkOut} &lt;= check_out))
+        and (check_in &lt; #{checkOut} and check_out &gt; #{checkIn})
     </select>
 <!--    예약 유저와 검색 조건으로 예약 다중 조회 -->
     <select id="findReservationList" resultType="Reservation">
@@ -39,18 +39,15 @@
         where member = #{memberId}
     </select>
 
-
     <delete id="delete">
         delete from orders
         where order_num=#{orderNum}
     </delete>
-
 
     <select id="findIdByMemberLoginId" resultType="Long">
         select id
         from member
         where member_id=#{findMemberIdByMemberLoginId}
     </select>
-
 
 </mapper>

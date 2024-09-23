@@ -126,6 +126,7 @@ public class ReservationController {
         Reservation reservationCond = new Reservation(roomId, checkIn, checkOut);
         log.info("들어온 데이터={}", roomId);
 
+        // 데이터베이스 찾아서 나오면 막아야함
         Optional<Reservation> reservationByCond = reservationService.findReservationByCond(reservationCond);
         if (reservationByCond.isPresent()) { // 해당 기간에 예약 내역이 나오게 되면
             log.info("이미 예약 내역이 있음={}", reservationByCond);

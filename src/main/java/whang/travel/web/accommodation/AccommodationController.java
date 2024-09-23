@@ -46,6 +46,10 @@ public class AccommodationController {
 
         List<Accommodation> accommoList = accommoService.findAccommoList(searchCond);
 
+        log.info("조건 ={}", searchCond);
+        log.info("그래서 나온 숙소 리스트={}", accommoList);
+
+        
         model.addAttribute("searchCond", searchCond);
         model.addAttribute("user", user);
         model.addAttribute("accommoList", accommoList);

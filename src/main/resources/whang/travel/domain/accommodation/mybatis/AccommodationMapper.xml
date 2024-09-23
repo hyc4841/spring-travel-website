@@ -41,33 +41,35 @@
 
     <!-- 사용자가 지역, 날짜, 인원을 넣고 검색을 눌렀을 때 숙소 리스트 뽑아줄 때 사용. -->
     <select id="findAccommoList" resultType="Accommodation">
-        <!-- 지금 이 sql문은 방 검색에 알맞는 경우임 -->
-        <!-- DISTINCT만 없애주면 기간에 이용가능한 방들이 나옴 -->
-        <!-- 숙소만 딱 하나 나오게 할려면 다른 방법이 필요함. -->
-        select DISTINCT accommodation_id, a.name, location, category, introduction, service, information, a.seller, a.region
-        from accommodation a
-        join room r on a.accommodation_id = r.accommodation
-        left join reservation s on r.room_id = s.room
-        where
-        a.region=#{region}
-        and (r.personnel &lt;= #{personnel} and r.max_personnel &gt;= #{personnel})
-        and (s.room is null or ((#{checkIn} &lt; s.check_in and #{checkOut} &lt;= s.check_in)
-        or (#{checkIn} &gt;= s.check_out and #{checkOut} &gt; s.check_out)))
+        SELECT DISTINCT accommodation_id, a.name, location, category, introduction, service, information, a.seller, a.region
+        FROM accommodation a
+        JOIN room r ON a.accommodation_id = r.accommodation
+        LEFT JOIN reservation s ON r.room_id = s.room
+        AND (
+        (s.check_in &lt; #{checkOut} AND s.check_out > #{checkIn})
+        )
+        WHERE s.room IS NULL
+        AND a.region = #{region}
+        AND (r.personnel &lt;= #{personnel} AND r.max_personnel &gt;= #{personnel})
     </select>
 
+    <!--    < &lt;    -->
+    <!--    > &gt;    -->
+
     <select id="findRoomList" resultType="Room">
-        select DISTINCT room_id, r.name, r.personnel, max_personnel, r.accommodation, r.room_type, r.base_price, r.check_in, r.check_out
+        select room_id, r.name, r.personnel, max_personnel, r.accommodation, r.room_type, r.base_price, r.check_in, r.check_out
         from room r
-        join accommodation a on a.accommodation_id = r.accommodation
         left join reservation s on r.room_id = s.room
+        AND (
+        (s.check_in &lt; #{searchCond.checkOut} AND s.check_out > #{searchCond.checkIn})
+        )
         where
         r.accommodation = #{accommoId}
+        and s.room IS NULL
         and (r.personnel &lt;= #{searchCond.personnel} and r.max_personnel &gt;= #{searchCond.personnel})
-        and (s.room is null or ((#{searchCond.checkIn} &lt; s.check_in and #{searchCond.checkOut} &lt;= s.check_in)
-        or (#{searchCond.checkIn} &gt;= s.check_out and #{searchCond.checkOut} &gt; s.check_out)))
+
     </select>
-<!--    < &lt;    -->
-<!--    > &gt;    -->
+
 
     <select id="findRoomById" resultType="Room">
         select *
