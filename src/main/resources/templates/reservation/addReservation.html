@@ -183,20 +183,15 @@
                                 <p class="h5"><strong th:text="${room.name}">객실</strong></p>
                             </div>
 
-                            <div class="col-1">
-                                <p class="h6">일정</p>
-                            </div>
-                            <div class="col-1">
-                                <p id="checkIn" class="h6" th:text="${reservation.checkIn}"></p>
-                            </div>
-
-                            <div class="col-1">
-                                <p class="h6">~</p>
+                            <div class="col-sm-12">
+                                <span class="h6" style="margin-right: 10px;">일정</span>
+                                <span id="checkIn" class="h6" th:text="${reservation.checkIn}">2024-09-24</span>
+                                <span="h6">-</span>
+                               <span id="checkOut" class="h6" th:text="${reservation.checkOut}">2024-09-25</span>
                             </div>
 
-                            <div class="col-1"></div>
-                                <p id="checkOut" class="h6" th:text="${reservation.checkOut}"></p>
-                            </div>
+                                
+                    
 
                         </div>
                     </div>
