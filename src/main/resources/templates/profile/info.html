@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../../static/css/bootstrap.css" rel="stylesheet">
+
+    <title>내 정보</title>
+
+    <style>
+        a {
+            text-decoration-line: none;
+			white-space: nowrap;
+			color: rgb(83, 83, 83);
+			font-size: large;
+			font-weight: 600;
+        }
+
+    </style>
+</head>
+
+
+<body>
+<!--부트스트랩 js-->
+<script th:src="@{/script/bootstrap.bundle.min.js}"
+        src="../../static/script/bootstrap.bundle.min.js" defer></script>
+<!--아이콘 가져오기-->
+<div th:replace="~{fragment/icon :: icon}"></div>
+<!--헤더-->
+<div class="container" th:insert="~{fragment/header :: header}"></div>
+
+<div class="container">
+
+    <div class="row">
+
+		<!-- 왼쪽 네비게이션 바-->
+		<div class="col-md-3 mb-4">
+			<div id="navCard">
+                <ul class="list-group" style="border-radius: 15px;">
+					
+                    <li class="list-group-item p-3">
+						<a th:href="@{/profile/reservations}" class="d-flex justify-content-between">
+							<span>예약 내역</span>
+							<span>-></span>					
+						</a>
+					</li>
+
+					<li class="list-group-item p-3">
+						<a th:href="@{/profile/info}" class="d-flex justify-content-between" style="color: rgb(0, 128, 255);">
+							<span>내 정보</span>
+							<span>-></span>					
+						</a>
+					</li>
+
+					<li class="list-group-item p-3">
+						<a th:href="@{/profile/posts}" class="d-flex justify-content-between">
+							<span>내 게시물</span>
+							<span>-></span>					
+						</a>
+					</li>
+
+					<li class="list-group-item p-3">
+						<a th:href="@{/profile/coupon}" class="d-flex justify-content-between">
+							<span>쿠폰</span>
+							<span>-></span>					
+						</a>
+					</li>
+
+					<li class="list-group-item p-3">
+						<a th:href="@{/profile/settings}" class="d-flex justify-content-between">
+							<span>설정</span>
+							<span>-></span>					
+						</a>
+					</li>
+
+					<li class="list-group-item p-3">
+						<a th:href="@{/profile/pw}" class="d-flex justify-content-between">
+							<span>비밀번호 수정</span>
+							<span>-></span>
+						</a>
+					</li>
+
+		
+                </ul>
+            </div>
+		</div>
+
+		<!-- 메인 -->
+		<div class="col-md-9">
+			<p class="h2">내 정보</p>
+			<hr>
+			<P class="h4 mb-4">회원 정보</P>
+
+			<form th:object="${member}" th:action method="get">
+				<div class="row">
+					<div class="col-md-6 mb-4">
+						<label for="id">닉네임</label>
+						<input id="id" class="form-control" type="text"
+							   th:field="*{memberId}"
+							   style="background-color: rgb(245, 245, 245);" placeholder="닉네임" disabled>
+					</div>
+
+					<div class="col-md-6 mb-4">
+						<label for="number">전화번호</label>
+						<input id="number" class="form-control" type="tel"
+							   th:field="*{number}"
+							   style="background-color: rgb(245, 245, 245);" placeholder="01012345678" disabled>
+					</div>
+
+					<div class="col-md-6 mb-4">
+						<label for="email">이메일</label>
+						<input id="email" class="form-control" type="email"
+							   th:field="*{email}"
+							   style="background-color: rgb(245, 245, 245);" placeholder="abc123@naver.com" disabled>
+					</div>
+
+					<div class="col-md-6 mb-4">
+						<label for="address">주소</label>
+						<input id="address" class="form-control" type="text"
+							   th:field="*{address}"
+							   style="background-color: rgb(245, 245, 245);" placeholder="서울시 은평구" disabled>
+					</div>
+
+					<div class="col-md-6 mb-4">
+						<label for="birth">생년월일</label>
+						<input id="birth" class="form-control" type="text"
+							   th:field="*{birth}"
+							   style="background-color: rgb(245, 245, 245);" placeholder="1997-06-03" disabled>
+					</div>
+				</div>
+			</form>
+
+			<button class="btn btn-primary" type="button"
+					th:onclick="|location.href='@{/profile/info/{id}(id=${member.id})}'|">수정하기</button>
+
+		</div>
+    </div>
+</div>      
+
+
+
+
+
+
+
+</body>
+</html>

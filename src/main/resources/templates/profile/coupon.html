@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>내 쿠폰함</title>
+
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../../static/css/bootstrap.css" rel="stylesheet">
+
+    <style>
+        a {
+            text-decoration-line: none;
+			white-space: nowrap;
+			color: rgb(83, 83, 83);
+
+			font-size: large;
+			font-weight: 600;
+        }
+    </style>
+
+</head>
+
+<body>
+<script th:src="@{/script/bootstrap.bundle.min.js}"
+        src="../../static/script/bootstrap.bundle.min.js" defer></script>
+<!--아이콘 가져오기-->
+<div th:replace="~{fragment/icon :: icon}"></div>
+<!--헤더-->
+<div class="container" th:insert="~{fragment/header :: header}"></div>
+
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-3">
+            <div id="navCard">
+                <ul class="list-group" style="border-radius: 15px;">
+
+                    <li class="list-group-item p-3">
+                        <a th:href="@{/profile/reservations}" class="d-flex justify-content-between">
+                            <span>예약 내역</span>
+                            <span>-></span>
+                        </a>
+                    </li>
+
+                    <li class="list-group-item p-3">
+                        <a th:href="@{/profile/info}" class="d-flex justify-content-between">
+                            <span>내 정보</span>
+                            <span>-></span>
+                        </a>
+                    </li>
+
+                    <li class="list-group-item p-3">
+                        <a th:href="@{/profile/posts}" class="d-flex justify-content-between">
+                            <span>내 게시물</span>
+                            <span>-></span>
+                        </a>
+                    </li>
+
+                    <li class="list-group-item p-3">
+                        <a th:href="@{/profile/coupon}" class="d-flex justify-content-between" style="color: rgb(0, 128, 255);">
+                            <span>쿠폰</span>
+                            <span>-></span>
+                        </a>
+                    </li>
+
+                    <li class="list-group-item p-3">
+                        <a th:href="@{/profile/settings}" class="d-flex justify-content-between">
+                            <span>설정</span>
+                            <span>-></span>
+                        </a>
+                    </li>
+
+
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <h2>쿠폰</h2>
+
+        </div>
+
+
+    </div>
+</div>
+
+
+</body>
+</html>

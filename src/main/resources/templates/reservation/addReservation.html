@@ -27,81 +27,12 @@
     <!-- Custom styles for this template -->
 </head>
 
-<svg xmlns="http://www.w3.org/2000/svg" class="d-none">
-    <!--        부트스트랩 로고-->
-    <symbol id="bootstrap" viewBox="0 0 118 94">
-        <title>Bootstrap</title>
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M24.509 0c-6.733 0-11.715 5.893-11.492 12.284.214 6.14-.064 14.092-2.066 20.577C8.943 39.365 5.547 43.485 0 44.014v5.972c5.547.529 8.943 4.649 10.951 11.153 2.002 6.485 2.28 14.437 2.066 20.577C12.794 88.106 17.776 94 24.51 94H93.5c6.733 0 11.714-5.893 11.491-12.284-.214-6.14.064-14.092 2.066-20.577 2.009-6.504 5.396-10.624 10.943-11.153v-5.972c-5.547-.529-8.934-4.649-10.943-11.153-2.002-6.484-2.28-14.437-2.066-20.577C105.214 5.894 100.233 0 93.5 0H24.508zM80 57.863C80 66.663 73.436 72 62.543 72H44a2 2 0 01-2-2V24a2 2 0 012-2h18.437c9.083 0 15.044 4.92 15.044 12.474 0 5.302-4.01 10.049-9.119 10.88v.277C75.317 46.394 80 51.21 80 57.863zM60.521 28.34H49.948v14.934h8.905c6.884 0 10.68-2.772 10.68-7.727 0-4.643-3.264-7.207-9.012-7.207zM49.948 49.2v16.458H60.91c7.167 0 10.964-2.876 10.964-8.281 0-5.406-3.903-8.178-11.425-8.178H49.948z"></path>
-    </symbol>
-
-    <!--        프로필 아이콘-->
-    <symbol id="people-circle" viewBox="0 0 16 16">
-        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-    </symbol>
-
-</svg>
-
 <body>
 
+<!--아이콘 가져오기-->
+<div th:replace="~{fragment/icon :: icon}"></div>
 <!--헤더-->
-<div class="container">
-    <header>
-        <nav class="navbar navbar-white p-3 text-bg-white border-bottom mb-4">
-            <div class="container d-flex justify-content-between align-items-center">
-                <!--아이콘-->
-                <a href="#" th:href="@{/home}" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
-                    <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
-                </a>
-
-                <div class="d-flex ms-auto align-items-center">
-
-                    <!-- 로그인 안했을 때-->
-                    <button sec:authorize="isAnonymous()" type="button" class="btn btn-outline-dark me-2" onclick="#" th:onclick="|location.href='@{/login}'|">로그인</button>
-                    <button sec:authorize="isAnonymous()" type="button" class="btn btn-warning me-3" onclick="#" th:onclick="|location.href='@{/signup/add}'|">회원가입</button>
-
-                    <!-- 로그인 했을 때 -->
-                    <a sec:authorize="isAuthenticated()" class="me-3 text-dark" href="#">
-                        <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#people-circle"/></svg>
-                        <span th:if="${not #strings.isEmpty(user)}" th:text="${user.username}">
-                                로그인한 사용자 이름
-                            </span>
-                    </a>
-
-                    <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
-                        <button type="submit" class="btn btn-dark me-3" onclick="#">로그아웃</button>
-                    </form>
-
-                    <!--상단 네비게이션 토글 버튼-->
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                </div>
-
-                <!-- 네비게이션 아이템 -->
-                <div class="collapse navbar-collapse" id="navbar">
-                    <ul class="navbar-nav me-auto mb-1">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">홈</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">국내 여행</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">해외 여행</a>
-                        </li>
-                        <li class="nav-item" th:href="@{/item/items}">
-                            <a class="nav-link" href="#">숙소 검색</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" th:href="@{/bulletinBoard/list}" tabindex="-1" aria-disabled="true">게시판</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-</div>
+<div class="container" th:insert="~{fragment/header :: header}"></div>
 
 <div class="container">
 
@@ -186,7 +117,7 @@
                             <div class="col-sm-12">
                                 <span class="h6" style="margin-right: 10px;">일정</span>
                                 <span id="checkIn" class="h6" th:text="${reservation.checkIn}">2024-09-24</span>
-                                <span="h6">-</span>
+                                <span class="h6">-</span>
                                <span id="checkOut" class="h6" th:text="${reservation.checkOut}">2024-09-25</span>
                             </div>
 
@@ -209,8 +140,8 @@
                                     <button type="submit" class="btn btn-lg btn-primary">결제하기</button>
                                 </div>
                             </div>
-
                         </div>
+                    </div>
                 </div>
         </main>
     </form>

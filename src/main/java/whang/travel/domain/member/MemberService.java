@@ -7,6 +7,8 @@ public interface MemberService {
     // 회원 가입
     void join(Member member);
 
+    void updatePw(Long id, String pw);
+
     // 회원 조회
     Optional<Member> findMember(Long id);
 }

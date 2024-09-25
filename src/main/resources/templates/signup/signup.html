@@ -36,12 +36,21 @@
     </style>
 
   </head>
-  <body class="bg-light">
+  <body>
   <script th:src="@{/script/form-validation.js}" 
           src="../../static/script/form-validation.js" defer></script>
+  <script th:src="@{/script/bootstrap.bundle.min.js}"
+          src="../../static/script/bootstrap.bundle.min.js" defer></script>
+
+  <!--아이콘 가져오기-->
+  <div th:replace="~{fragment/icon :: icon}"></div>
+  <!--헤더-->
+  <div class="container" th:insert="~{fragment/header :: header}"></div>
+
+
     
-<div class="container">
-  <main>
+  <div class="container">
+    <main>
     <div class="py-5 text-center">
       <h1>회원 가입</h1>
     </div>
@@ -159,6 +168,6 @@
       <li class="list-inline-item"><a href="#">Support</a></li>
     </ul>
   </footer>
-</div>
+  </div>
   </body>
 </html>

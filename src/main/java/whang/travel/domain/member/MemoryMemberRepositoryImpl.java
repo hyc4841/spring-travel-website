@@ -34,7 +34,11 @@ public class MemoryMemberRepositoryImpl implements MemberRepository {
         findMember.setMemberId(updateMember.getMemberId());
         findMember.setEmail(updateMember.getEmail());
         findMember.setAddress(updateMember.getAddress());
-        findMember.setAddress(updateMember.getPassword());
+    }
+
+    @Override
+    public void updatePw(Long id, String pw) {
+
     }
 
 

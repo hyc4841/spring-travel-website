@@ -30,6 +30,12 @@ public class MybatisMemberRepository implements MemberRepository {
         memberMapper.update(id, updateMember);
     }
 
+    @Override
+    public void updatePw(Long id, String pw) {
+        log.info("MemberRepository.updatePw");
+        memberMapper.updatePw(id, pw);
+    }
+
     // 식별 id로 멤버 찾기
     @Override
     public Optional<Member> findById(Long id) {

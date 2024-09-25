@@ -1,10 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>예약 성공화면</title>
+
+
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../../static/css/bootstrap.css" rel="stylesheet">
 </head>
 <body>
+<!--아이콘 가져오기-->
+<div th:replace="~{fragment/icon :: icon}"></div>
+<!--헤더-->
+<div class="container" th:insert="~{fragment/header :: header}"></div>
 
+
+
+
+
+<script th:src="@{/script/bootstrap.bundle.min.js}"
+        src="../../static/script/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -17,6 +17,11 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
+    public void updatePw(Long id, String pw) {
+        memberRepository.updatePw(id, pw);
+    }
+
+    @Override
     public Optional<Member> findMember(Long id) {
         return memberRepository.findById(id);
     }

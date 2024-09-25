@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>예약 내역</title>
+
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../../static/css/bootstrap.css" rel="stylesheet">
+
+    <style>
+        a {
+            text-decoration-line: none;
+			white-space: nowrap;
+			color: rgb(83, 83, 83);
+
+			font-size: large;
+			font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+<script th:src="@{/script/bootstrap.bundle.min.js}"
+        src="../../static/script/bootstrap.bundle.min.js" defer></script>
+
+<!--아이콘 가져오기-->
+<div th:replace="~{fragment/icon :: icon}"></div>
+<!--헤더-->
+<div class="container" th:insert="~{fragment/header :: header}"></div>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-3 mb-4">
+            <div id="navCard">
+                <ul class="list-group" style="border-radius: 15px;">
+
+                    <li class="list-group-item p-3">
+                        <a th:href="@{/profile/reservations}" class="d-flex justify-content-between" style="color: rgb(0, 128, 255);">
+                            <span>예약 내역</span>
+                            <span>-></span>
+                        </a>
+                    </li>
+
+                    <li class="list-group-item p-3">
+                        <a th:href="@{/profile/info}" class="d-flex justify-content-between">
+                            <span>내 정보</span>
+                            <span>-></span>
+                        </a>
+                    </li>
+
+                    <li class="list-group-item p-3">
+                        <a th:href="@{/profile/posts}" class="d-flex justify-content-between">
+                            <span>내 게시물</span>
+                            <span>-></span>
+                        </a>
+                    </li>
+
+                    <li class="list-group-item p-3">
+                        <a th:href="@{/profile/coupon}" class="d-flex justify-content-between">
+                            <span>쿠폰</span>
+                            <span>-></span>
+                        </a>
+                    </li>
+
+                    <li class="list-group-item p-3">
+                        <a th:href="@{/profile/settings}" class="d-flex justify-content-between">
+                            <span>설정</span>
+                            <span>-></span>
+                        </a>
+                    </li>
+
+
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <h2>예약 내역</h2>
+
+            <hr>
+            <div class="row">
+                <div class="col-12">
+                    <div class="border d-flex justify-content-between rounded p-2">
+                        <div>
+                            <p class="h5">예약 날짜</p>
+                            <p class="h6">예약 번호</p>
+                            <p class="h6">숙소 이름</p>
+                            <div class="d-flex">
+                                
+                                <div style="margin-right: 20px ;">
+                                    <svg class="bd-placeholder-img" width="100" height="100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                                </div>
+
+                                <div>
+                                    <p style="margin: 0;">방이름</p>
+                                    <p ><small>방문 방법</small></p>
+                                    <p style="margin: 0;"><small>이용 기간</small></p>
+                                    <span><small>체크인</small></span><span> - </span><span><small>체크아웃</small></span>
+                                    <p><small>이용 인원(그냥 방 인원 정보임)</small></p>
+                                </div>
+                                
+                                    
+                            </div>
+
+
+                        </div>
+
+
+                        <a href="#">상세보기 -></a>
+
+                    </div>
+                </div>
+            </div>
+            
+
+        </div>
+
+
+    </div>
+</div>
+
+
+</body>
+</html>

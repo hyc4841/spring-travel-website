@@ -12,6 +12,8 @@ public interface MemberRepository { // 회원 저장소가 해야하는 기능
 
     void update(Long id, MemberUpdateForm updateMember);
 
+    void updatePw(Long id, String pw);
+
     // 회원 조회
     Optional<Member> findById(Long id);
 
