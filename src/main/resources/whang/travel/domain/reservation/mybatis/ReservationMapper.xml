@@ -3,6 +3,22 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="whang.travel.domain.reservation.mybatis.ReservationMapper">
 
+    <resultMap id="ReservationListMap" type="ReservationShow">
+        <result property="reservationId" column="reservation_id"/>
+        <result property="rDate" column="r_date"/>
+        <result property="checkIn" column="check_in"/>
+        <result property="checkOut" column="check_out"/>
+        <result property="visitType" column="visit_type"/>
+
+        <result property="roomName" column="room_name"/>
+        <result property="personnel" column="personnel"/>
+        <result property="maxPersonnel" column="max_personnel"/>
+        <result property="checkInTime" column="check_in_time"/>
+        <result property="checkOutTime" column="check_out_time"/>
+
+        <result property="accommoName" column="accommo_name"/>
+    </resultMap>
+
     <insert id="save" useGeneratedKeys="true" keyProperty="reservationId">
         insert into reservation (MEMBER, SELLER, ACCOMMODATION, ROOM, PERSONNEL, R_DATE, CHECK_IN, CHECK_OUT, CUSTOMER, NUMBER, AMOUNT)
         values (#{member}, #{seller}, #{accommodation}, #{room}, #{personnel}, #{rDate}, #{checkIn}, #{checkOut}, #{customer}, #{number}, #{amount})
@@ -24,6 +40,30 @@
         where reservation_id=#{reservationId}
     </select>
 
+    <!-- 예약 내역 리스트-->
+    <select id="findReservationListByMemberId" resultMap="ReservationListMap">
+        select a.reservation_id, a.r_date, a.check_in, a.check_out, a.visit_type,
+        b.name as room_name, b.personnel, b.max_personnel, b.check_in as check_in_time,
+        b.check_out as check_out_time, c.name as accommo_name
+        from RESERVATION a
+        left join room b on a.room = b.room_id
+        left join accommodation c on a.accommodation = c.accommodation_id
+        where a.member = #{memberId}
+        order by a.r_date desc
+    </select>
+
+    <!-- 예약 상세 페이지 -->
+    <select id="findReservationListByReservationId" resultMap="ReservationListMap">
+        select a.reservation_id, a.r_date, a.check_in, a.check_out, a.visit_type,
+        b.name as room_name, b.personnel, b.max_personnel, b.check_in as check_in_time,
+        b.check_out as check_out_time, c.name as accommo_name
+        from RESERVATION a
+        left join room b on a.room = b.room_id
+        left join accommodation c on a.accommodation = c.accommodation_id
+        where a.reservation_id = #{reservationId}
+    </select>
+
+
 <!-- 해당 기간 내에 예약 내역이 있으면 예약이 되어선 안된다 -->
 <!--    만약 해당 조건에 예약 내역이 나오면 예약 되지 않도록 한다.-->
     <select id="findReservationByCond" resultType="Reservation">
@@ -32,22 +72,13 @@
         where room = #{room}
         and (check_in &lt; #{checkOut} and check_out &gt; #{checkIn})
     </select>
-<!--    예약 유저와 검색 조건으로 예약 다중 조회 -->
-    <select id="findReservationList" resultType="Reservation">
+
+    <!-- 예약 유저와 검색 조건으로 예약 다중 조회 -->
+    <select id="findReservationList" resultType="ReservationShow">
         select *
         from reservation
         where member = #{memberId}
     </select>
 
-    <delete id="delete">
-        delete from orders
-        where order_num=#{orderNum}
-    </delete>
-
-    <select id="findIdByMemberLoginId" resultType="Long">
-        select id
-        from member
-        where member_id=#{findMemberIdByMemberLoginId}
-    </select>
 
 </mapper>

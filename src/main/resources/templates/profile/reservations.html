@@ -15,9 +15,14 @@
             text-decoration-line: none;
 			white-space: nowrap;
 			color: rgb(83, 83, 83);
-
 			font-size: large;
 			font-weight: 600;
+        }
+        #reservationCard {
+            border-radius: 15px;
+        }
+        svg {
+            border-radius: 15px;
         }
     </style>
 </head>
@@ -73,45 +78,65 @@
                         </a>
                     </li>
 
+                    <li class="list-group-item p-3">
+                        <a th:href="@{/profile/pw}" class="d-flex justify-content-between">
+                            <span>비밀번호 수정</span>
+                            <span>-></span>
+                        </a>
+                    </li>
 
                 </ul>
             </div>
         </div>
 
         <div class="col-md-9">
-            <h2>예약 내역</h2>
+            <p class="h2">예약 내역</p>
+            <hr class="mb-4">
 
-            <hr>
             <div class="row">
-                <div class="col-12">
-                    <div class="border d-flex justify-content-between rounded p-2">
+                <p th:if="${#lists.isEmpty(reservationList)}" class="h3" >예약 내역이 아직 없어요! 새로운 여행을 떠나보세요!</p>
+
+                <!-- 예약 내역 카드 -->
+                <div class="col-md-12 mb-3" th:each="reservation : ${reservationList}">
+                    <div id="reservationCard" class="border d-flex justify-content-between p-2">
                         <div>
-                            <p class="h5">예약 날짜</p>
-                            <p class="h6">예약 번호</p>
-                            <p class="h6">숙소 이름</p>
+                            <p class="h6" th:text="${reservation.rDate}">예약 날짜</p>
+                            <p class="h6">
+                                <span>예약 번호 : </span>
+                                <span th:text="${reservation.reservationId}"></span>
+                            </p>
+                            <p class="h5" th:text="${reservation.accommoName}">숙소 이름</p>
                             <div class="d-flex">
-                                
-                                <div style="margin-right: 20px ;">
-                                    <svg class="bd-placeholder-img" width="100" height="100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+
+                                <!-- 썸네일 -->
+                                <div style="margin-right: 20px;">
+                                    <svg class="bd-placeholder-img" width="100" height="100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#55595c"/></svg>
                                 </div>
 
                                 <div>
-                                    <p style="margin: 0;">방이름</p>
-                                    <p ><small>방문 방법</small></p>
-                                    <p style="margin: 0;"><small>이용 기간</small></p>
-                                    <span><small>체크인</small></span><span> - </span><span><small>체크아웃</small></span>
-                                    <p><small>이용 인원(그냥 방 인원 정보임)</small></p>
+                                    <p style="margin: 0;" th:text="${reservation.roomName}">방이름</p>
+                                    <p style="margin-bottom: 10px;"><small th:text="${reservation.visitType}">방문 방법</small></p>
+                                    <p style="margin: 0;"><small>
+                                        <span>이용일 : </span>
+                                        <span th:text="${reservation.checkIn}">체크인(날짜)</span>
+                                        <span> ~ </span>
+                                        <span th:text="${reservation.checkOut}">체크아웃</span>
+                                    </small></p>
+                                    <span><small th:text="${reservation.checkInTime}">체크인(시간)</small></span><span> - </span><span><small th:text="${reservation.checkOutTime}">체크아웃</small></span>
+                                    <p style="margin: 0;">
+                                        <small>
+                                            <span>기준 : </span>
+                                            <span th:text="${reservation.personnel}">2</span>
+                                            <span>최대 : </span>
+                                            <span th:text="${reservation.maxPersonnel}">4</span>
+                                        </small>
+                                    </p>
                                 </div>
-                                
-                                    
+
                             </div>
-
-
                         </div>
 
-
-                        <a href="#">상세보기 -></a>
-
+                        <a th:href="@{/profile/reservations/{reservationId}(reservationId=${reservation.reservationId})}">상세보기 -></a>
                     </div>
                 </div>
             </div>

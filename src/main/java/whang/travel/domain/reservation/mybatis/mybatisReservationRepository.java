@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 import whang.travel.domain.reservation.Reservation;
 import whang.travel.domain.reservation.ReservationRepository;
+import whang.travel.domain.reservation.ReservationShow;
 import whang.travel.web.reservation.form.ReservationSearchCond;
 import whang.travel.web.reservation.form.UpdateReservationForm;
 
@@ -36,6 +37,18 @@ public class mybatisReservationRepository implements ReservationRepository {
         Reservation reservation = reservationMapper.findReservationById(reservationId);
         log.info("예약 id로 단건 조회={}", reservation);
         return reservation;
+    }
+
+    @Override
+    public ReservationShow findReservationListByReservationId(Long reservationId) {
+        return reservationMapper.findReservationListByReservationId(reservationId);
+    }
+
+    @Override
+    public List<ReservationShow> findReservationListByMemberId(Long memberId) {
+        List<ReservationShow> reservationList = reservationMapper.findReservationListByMemberId(memberId);
+        log.info("멤버의 예약 내역 리스트={}", reservationList);
+        return reservationList;
     }
 
     @Override

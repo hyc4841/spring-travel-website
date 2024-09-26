@@ -13,8 +13,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import whang.travel.domain.accommodation.Accommodation;
 import whang.travel.domain.accommodation.AccommodationService;
@@ -22,7 +20,7 @@ import whang.travel.domain.accommodation.mybatis.Room;
 import whang.travel.domain.member.Member;
 import whang.travel.domain.member.MemberRepository;
 import whang.travel.domain.reservation.Reservation;
-import whang.travel.domain.reservation.mybatis.ReservationService;
+import whang.travel.domain.reservation.ReservationService;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -50,7 +48,7 @@ public class ReservationController {
         this.iamportClient = new IamportClient(apiKey, secretKey);
     }
 
-
+    // get : 예약 화면
     @GetMapping("/checkout/{roomId}")
     public String reservationView(@PathVariable Long roomId, @ModelAttribute("reservation") Reservation reservation,
                                   Model model, @AuthenticationPrincipal UserDetails user) {
@@ -62,14 +60,14 @@ public class ReservationController {
         Room room = accommodationService.findRoomById(roomId);
         Accommodation accommodation = accommodationService.findAccommoById(room.getAccommodation()).get();
 
-
+        model.addAttribute("user", user);
         model.addAttribute("accommodation", accommodation);
         model.addAttribute("room", room);
 
         return "/reservation/addReservation";
     }
 
-
+    // post : 예약 하기
     @PostMapping("/checkout/{roomId}")
     public String saveReservation(@PathVariable Long roomId, @ModelAttribute("reservation") Reservation reservation,
                                   @AuthenticationPrincipal UserDetails user) {
@@ -95,8 +93,6 @@ public class ReservationController {
         log.info("정상 작동, 넘어온 예약정보={}", reservation);
         return "redirect:/home";
     }
-
-
 
 
     @PostMapping("/payment/validation/{imp_uid}")

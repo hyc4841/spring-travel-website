@@ -1,11 +1,9 @@
-package whang.travel.domain.reservation.mybatis;
+package whang.travel.domain.reservation;
 
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import whang.travel.domain.reservation.Reservation;
-import whang.travel.domain.reservation.ReservationRepository;
 import whang.travel.web.reservation.form.ReservationSearchCond;
 import whang.travel.web.reservation.form.UpdateReservationForm;
 
@@ -32,6 +30,16 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public Reservation findReservationById(Long reservationId) {
         return reservationRepository.findReservationById(reservationId);
+    }
+
+    @Override
+    public ReservationShow findReservationListByReservationId(Long reservationId) {
+        return reservationRepository.findReservationListByReservationId(reservationId);
+    }
+
+    @Override
+    public List<ReservationShow> findReservationListByMemberId(Long memberId) {
+        return reservationRepository.findReservationListByMemberId(memberId);
     }
 
     @Override
