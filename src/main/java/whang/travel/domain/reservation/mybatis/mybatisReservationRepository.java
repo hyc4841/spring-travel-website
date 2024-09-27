@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import whang.travel.domain.reservation.Reservation;
 import whang.travel.domain.reservation.ReservationRepository;
 import whang.travel.domain.reservation.ReservationShow;
+import whang.travel.web.profile.form.NonMember;
 import whang.travel.web.reservation.form.ReservationSearchCond;
 import whang.travel.web.reservation.form.UpdateReservationForm;
 
@@ -63,6 +64,13 @@ public class mybatisReservationRepository implements ReservationRepository {
         Optional<Reservation> reservationByCond = reservationMapper.findReservationByCond(reservation);
         log.info("해당 기간에 기존에 예약된 내역이 있는지={}", reservationByCond);
         return reservationByCond;
+    }
+
+    @Override
+    public Optional<ReservationShow> findReservationNonMember(NonMember nonMember) {
+        Optional<ReservationShow> nonMemberReservation = reservationMapper.findReservationNonMember(nonMember);
+        log.info("비회원 예약내역 조회={}", nonMemberReservation);
+        return nonMemberReservation;
     }
 
 

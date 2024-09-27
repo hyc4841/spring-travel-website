@@ -1,5 +1,6 @@
 package whang.travel.domain.reservation;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -17,11 +18,15 @@ public class Reservation {
     private Date rDate; // 예약 날짜임
     private LocalDate checkIn;
     private LocalDate checkOut;
+    @NotBlank
     private String customer;
+    @NotBlank
     private String number;
     private Integer amount;
 
     private String visitType;
+
+    private String password;
 
     // amount로 퉁치지 말고
     // 원래 방 가격

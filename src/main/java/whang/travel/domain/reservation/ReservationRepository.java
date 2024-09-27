@@ -1,5 +1,6 @@
 package whang.travel.domain.reservation;
 
+import whang.travel.web.profile.form.NonMember;
 import whang.travel.web.reservation.form.ReservationSearchCond;
 import whang.travel.web.reservation.form.UpdateReservationForm;
 
@@ -17,7 +18,7 @@ public interface ReservationRepository {
     // 예약 단건 조회
     Reservation findReservationById(Long reservationId);
 
-
+    // 예약 내역 보여줄 때
     ReservationShow findReservationListByReservationId(Long reservationId);
 
     List<ReservationShow> findReservationListByMemberId(Long memberId);
@@ -26,6 +27,10 @@ public interface ReservationRepository {
     List<Reservation> findReservationList(Long memberId, ReservationSearchCond searchCond); // 주로 회원의 예약 내역을 모두 조회하는거 + 기간 조회 + 뭐 각종 조건 조회일듯
 
     Optional<Reservation> findReservationByCond(Reservation reservation);
+
+    //비회원 예약내역 조회
+    Optional<ReservationShow> findReservationNonMember(NonMember nonMember);
+
 
     // 예약 삭제
     void delete(Long reservationId);

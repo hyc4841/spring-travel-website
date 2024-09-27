@@ -16,7 +16,6 @@ public class ReservationShow {
     private LocalDate checkOut;
     private String visitType;
 
-
     // room
     private String roomName; // 방 이름
     private Integer personnel;

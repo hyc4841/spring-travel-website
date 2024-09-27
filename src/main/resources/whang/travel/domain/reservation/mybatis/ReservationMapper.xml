@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="whang.travel.domain.reservation.mybatis.ReservationMapper">
 
-    <resultMap id="ReservationListMap" type="ReservationShow">
+    <resultMap id="ReservationShowMap" type="ReservationShow">
         <result property="reservationId" column="reservation_id"/>
         <result property="rDate" column="r_date"/>
         <result property="checkIn" column="check_in"/>
@@ -41,7 +41,7 @@
     </select>
 
     <!-- 예약 내역 리스트-->
-    <select id="findReservationListByMemberId" resultMap="ReservationListMap">
+    <select id="findReservationListByMemberId" resultMap="ReservationShowMap">
         select a.reservation_id, a.r_date, a.check_in, a.check_out, a.visit_type,
         b.name as room_name, b.personnel, b.max_personnel, b.check_in as check_in_time,
         b.check_out as check_out_time, c.name as accommo_name
@@ -53,7 +53,7 @@
     </select>
 
     <!-- 예약 상세 페이지 -->
-    <select id="findReservationListByReservationId" resultMap="ReservationListMap">
+    <select id="findReservationListByReservationId" resultMap="ReservationShowMap">
         select a.reservation_id, a.r_date, a.check_in, a.check_out, a.visit_type,
         b.name as room_name, b.personnel, b.max_personnel, b.check_in as check_in_time,
         b.check_out as check_out_time, c.name as accommo_name
@@ -78,6 +78,16 @@
         select *
         from reservation
         where member = #{memberId}
+    </select>
+
+    <select id="findReservationNonMember" resultMap="ReservationShowMap">
+        select a.reservation_id, a.r_date, a.check_in, a.check_out, a.visit_type,
+        b.name as room_name, b.personnel, b.max_personnel, b.check_in as check_in_time,
+        b.check_out as check_out_time, c.name as accommo_name
+        from RESERVATION a
+        left join room b on a.room = b.room_id
+        left join accommodation c on a.accommodation = c.accommodation_id
+        where a.customer=#{name} and a.non_member_pw=#{password}
     </select>
 
 

@@ -6,6 +6,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import whang.travel.domain.accommodation.Accommodation;
 import whang.travel.domain.accommodation.AccommodationService;
@@ -16,6 +18,7 @@ import whang.travel.domain.reservation.Reservation;
 import whang.travel.domain.reservation.ReservationService;
 import whang.travel.domain.reservation.ReservationShow;
 import whang.travel.web.member.form.MemberUpdateForm;
+import whang.travel.web.profile.form.NonMember;
 
 import java.util.List;
 import java.util.Optional;
@@ -96,10 +99,32 @@ public class profileController {
         return "/profile/reservationDetail";
     }
 
+    // get : 비회원 예약 확인 화면. 자기가 입력했던 예약인과 전화번호로 찾는다.
+    @GetMapping("/reservations/non-member")
+    public String nonMemberReservationView(@ModelAttribute("nonMember") NonMember nonMember) {
+
+        return "/profile/non-member";
+    }
+
+    @PostMapping("/reservations/non-member")
+    public String nonMemberReservation(@Validated @ModelAttribute("nonMember") NonMember nonMember, BindingResult bindingResult) {
+        // 만약에 이용자가 입력한 정보가 틀리거나, 없는 예약 내역을 확인하려 하면 오류 페이지를 보여줘야함.
+        if (bindingResult.hasErrors()) {
+            log.info("비회원 예약 조회 오류={}", bindingResult);
+            return "/profile/non-member";
+        }
+
+
+
+
+        // 비회원 예약할 때 비밀번호 추가해서 하면 좋을 듯?
+
+        return "/profile/non-memberReservation";
+    }
+
     // get : 내 게시물 화면 미완성
     @GetMapping("/posts")
     public String posts(@AuthenticationPrincipal UserDetails user, Model model) {
-
         model.addAttribute("user", user);
         return "/profile/posts";
     }

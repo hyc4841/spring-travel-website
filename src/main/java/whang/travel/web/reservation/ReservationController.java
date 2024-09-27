@@ -13,6 +13,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import whang.travel.domain.accommodation.Accommodation;
 import whang.travel.domain.accommodation.AccommodationService;
@@ -52,10 +54,6 @@ public class ReservationController {
     @GetMapping("/checkout/{roomId}")
     public String reservationView(@PathVariable Long roomId, @ModelAttribute("reservation") Reservation reservation,
                                   Model model, @AuthenticationPrincipal UserDetails user) {
-        if (user != null) { // 현재 로그인한 유저가 있으면. 로그인 유저의 정보 가져와서 번호 뿌려주기
-            Optional<Member> member = memberRepository.findByLoginId(user.getUsername());
-            reservation.setNumber(member.get().getNumber());
-        }
 
         Room room = accommodationService.findRoomById(roomId);
         Accommodation accommodation = accommodationService.findAccommoById(room.getAccommodation()).get();
@@ -64,14 +62,27 @@ public class ReservationController {
         model.addAttribute("accommodation", accommodation);
         model.addAttribute("room", room);
 
-        return "/reservation/addReservation";
+        if (user != null) { // 현재 로그인한 유저가 있으면. 로그인 유저의 정보 가져와서 번호 뿌려주기
+            Optional<Member> member = memberRepository.findByLoginId(user.getUsername());
+            reservation.setNumber(member.get().getNumber());
+        } else {
+            return "/reservation/nonMemberCheckOut";
+        }
+
+        return "/reservation/checkOut";
     }
 
     // post : 예약 하기
     @PostMapping("/checkout/{roomId}")
-    public String saveReservation(@PathVariable Long roomId, @ModelAttribute("reservation") Reservation reservation,
+    public String saveReservation(@PathVariable Long roomId, @Validated @ModelAttribute("reservation") Reservation reservation,
+                                  BindingResult bindingResult,
                                   @AuthenticationPrincipal UserDetails user) {
-        if (user != null) {
+        if (bindingResult.hasErrors()) {
+            log.info("예약 정보 오류 발생={}", bindingResult);
+            return "/reservation/checkOut";
+        }
+
+        if (user != null) { // 회원 예약인 경우
             String loginId = user.getUsername();
             Long memberId = memberRepository.findIdByLoginId(loginId);
             reservation.setMember(memberId);

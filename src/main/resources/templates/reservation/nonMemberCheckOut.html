@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../../static/css/bootstrap.css" rel="stylesheet">
+
+    <title>비회원 예약 화면</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/checkout/">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+
+    <!--폰트 어썸-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+    <script src="https://kit.fontawesome.com/3c3a4f4683.js" crossorigin="anonymous"></script>
+
+    <style>
+        a{
+          text-decoration-line: none;
+          color: black;
+        }
+    </style>
+
+    <!-- Custom styles for this template -->
+</head>
+
+<body>
+
+<!--아이콘 가져오기-->
+<div th:replace="~{fragment/icon :: icon}"></div>
+<!--헤더-->
+<div class="container" th:insert="~{fragment/header :: header}"></div>
+
+<div class="container">
+
+    <form id="reservationForm" th:object="${reservation}" th:action method="post">
+        <main>
+            <div class="row g-5">
+
+                <!-- 좌측 예약자 정보 입력 인증 정보 들어갈 자리 -->
+                <div class="col-md-7 col-lg-8">
+                    <a href="#" style="float: left; margin-right: 10px;"><i class="fa-solid fa-arrow-left"></i></a>
+                    <h4 class="mb-3">예약 확인 및 결제</h4>
+
+                    <div class="needs-validation">
+                        <div class="row g-3">
+                            <div class="col-sm-6">
+                                <label for="customer" class="form-label">에약자 이름</label>
+                                <input type="text" class="form-control" id="customer" th:field="*{customer}"
+                                       placeholder="홍길동" required>
+                            </div>
+
+                            <div class="col-6">
+                                <label for="number" class="form-label">휴대폰 번호</label>
+                                <div class="input-group has-validation">
+                                    <input type="text" class="form-control" id="number" th:field="*{number}"
+                                           placeholder="-없이 입력하세요" required>
+
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <label for="password" class="form-label">예약 비밀번호</label>
+                                <div class="input-group has-validation">
+                                    <input type="text" class="form-control" id="password" th:field="*{password}"
+                                           placeholder="예약 비밀번호를 입력해주세요" required>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <hr class="my-4">
+
+                        <div class="form-check">
+                            <p>여기는 방문 방법</p>
+<!--                            <input type="checkbox" class="form-check-input" id="same-address">-->
+<!--                            <label class="form-check-label" for="same-address">도보</label>-->
+                        </div>
+
+                        <div class="form-check">
+<!--                            <input type="checkbox" class="form-check-input" id="save-info">-->
+<!--                            <label class="form-check-label" for="save-info">차량</label>-->
+                        </div>
+
+                        <hr class="my-4">
+
+                        <h4 class="mb-3">결제 수단</h4>
+
+                        <div class="my-3">
+                            <div class="form-check">
+<!--                                <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked required>-->
+<!--                                <label class="form-check-label" for="credit">Credit card</label>-->
+                            </div>
+                            <div class="form-check">
+<!--                                <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required>-->
+<!--                                <label class="form-check-label" for="debit">Debit card</label>-->
+                            </div>
+                            <div class="form-check">
+<!--                                <input id="paypal" name="paymentMethod" type="radio" class="form-check-input" required>-->
+<!--                                <label class="form-check-label" for="paypal">PayPal</label>-->
+                            </div>
+                        </div>
+
+                        <hr class="my-4">
+                    </div>
+                </div>
+
+                <!-- 우측 결제 정보와 결제 버튼이 들어갈 자리 -->
+                <div class="col-md-5 col-lg-4 order-md-last">
+
+                    <div class="card mb-3">
+                        <div class="row p-3">
+
+                            <div class="col-sm-12">
+                                <p class="h4"><strong th:text="${accommodation.name}">숙소 이름</strong></p>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <p class="h5"><strong th:text="${room.name}">객실</strong></p>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <span class="h6" style="margin-right: 10px;">일정</span>
+                                <span id="checkIn" class="h6" th:text="${reservation.checkIn}">2024-09-24</span>
+                                <span class="h6">-</span>
+                               <span id="checkOut" class="h6" th:text="${reservation.checkOut}">2024-09-25</span>
+                            </div>
+
+                                
+                    
+
+                        </div>
+                    </div>
+
+                        <div class="card p-3">
+                            <div class="row align-items-center">
+                                <div class="col-12">
+                                    <h5>결제 정보</h5>
+                                </div>
+                                <div class="col">
+                                    <p id="price" class="h5">결재 가격 : [[${room.basePrice}]]</p>
+                                    </div>
+
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-lg btn-primary">결제하기</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </main>
+    </form>
+
+<!--하단부-->
+    <footer class="my-5 pt-5 text-body-secondary text-center text-small">
+        <p class="mb-1">&copy; 2017–2024 Company Name</p>
+        <ul class="list-inline">
+            <li class="list-inline-item"><a href="#">Privacy</a></li>
+            <li class="list-inline-item"><a href="#">Terms</a></li>
+            <li class="list-inline-item"><a href="#">Support</a></li>
+        </ul>
+    </footer>
+</div>
+
+<script th:src="@{/script/bootstrap.bundle.min.js}"
+        src="../../static/script/bootstrap.bundle.min.js"></script>
+
+<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+<!-- jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+<!-- iamport.payment.js -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script th:src="@{/script/portone.js}"></script>
+
+<script>
+    localStorage.clear();
+    localStorage.setItem('roomId', [[${room.roomId}]]);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../../static/css/bootstrap.css" rel="stylesheet">
+
+    <title>비회원 예약 확인</title>
+
+    <style>
+        a {
+            text-decoration-line: none;
+			white-space: nowrap;
+			color: rgb(83, 83, 83);
+			font-size: large;
+			font-weight: 600;
+        }
+
+    </style>
+</head>
+
+
+<body>
+<!--부트스트랩 js-->
+<script th:src="@{/script/bootstrap.bundle.min.js}"
+        src="../../static/script/bootstrap.bundle.min.js" defer></script>
+<!--아이콘 가져오기-->
+<div th:replace="~{fragment/icon :: icon}"></div>
+<!--헤더-->
+<div class="container" th:insert="~{fragment/header :: header}"></div>
+
+<div class="container">
+
+    <div class="row">
+
+		<!-- 왼쪽 네비게이션 바-->
+
+		<!-- 메인 -->
+		<div class="col-md-12">
+			<p class="h2">비회원 예약 확인</p>
+			<hr>
+			<P class="h4 mb-4">비회원 정보 입력</P>
+
+			<form th:object="${nonMember}" th:action method="post">
+				<div class="row">
+					<div class="col-md-6 mb-4">
+						<label for="id">예약 이름</label>
+						<input id="id" class="form-control" type="text"
+							   th:field="*{name}"
+							   style="background-color: rgb(245, 245, 245);" placeholder="예약 이름을 입력해주세요." disabled>
+					</div>
+
+					<div class="col-md-6 mb-4">
+						<label for="password">예약 비밀번호</label>
+						<input id="password" class="form-control" type="password"
+							   th:field="*{password}"
+							   style="background-color: rgb(245, 245, 245);" placeholder="예약 비밀번호를 입력해주세요" disabled>
+					</div>
+
+				</div>
+
+				<button class="btn btn-primary" type="submit">예약 확인하기</button>
+			</form>
+
+
+
+		</div>
+    </div>
+</div>      
+
+
+
+
+
+
+
+</body>
+</html>
