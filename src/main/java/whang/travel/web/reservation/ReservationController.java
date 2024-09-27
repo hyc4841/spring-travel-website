@@ -22,6 +22,7 @@ import whang.travel.domain.accommodation.mybatis.Room;
 import whang.travel.domain.member.Member;
 import whang.travel.domain.member.MemberRepository;
 import whang.travel.domain.reservation.Reservation;
+import whang.travel.domain.reservation.ReservationNonMember;
 import whang.travel.domain.reservation.ReservationService;
 
 import java.time.LocalDate;
@@ -52,7 +53,7 @@ public class ReservationController {
 
     // get : 예약 화면
     @GetMapping("/checkout/{roomId}")
-    public String reservationView(@PathVariable Long roomId, @ModelAttribute("reservation") Reservation reservation,
+    public String reservationView(@PathVariable Long roomId,
                                   Model model, @AuthenticationPrincipal UserDetails user) {
 
         Room room = accommodationService.findRoomById(roomId);
@@ -63,18 +64,23 @@ public class ReservationController {
         model.addAttribute("room", room);
 
         if (user != null) { // 현재 로그인한 유저가 있으면. 로그인 유저의 정보 가져와서 번호 뿌려주기
+            // 회원 예약
+            Reservation reservation = new Reservation();
             Optional<Member> member = memberRepository.findByLoginId(user.getUsername());
             reservation.setNumber(member.get().getNumber());
+            model.addAttribute("reservation", reservation);
+            return "/reservation/checkOut";
         } else {
+            // 비회원 예약
+            ReservationNonMember reservationNonMember = new ReservationNonMember();
+            model.addAttribute("reservationNonMember", reservationNonMember);
             return "/reservation/nonMemberCheckOut";
         }
-
-        return "/reservation/checkOut";
     }
 
-    // post : 예약 하기
+    // post : 회원 예약 하기
     @PostMapping("/checkout/{roomId}")
-    public String saveReservation(@PathVariable Long roomId, @Validated @ModelAttribute("reservation") Reservation reservation,
+    public String memberCheckOut(@PathVariable Long roomId, @Validated @ModelAttribute("reservation") Reservation reservation,
                                   BindingResult bindingResult,
                                   @AuthenticationPrincipal UserDetails user) {
         if (bindingResult.hasErrors()) {
@@ -86,6 +92,33 @@ public class ReservationController {
             String loginId = user.getUsername();
             Long memberId = memberRepository.findIdByLoginId(loginId);
             reservation.setMember(memberId);
+        }
+
+        Room room = accommodationService.findRoomById(roomId);
+        Accommodation accommodation = accommodationService.findAccommoById(room.getAccommodation()).get();
+
+        // 만약 해당 기간에 먼저 예약된 방이 있으면 오류를 내보내줘야함.
+
+        reservation.setSeller(accommodation.getSeller());
+        reservation.setAmount(room.getBasePrice());
+        reservation.setRoom(room.getRoomId());
+        reservation.setRDate(new Date());
+        reservation.setAccommodation(accommodation.getAccommodationId());
+
+        reservationService.save(reservation);
+
+        log.info("정상 작동, 넘어온 예약정보={}", reservation);
+        return "redirect:/reservation/success";
+    }
+
+    // post : 비회원 예약 하기
+    @PostMapping("/checkout/non-member/{roomId}")
+    public String nonMemberCheckOut(@PathVariable Long roomId, @Validated @ModelAttribute("reservationNonMember") ReservationNonMember reservation,
+                                  BindingResult bindingResult,
+                                  @AuthenticationPrincipal UserDetails user) {
+        if (bindingResult.hasErrors()) {
+            log.info("예약 정보 오류 발생={}", bindingResult);
+            return "/reservation/checkOut";
         }
 
         Room room = accommodationService.findRoomById(roomId);
