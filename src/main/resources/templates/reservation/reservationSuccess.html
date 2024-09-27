@@ -17,7 +17,18 @@
 <!--헤더-->
 <div class="container" th:insert="~{fragment/header :: header}"></div>
 
+<div class="container d-flex align-items-center justify-content-center" style="height: 500px;">
 
+    <div class="text-center">
+        <p class="h2 mb-5">
+            예약에 성공했습니다!!
+        </p>
+
+        <button class="btn btn-md btn-primary" th:onclick="|location.href='@{/home}'|">홈으로</button>
+    </div>
+
+
+</div>
 
 
 

@@ -102,9 +102,14 @@ public class ReservationController {
         reservationService.save(reservation);
 
         log.info("정상 작동, 넘어온 예약정보={}", reservation);
-        return "redirect:/home";
+        return "redirect:/reservation/success";
     }
 
+    @GetMapping("/reservation/success")
+    public String reservationSuccess() {
+
+        return "/reservation/reservationSuccess";
+    }
 
     @PostMapping("/payment/validation/{imp_uid}")
     @ResponseBody
