@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 import whang.travel.domain.reservation.Reservation;
+import whang.travel.domain.reservation.ReservationNonMember;
 import whang.travel.domain.reservation.ReservationRepository;
 import whang.travel.domain.reservation.ReservationShow;
 import whang.travel.web.profile.form.NonMember;
@@ -24,6 +25,13 @@ public class mybatisReservationRepository implements ReservationRepository {
     public Reservation save(Reservation reservation) {
         reservationMapper.save(reservation);
         log.info("예약 저장={}", reservation);
+        return reservation;
+    }
+
+    @Override
+    public ReservationNonMember nonMemberSave(ReservationNonMember reservation) {
+        reservationMapper.nonMemberSave(reservation);
+        log.info("비회원 예약 저장={}", reservation);
         return reservation;
     }
 

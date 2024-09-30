@@ -12,6 +12,9 @@ public interface ReservationRepository {
     // 예약 저장
     Reservation save(Reservation reservation);
 
+    // 비회원 예약 저장
+    ReservationNonMember nonMemberSave(ReservationNonMember reservation);
+
     // 예약 수정
     void update(UpdateReservationForm updateForm);
 

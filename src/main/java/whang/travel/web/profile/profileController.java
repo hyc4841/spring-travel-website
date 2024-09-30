@@ -113,11 +113,10 @@ public class profileController {
             log.info("비회원 예약 조회 오류={}", bindingResult);
             return "/profile/non-member";
         }
+        // 비회원 예약내역 확인 로직
 
 
 
-
-        // 비회원 예약할 때 비밀번호 추가해서 하면 좋을 듯?
 
         return "/profile/non-memberReservation";
     }

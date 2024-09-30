@@ -24,6 +24,11 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
+    public ReservationNonMember nonMemberSave(ReservationNonMember reservation) {
+        return reservationRepository.nonMemberSave(reservation);
+    }
+
+    @Override
     public void update(UpdateReservationForm updateForm) {
         reservationRepository.update(updateForm);
     }

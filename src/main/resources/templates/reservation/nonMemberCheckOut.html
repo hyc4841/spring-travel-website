@@ -36,7 +36,13 @@
 
 <div class="container">
 
-    <form id="reservationForm" th:object="${reservation}" th:action="@{}" method="post">
+    <!-- 객체만 넘어온다고 되는게 아니고 데이터를 실질적으로 넘겨야함. requestParam으로 넘기던가. 폼의 input으로 넘겨야함.
+     -->
+    <form id="reservationForm" th:object="${reservationNonMember}"
+          th:action="@{/reservation/checkout/non-member/{roomId}(roomId=${room.roomId},
+          checkIn=${reservationNonMember.checkIn}, checkOut=${reservationNonMember.checkOut}, personnel=${reservationNonMember.personnel})}"
+          method="post">
+
         <main>
             <div class="row g-5">
 
@@ -75,34 +81,24 @@
 
                         <hr class="my-4">
 
-                        <div class="form-check">
-                            <p>여기는 방문 방법</p>
-<!--                            <input type="checkbox" class="form-check-input" id="same-address">-->
-<!--                            <label class="form-check-label" for="same-address">도보</label>-->
-                        </div>
+                        <div class="col-md-12 p-2">
+                            <p class="h4">방문 방법</p>
+                            <div th:each="type : ${visitType}" class="form-check form-check-inline">
+                                <input type="radio" th:field="*{visitType}" th:value="${type.name()}"
+                                class="form-check-input">
+                                <label th:for="${#ids.prev('visitType')}" th:text="${type.description}">도보</label>
 
-                        <div class="form-check">
-<!--                            <input type="checkbox" class="form-check-input" id="save-info">-->
-<!--                            <label class="form-check-label" for="save-info">차량</label>-->
+                            </div>
+
+
                         </div>
 
                         <hr class="my-4">
 
-                        <h4 class="mb-3">결제 수단</h4>
+                        <div class="col-md-12 p-2">
+                            <p class="h4 mb-3">결제 수단</p>
 
-                        <div class="my-3">
-                            <div class="form-check">
-<!--                                <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked required>-->
-<!--                                <label class="form-check-label" for="credit">Credit card</label>-->
-                            </div>
-                            <div class="form-check">
-<!--                                <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required>-->
-<!--                                <label class="form-check-label" for="debit">Debit card</label>-->
-                            </div>
-                            <div class="form-check">
-<!--                                <input id="paypal" name="paymentMethod" type="radio" class="form-check-input" required>-->
-<!--                                <label class="form-check-label" for="paypal">PayPal</label>-->
-                            </div>
+
                         </div>
 
                         <hr class="my-4">
@@ -123,15 +119,18 @@
                                 <p class="h5"><strong th:text="${room.name}">객실</strong></p>
                             </div>
 
-                            <div class="col-sm-12">
+                            <div class="col-sm-12 mb-2">
                                 <span class="h6" style="margin-right: 10px;">일정</span>
-                                <span id="checkIn" class="h6" th:text="${reservation.checkIn}">2024-09-24</span>
+                                <span id="checkIn" class="h6" th:text="${reservationNonMember.checkIn}">2024-09-24</span>
                                 <span class="h6">-</span>
-                               <span id="checkOut" class="h6" th:text="${reservation.checkOut}">2024-09-25</span>
+                                <span id="checkOut" class="h6" th:text="${reservationNonMember.checkOut}">2024-09-25</span>
                             </div>
 
-                                
-                    
+                            <div class="col-sm-12">
+                                <span class="h6">인원 : </span>
+                                <span id="personnel" class="h6" th:text="${reservationNonMember.personnel}">인원</span>
+                            </div>
+
 
                         </div>
                     </div>
