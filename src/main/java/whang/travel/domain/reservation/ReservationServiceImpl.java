@@ -39,6 +39,11 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
+    public List<Reservation> findNonMemberReservation(NonMember nonMember) {
+        return reservationRepository.findNonMemberReservation(nonMember);
+    }
+
+    @Override
     public ReservationShow findReservationListByReservationId(Long reservationId) {
         return reservationRepository.findReservationListByReservationId(reservationId);
     }

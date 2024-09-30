@@ -21,6 +21,9 @@ public interface ReservationRepository {
     // 예약 단건 조회
     Reservation findReservationById(Long reservationId);
 
+    // 비회원 예약 내역 검색
+    List<Reservation> findNonMemberReservation(NonMember nonMember);
+
     // 예약 내역 보여줄 때
     ReservationShow findReservationListByReservationId(Long reservationId);
 

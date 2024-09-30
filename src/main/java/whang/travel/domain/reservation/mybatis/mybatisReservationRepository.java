@@ -49,6 +49,13 @@ public class mybatisReservationRepository implements ReservationRepository {
     }
 
     @Override
+    public List<Reservation> findNonMemberReservation(NonMember nonMember) {
+        List<Reservation> reservation = reservationMapper.findNonMemberReservation(nonMember);
+        log.info("비회원 예약 내역 확인={}", reservation);
+        return reservation;
+    }
+
+    @Override
     public ReservationShow findReservationListByReservationId(Long reservationId) {
         return reservationMapper.findReservationListByReservationId(reservationId);
     }

@@ -46,6 +46,13 @@
         where reservation_id=#{reservationId}
     </select>
 
+    <!-- 비회원 예약내역 확인 -->
+    <select id="findNonMemberReservation" resultType="Reservation">
+        select *
+        from reservation
+        where customer=#{name} and number=#{number}
+    </select>
+
     <!-- 예약 내역 리스트-->
     <select id="findReservationListByMemberId" resultMap="ReservationShowMap">
         select a.reservation_id, a.r_date, a.check_in, a.check_out, a.visit_type,

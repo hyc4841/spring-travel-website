@@ -45,6 +45,9 @@ public class SecurityConfig {
                                 .requestMatchers("/error").permitAll()
                                 .requestMatchers("/accommodation/**").permitAll()
                                 .requestMatchers("/reservation/**").permitAll()
+                                .requestMatchers("/profile/reservations/non-member").permitAll()
+
+
                                 .requestMatchers("/bulletinBoard/**").hasAnyRole("user", "admin")
 
                                 .anyRequest().authenticated()

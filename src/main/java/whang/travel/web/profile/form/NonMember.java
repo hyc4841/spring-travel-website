@@ -10,5 +10,7 @@ public class NonMember {
     @NotBlank
     private String name;
     @NotBlank
+    private String number;
+    @NotBlank
     private String password;
 }

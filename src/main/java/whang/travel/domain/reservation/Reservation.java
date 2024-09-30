@@ -23,9 +23,7 @@ public class Reservation {
     @NotBlank
     private String number;
     private Integer amount;
-
     private String visitType;
-
     private String password;
 
     // amount로 퉁치지 말고
@@ -38,7 +36,7 @@ public class Reservation {
     public Reservation() {
     }
 
-    public Reservation(Long reservationId, Long member, Long seller, Long accommodation, Long room, Integer personnel, Date rDate, LocalDate checkIn, LocalDate checkOut, String customer, String number, Integer amount, String visitType) {
+    public Reservation(Long reservationId, Long member, Long seller, Long accommodation, Long room, Integer personnel, Date rDate, LocalDate checkIn, LocalDate checkOut, String customer, String number, Integer amount, String visitType, String password) {
         this.reservationId = reservationId;
         this.member = member;
         this.seller = seller;
@@ -52,6 +50,7 @@ public class Reservation {
         this.number = number;
         this.amount = amount;
         this.visitType = visitType;
+        this.password = password;
     }
 
     public Reservation(Long room, LocalDate checkIn, LocalDate checkOut) {

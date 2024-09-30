@@ -18,6 +18,11 @@
 			font-weight: 600;
         }
 
+		.field-error {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+
     </style>
 </head>
 
@@ -44,19 +49,37 @@
 			<P class="h4 mb-4">비회원 정보 입력</P>
 
 			<form th:object="${nonMember}" th:action method="post">
+
 				<div class="row">
 					<div class="col-md-6 mb-4">
 						<label for="id">예약 이름</label>
 						<input id="id" class="form-control" type="text"
 							   th:field="*{name}"
-							   style="background-color: rgb(245, 245, 245);" placeholder="예약 이름을 입력해주세요." disabled>
+							   style="background-color: rgb(245, 245, 245);" placeholder="예약 이름을 입력해주세요.">
+						<div class="field-error" th:errors="*{name}">
+							예약 이름 오류
+						</div>
+					</div>
+
+					<div class="col-md-6 mb-4">
+						<label for="number">전화번호</label>
+						<input id="number" class="form-control" type="text"
+							   th:field="*{number}"
+							   style="background-color: rgb(245, 245, 245);" placeholder="예약 이름을 입력해주세요.">
+						<div class="field-error" th:errors="*{number}">
+							번호 오류
+						</div>
 					</div>
 
 					<div class="col-md-6 mb-4">
 						<label for="password">예약 비밀번호</label>
 						<input id="password" class="form-control" type="password"
 							   th:field="*{password}"
-							   style="background-color: rgb(245, 245, 245);" placeholder="예약 비밀번호를 입력해주세요" disabled>
+							   style="background-color: rgb(245, 245, 245);" placeholder="예약 비밀번호를 입력해주세요">
+						<div class="field-error" th:errors="*{password}">
+							비밀번호 오류
+						</div>
+
 					</div>
 
 				</div>

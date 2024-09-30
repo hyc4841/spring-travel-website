@@ -18,7 +18,12 @@ public interface ReservationService {
     // 예약 수정
     void update(UpdateReservationForm updateForm);
     // 예약 단건 조회
+
     Reservation findReservationById(Long reservationId);
+
+    // 비회원 예약 내역 검색
+    List<Reservation> findNonMemberReservation(NonMember nonMember);
+
 
     ReservationShow findReservationListByReservationId(Long reservationId);
 

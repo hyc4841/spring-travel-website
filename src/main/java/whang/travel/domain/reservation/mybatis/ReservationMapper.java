@@ -26,6 +26,9 @@ public interface ReservationMapper {
 
     Reservation findReservationById(Long reservationId);
 
+    // 비회원 예약 내역 검색
+    List<Reservation> findNonMemberReservation(NonMember nonMember);
+
     ReservationShow findReservationListByReservationId(Long reservationId);
 
     List<ReservationShow> findReservationListByMemberId(Long memberId);
