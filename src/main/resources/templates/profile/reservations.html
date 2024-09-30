@@ -122,13 +122,12 @@
                                         <span> ~ </span>
                                         <span th:text="${reservation.checkOut}">체크아웃</span>
                                     </small></p>
-                                    <span><small th:text="${reservation.checkInTime}">체크인(시간)</small></span><span> - </span><span><small th:text="${reservation.checkOutTime}">체크아웃</small></span>
+                                    <span><small th:text="${reservation.checkInTime}">체크인(시간)</small></span><span> | </span><span><small th:text="${reservation.checkOutTime}">체크아웃</small></span>
                                     <p style="margin: 0;">
                                         <small>
-                                            <span>기준 : </span>
-                                            <span th:text="${reservation.personnel}">2</span>
-                                            <span>최대 : </span>
-                                            <span th:text="${reservation.maxPersonnel}">4</span>
+                                            <span>기준 </span><span th:text="${reservation.personnel}">2</span><span>명</span>
+                                            <span>|</span>
+                                            <span>최대 </span><span th:text="${reservation.maxPersonnel}">4</span><span>명</span>
                                         </small>
                                     </p>
 
