@@ -29,6 +29,8 @@ public class ReservationNonMember {
     @NotBlank
     private String password;
 
+    private String impUid;
+
     // amount로 퉁치지 말고
     // 원래 방 가격
     // 할인 가격
@@ -39,7 +41,7 @@ public class ReservationNonMember {
     public ReservationNonMember() {
     }
 
-    public ReservationNonMember(Long reservationId, Long seller, Long accommodation, Long room, Integer personnel, Date rDate, LocalDate checkIn, LocalDate checkOut, String customer, String number, Integer amount, String visitType) {
+    public ReservationNonMember(Long reservationId, Long seller, Long accommodation, Long room, Integer personnel, Date rDate, LocalDate checkIn, LocalDate checkOut, String customer, String number, Integer amount, String visitType, String impUid) {
         this.reservationId = reservationId;
 
         this.seller = seller;
@@ -53,6 +55,7 @@ public class ReservationNonMember {
         this.number = number;
         this.amount = amount;
         this.visitType = visitType;
+        this.impUid = impUid;
     }
 
     public ReservationNonMember(Long room, LocalDate checkIn, LocalDate checkOut) {
