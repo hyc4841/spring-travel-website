@@ -81,23 +81,23 @@ public class profileController {
         return "/profile/reservations";
     }
 
-    // get : 예약 내역 상세 화면 미완성
+    // get : 예약 내역 상세 화면
     @GetMapping("/reservations/{reservationId}")
     public String reservationDetail(@PathVariable Long reservationId,
                                     @AuthenticationPrincipal UserDetails user ,Model model) {
 
-        Reservation reservation = reservationService.findReservationById(reservationId); // Optional 걸어야하는지 알아보기
-        Room room = accommodationService.findRoomById(reservation.getRoom());
+        Optional<Reservation> reservation = reservationService.findReservationById(reservationId);
+        Room room = accommodationService.findRoomById(reservation.get().getRoom());
         Accommodation accommodation = accommodationService.findAccommoById(room.getAccommodation()).get();
         ReservationShow reservationShow = reservationService.findReservationListByReservationId(reservationId);
-        Optional<Member> member = memberRepository.findById(reservation.getMember());
+        Optional<Member> member = memberRepository.findById(reservation.get().getMember());
 
         member.ifPresent(value -> model.addAttribute("member", value));
 
         model.addAttribute("reservationShow", reservationShow);
         model.addAttribute("accommodation", accommodation);
         model.addAttribute("room", room);
-        model.addAttribute("reservation", reservation);
+        model.addAttribute("reservation", reservation.get());
         model.addAttribute("user", user);
 
         return "/profile/reservationDetail";
@@ -140,9 +140,12 @@ public class profileController {
         }
         else {
             bindingResult.addError(new ObjectError("noReservation", "입력하신 정보로 예약 내역이 검색되지 않습니다!!"));
+            log.info("조회된 비회원 예약내역이 없음={}", bindingResult);
             return "/profile/non-member";
         }
-        return "/home";
+
+        // 여기로 넘어오는 이유는 예약내역은 있는데 비번이 안맞아서 여기로 튕기는 것
+        return "redirect:/home";
     }
 
     // get : 내 게시물 화면 미완성

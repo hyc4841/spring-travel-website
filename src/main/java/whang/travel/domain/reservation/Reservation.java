@@ -23,6 +23,7 @@ public class Reservation {
     @NotBlank
     private String number;
     private Integer amount;
+    @NotBlank
     private String visitType;
     private String password;
 

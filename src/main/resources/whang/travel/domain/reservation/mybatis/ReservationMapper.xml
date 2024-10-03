@@ -25,7 +25,7 @@
     </insert>
 
     <insert id="nonMemberSave" useGeneratedKeys="true" keyProperty="reservationId">
-        insert into reservation (SELLER, ACCOMMODATION, ROOM, PERSONNEL, R_DATE, CHECK_IN, CHECK_OUT, CUSTOMER, NUMBER, AMOUNT, VISIT_TYPE, NON_MEMBER_PW)
+        insert into reservation (SELLER, ACCOMMODATION, ROOM, PERSONNEL, R_DATE, CHECK_IN, CHECK_OUT, CUSTOMER, NUMBER, AMOUNT, VISIT_TYPE, PASSWORD)
         values (#{seller}, #{accommodation}, #{room}, #{personnel}, #{rDate}, #{checkIn}, #{checkOut}, #{customer}, #{number}, #{amount}, #{visitType}, #{password})
     </insert>
 
@@ -102,6 +102,11 @@
         left join accommodation c on a.accommodation = c.accommodation_id
         where a.customer=#{name} and a.non_member_pw=#{password}
     </select>
+
+    <delete id="delete">
+        delete from reservation
+        where reservation_id=#{reservationId}
+    </delete>
 
 
 </mapper>

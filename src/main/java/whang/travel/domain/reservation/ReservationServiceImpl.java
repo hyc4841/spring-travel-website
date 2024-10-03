@@ -34,7 +34,7 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public Reservation findReservationById(Long reservationId) {
+    public Optional<Reservation> findReservationById(Long reservationId) {
         return reservationRepository.findReservationById(reservationId);
     }
 

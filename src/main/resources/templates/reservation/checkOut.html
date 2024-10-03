@@ -22,6 +22,11 @@
           text-decoration-line: none;
           color: black;
         }
+
+        .field-error {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
     </style>
 
     <!-- Custom styles for this template -->
@@ -49,32 +54,39 @@
                         <div class="row g-3">
                             <div class="col-sm-6">
                                 <label for="customer" class="form-label">에약자 이름</label>
-                                <input type="text" class="form-control" id="customer" th:field="*{customer}"
+                                <input type="text" class="form-control" id="customer" th:field="*{customer}" th:errorclass="field-error"
                                        placeholder="홍길동" required>
+
+                                <div class="field-error" th:errors="*{customer}">
+                                    이름 오류
+                                </div>
                             </div>
 
-                            <div class="col-6">
+                            <div class="col-sm-6">
                                 <label for="number" class="form-label">휴대폰 번호</label>
-                                <div class="input-group has-validation">
-                                    <input type="text" class="form-control" id="number" th:field="*{number}"
-                                           placeholder="-없이 입력하세요" required>
 
-                                </div>
+                                    <input type="text" class="form-control" id="number" th:field="*{number}" th:errorclass="field-error"
+                                           placeholder="-없이 입력하세요" required>
+                                    <div class="field-error" th:errors="*{number}">
+                                        휴대폰 번호 오류
+                                    </div>
                             </div>
 
                         </div>
 
                         <hr class="my-4">
 
-                        <div class="form-check">
-                            <p>여기는 방문 방법</p>
-<!--                            <input type="checkbox" class="form-check-input" id="same-address">-->
-<!--                            <label class="form-check-label" for="same-address">도보</label>-->
-                        </div>
+                        <div class="col-md-12 p-2">
+                            <p class="h4">방문 방법</p>
+                            <div th:each="type : ${visitType}" class="form-check form-check-inline">
+                                <input type="radio" th:field="*{visitType}" th:value="${type.name()}" th:errorclass="field-error"
+                                       class="form-check-input" required>
+                                <label th:for="${#ids.prev('visitType')}" th:text="${type.description}">도보</label>
 
-                        <div class="form-check">
-<!--                            <input type="checkbox" class="form-check-input" id="save-info">-->
-<!--                            <label class="form-check-label" for="save-info">차량</label>-->
+                            </div>
+                            <div class="field-error" th:errors="*{visitType}">
+                                방문 타입 오류
+                            </div>
                         </div>
 
                         <hr class="my-4">

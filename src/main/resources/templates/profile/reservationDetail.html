@@ -197,7 +197,7 @@
 
                 </div>
 
-                <div class="col-md-12" >
+                <div class="col-md-12 mb-4" >
                     <div class="card p-2 d-flex" style="border-radius: 15px;">
                         <p class="h2 p-2">결재 금액</p>
 
@@ -230,20 +230,56 @@
                             <span class="h5">카카오페이</span>
                         </div>
 
-
-
                     </div>
                 </div>
 
-
+                <div class="col-me-12 d-flex mb-4 justify-content-center">
+                    <button id="cancelBtn" class="btn btn-lg btn-primary"
+                    th:onclick="cancelReservation()" onclick="test()">
+                        예약 취소
+                    </button>
+                </div>
 
             </div>
+
+
 
 
         </div>
 
 
     </div>
+
+    <script>
+        function cancelReservation() {
+            var con = confirm("예약을 취소하시겠습니까??");
+            var reservationId = [[${reservation.reservationId}]]
+
+            if (con) {
+                console.log("예약 취소 확인" + con)
+                fetch(`/reservation/${reservationId}`, {
+                    method: 'DELETE',
+                }).then(response => {
+                    if (response.ok) {
+                        alert("예약이 취소되었습니다!");
+                        window.location.href = '/home';
+                    }
+                    else {
+                        console.log("예약 취소 실패 : " + response.error)
+                        alert("예약 취소 실패");
+                    }
+                }).catch(error => {
+                    console.error("에러 발생 : " + error);
+                    alert("오류발생")
+                })
+            }
+        }
+
+        function test() {
+            const con = confirm("예약 취소 하실?");
+        }
+
+    </script>
 </div>
 
 

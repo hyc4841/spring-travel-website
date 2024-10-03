@@ -42,8 +42,8 @@ public class mybatisReservationRepository implements ReservationRepository {
     }
 
     @Override
-    public Reservation findReservationById(Long reservationId) {
-        Reservation reservation = reservationMapper.findReservationById(reservationId);
+    public Optional<Reservation> findReservationById(Long reservationId) {
+        Optional<Reservation> reservation = reservationMapper.findReservationById(reservationId);
         log.info("예약 id로 단건 조회={}", reservation);
         return reservation;
     }

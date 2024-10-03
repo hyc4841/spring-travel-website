@@ -54,15 +54,16 @@
                     <div class="needs-validation">
                         <div class="row g-3">
                             <div class="col-sm-6">
-                                <label for="customer" class="form-label">에약자 이름</label>
-                                <input type="text" class="form-control" id="customer" th:field="*{customer}"
+                                <label for="customer" class="form-label">예약자 이름</label>
+                                <input type="text" class="form-control" id="customer" th:field="*{customer}" th:errorclass="field-error"
                                        placeholder="홍길동" required>
+
                             </div>
 
                             <div class="col-6">
                                 <label for="number" class="form-label">휴대폰 번호</label>
                                 <div class="input-group has-validation">
-                                    <input type="text" class="form-control" id="number" th:field="*{number}"
+                                    <input type="text" class="form-control" id="number" th:field="*{number}" th:errorclass="field-error"
                                            placeholder="-없이 입력하세요" required>
 
                                 </div>
@@ -71,7 +72,7 @@
                             <div class="col-6">
                                 <label for="password" class="form-label">예약 비밀번호</label>
                                 <div class="input-group has-validation">
-                                    <input type="text" class="form-control" id="password" th:field="*{password}"
+                                    <input type="password" class="form-control" id="password" th:field="*{password}" th:errorclass="field-error"
                                            placeholder="예약 비밀번호를 입력해주세요" required>
 
                                 </div>
@@ -84,13 +85,14 @@
                         <div class="col-md-12 p-2">
                             <p class="h4">방문 방법</p>
                             <div th:each="type : ${visitType}" class="form-check form-check-inline">
-                                <input type="radio" th:field="*{visitType}" th:value="${type.name()}"
+                                <input type="radio" th:field="*{visitType}" th:value="${type.name()}" th:errorclass="field-error"
                                 class="form-check-input">
                                 <label th:for="${#ids.prev('visitType')}" th:text="${type.description}">도보</label>
 
                             </div>
-
-
+                            <div class="field-error" th:errors="*{visitType}">
+                                방문 방법 오류
+                            </div>
                         </div>
 
                         <hr class="my-4">

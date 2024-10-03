@@ -158,10 +158,9 @@ public class ReservationController {
         return "redirect:/reservation/success";
     }
 
+    // 예약 성공 페이지
     @GetMapping("/success")
     public String reservationSuccess() {
-        // 예약 성공하면 예약 페이지로 이동
-
         return "/reservation/reservationSuccess";
     }
 
@@ -174,36 +173,70 @@ public class ReservationController {
         return payment;
     }
 
+
     @GetMapping("/room/{roomId}")
     public ResponseEntity<Room> findRoom(@PathVariable Long roomId) {
         Room room = accommodationService.findRoomById(roomId);
-        Long accommodationId = room.getAccommodation();
-
-        Accommodation accommodation = accommodationService.findAccommoById(accommodationId).get();
-        Long seller = accommodation.getSeller();
-
         log.info("현재 예약하려는 방={}", room);
         return ResponseEntity.ok(room);
     }
 
-
-    // 예약하려는 방이 먼저 예약 되어 있는지 확인.
-    @GetMapping("/find/{roomId}")
+    // 예약하려는 방이 먼저 예약 되어 있는지 확인. API로 확인
     @ResponseBody
+    @GetMapping("/find/{roomId}")
     public ResponseEntity<Optional<Reservation>> findRommByCond(@PathVariable Long roomId, @RequestParam LocalDate checkIn,
                                                                 @RequestParam LocalDate checkOut) {
         Reservation reservationCond = new Reservation(roomId, checkIn, checkOut);
-        log.info("들어온 데이터={}", roomId);
+        log.info("예약하려는 방 id={}", roomId);
 
-        // 데이터베이스 찾아서 나오면 막아야함
+        // 현재 예약하려는 방이 사용자가 선택한 날짜에 있으면 예약이 불가능하도록 함.
         Optional<Reservation> reservationByCond = reservationService.findReservationByCond(reservationCond);
         if (reservationByCond.isPresent()) { // 해당 기간에 예약 내역이 나오게 되면
             log.info("이미 예약 내역이 있음={}", reservationByCond);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(reservationByCond);
         }
-
         return ResponseEntity.ok(reservationByCond);
     }
+
+    @ResponseBody
+    @DeleteMapping("/{reservationId}")
+    public ResponseEntity<String> cancelReservation(@PathVariable Long reservationId) {
+
+        // 원래 예약 취소는 예약 내역을 아예 삭제하는 것이 아니라. 취소 딱지만 붙이고 환불해주는 것.
+        // 예약했던 내역은 그대로 남아있고 돈만 돌려주는 것인데 현재로선 간단하게 예약내역 삭제로 구현함.
+        Optional<Reservation> reservation = reservationService.findReservationById(reservationId);
+
+        if (reservation.isEmpty()) {
+            log.info("삭제하려는 예약 내역이 없음!");
+            return new ResponseEntity<>("취소하려는 예약 내역 없음!", HttpStatus.NOT_FOUND);
+        }
+        else {
+            log.info("삭제하려는 예약={}", reservation.get());
+            reservationService.delete(reservationId);
+            Optional<Reservation> reservationCheck = reservationService.findReservationById(reservationId);
+
+            if (reservationCheck.isEmpty()) {
+                return new ResponseEntity<>("예약이 성공적으로 삭제되었습니다", HttpStatus.NO_CONTENT);
+            }
+            else {
+                return new ResponseEntity<>("예약을 취소하지 못함!", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
+        }
+
+
+
+        /*
+        if (reservation.isEmpty()) {
+            return new ResponseEntity<>("예약이 성공적으로 삭제되었습니다", HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>("예약 삭제가 안되었습니다", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+         */
+
+    }
+
 
 
 }
