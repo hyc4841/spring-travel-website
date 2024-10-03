@@ -20,13 +20,13 @@
     </resultMap>
 
     <insert id="save" useGeneratedKeys="true" keyProperty="reservationId">
-        insert into reservation (MEMBER, SELLER, ACCOMMODATION, ROOM, PERSONNEL, R_DATE, CHECK_IN, CHECK_OUT, CUSTOMER, NUMBER, AMOUNT, VISIT_TYPE)
-        values (#{member}, #{seller}, #{accommodation}, #{room}, #{personnel}, #{rDate}, #{checkIn}, #{checkOut}, #{customer}, #{number}, #{amount}, #{visitType})
+        insert into reservation (MEMBER, SELLER, ACCOMMODATION, ROOM, PERSONNEL, R_DATE, CHECK_IN, CHECK_OUT, CUSTOMER, NUMBER, AMOUNT, VISIT_TYPE, IMP_UID)
+        values (#{member}, #{seller}, #{accommodation}, #{room}, #{personnel}, #{rDate}, #{checkIn}, #{checkOut}, #{customer}, #{number}, #{amount}, #{visitType}, #{impUid})
     </insert>
 
     <insert id="nonMemberSave" useGeneratedKeys="true" keyProperty="reservationId">
-        insert into reservation (SELLER, ACCOMMODATION, ROOM, PERSONNEL, R_DATE, CHECK_IN, CHECK_OUT, CUSTOMER, NUMBER, AMOUNT, VISIT_TYPE, PASSWORD)
-        values (#{seller}, #{accommodation}, #{room}, #{personnel}, #{rDate}, #{checkIn}, #{checkOut}, #{customer}, #{number}, #{amount}, #{visitType}, #{password})
+        insert into reservation (SELLER, ACCOMMODATION, ROOM, PERSONNEL, R_DATE, CHECK_IN, CHECK_OUT, CUSTOMER, NUMBER, AMOUNT, VISIT_TYPE, PASSWORD, IMP_UID)
+        values (#{seller}, #{accommodation}, #{room}, #{personnel}, #{rDate}, #{checkIn}, #{checkOut}, #{customer}, #{number}, #{amount}, #{visitType}, #{password}, #{impUid})
     </insert>
 
 

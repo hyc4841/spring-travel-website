@@ -26,6 +26,7 @@ public class Reservation {
     @NotBlank
     private String visitType;
     private String password;
+    private String impUid;
 
     // amount로 퉁치지 말고
     // 원래 방 가격

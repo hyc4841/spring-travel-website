@@ -25,8 +25,10 @@ import whang.travel.domain.member.MemberRepository;
 import whang.travel.domain.reservation.Reservation;
 import whang.travel.domain.reservation.ReservationNonMember;
 import whang.travel.domain.reservation.ReservationService;
+import whang.travel.web.refund.RefundService;
 import whang.travel.web.reservation.form.VisitType;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.Optional;
@@ -41,6 +43,7 @@ public class ReservationController {
     private final ReservationService reservationService;
     private final AccommodationService accommodationService;
     private final PasswordEncoder passwordEncoder;
+    private final RefundService refundService;
 
     private IamportClient iamportClient;
 
@@ -200,7 +203,7 @@ public class ReservationController {
 
     @ResponseBody
     @DeleteMapping("/{reservationId}")
-    public ResponseEntity<String> cancelReservation(@PathVariable Long reservationId) {
+    public ResponseEntity<String> cancelReservation(@PathVariable Long reservationId) throws IOException {
 
         // 원래 예약 취소는 예약 내역을 아예 삭제하는 것이 아니라. 취소 딱지만 붙이고 환불해주는 것.
         // 예약했던 내역은 그대로 남아있고 돈만 돌려주는 것인데 현재로선 간단하게 예약내역 삭제로 구현함.
@@ -211,6 +214,9 @@ public class ReservationController {
             return new ResponseEntity<>("취소하려는 예약 내역 없음!", HttpStatus.NOT_FOUND);
         }
         else {
+            String accessToken = refundService.getAccessToken(apiKey, secretKey);
+            refundService.refundRequest(accessToken, reservation.get().getImpUid());
+
             log.info("삭제하려는 예약={}", reservation.get());
             reservationService.delete(reservationId);
             Optional<Reservation> reservationCheck = reservationService.findReservationById(reservationId);
@@ -224,18 +230,9 @@ public class ReservationController {
 
         }
 
-
-
-        /*
-        if (reservation.isEmpty()) {
-            return new ResponseEntity<>("예약이 성공적으로 삭제되었습니다", HttpStatus.OK);
-        }
-        else {
-            return new ResponseEntity<>("예약 삭제가 안되었습니다", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-         */
-
     }
+
+
 
 
 
