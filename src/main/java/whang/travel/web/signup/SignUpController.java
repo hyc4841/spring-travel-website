@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import whang.travel.config.MemberSignupValidator;
 import whang.travel.domain.member.Member;
 import whang.travel.domain.member.MemberRepository;
+import whang.travel.web.signup.form.Sex;
 
 import java.util.List;
 
@@ -23,6 +24,11 @@ public class SignUpController { // 회원 가입 컨트롤러
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private final MemberSignupValidator memberValidator;
+
+    @ModelAttribute("sex")
+    public Sex[] sex() {
+        return Sex.values();
+    }
 
     // get : 회원 가입 폼 이동. 지금 로그인 화면하고 회원가입 화면이 합쳐져 있음
     @GetMapping("/signup/add")

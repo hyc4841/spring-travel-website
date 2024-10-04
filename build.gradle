@@ -63,6 +63,12 @@ dependencies {
 	// 이메일 검증 라이브러리
 	implementation 'commons-validator:commons-validator:1.7'
 
+	implementation 'javax.mail:mail:1.4.7'
+	// Spring Context Support
+	implementation 'org.springframework:spring-context-support:5.3.9'
+
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '2.6.3'
+
 }
 
 tasks.named('test') {

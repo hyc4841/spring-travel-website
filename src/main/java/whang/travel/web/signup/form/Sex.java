@@ -1,11 +1,11 @@
-package whang.travel.web.reservation.form;
+package whang.travel.web.signup.form;
 
-public enum VisitType {
-    WALK("도보"), VEHICLE("차량");
-    
+public enum Sex {
+    MAN("남자"), WOMEN("여자");
+
     private final String description;
 
-    VisitType(String description) {
+    Sex(String description) {
         this.description = description;
     }
 

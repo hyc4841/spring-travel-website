@@ -22,11 +22,13 @@ public class Member {
     private String email;
     @NotBlank
     private String address;
-    @NotBlank
+
     private String role; // user 및 admin 등등
     @NotBlank
     private String number;
     @NotNull
     private LocalDate birth;
+    @NotBlank
+    private String sex;
 
 }

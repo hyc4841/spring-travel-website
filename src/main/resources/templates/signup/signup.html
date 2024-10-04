@@ -24,9 +24,6 @@
           font-size: 3.5rem;
         }
       }
-      .container {
-      max-width: 960px;
-      }
 
       .field-error {
             border-color: #dc3545;
@@ -122,15 +119,44 @@
             </div>
 
             <!-- 이메일 -->
-            <div class="col-12">
-              <label for="email" class="form-label" th:text="#{member.signup.email}">이메일 <span class="text-muted">(Optional)</span></label>
+            <div class="col-md-6">
+              <label for="email" class="form-label" th:text="#{member.signup.email}">이메일</label>
               <input type="text" class="form-control" id="email" placeholder="you@example.com"
-                     th:field="*{email}">
+                     th:field="*{email}" th:errorclass="field-error" required>
 
               <div class="field-error" th:errors="*{email}">이메일 오류</div>
 
               <div class="invalid-feedback">
                 Please enter a valid email address for shipping updates.
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <label for="number" class="form-label">휴대폰 번호</label>
+              <input id="number" class="form-control" type="tel" th:field="*{number}" th:errorclass="field-error">
+
+              <div class="field-error" th:errors="*{number}">
+                휴대폰 번호 오류
+              </div>
+            </div>
+
+            <!-- 생년월일-->
+            <div class="col-md-6">
+              <label class="form-label" for="birth">생년월일</label>
+              <input class="form-control" id="birth" th:field="*{birth}" type="date" required>
+            </div>
+
+            <div class="col-md-6">
+              <p class="h6">성별</p>
+
+              <div th:each="se : ${sex}" class="form-check form-check-inline">
+                <input type="radio" th:field="*{sex}" th:value="${se.name()}" th:errorclass="field-error"
+                       class="form-check-input" required>
+                <label th:for="${#ids.prev('sex')}" th:text="${se.description}">남자</label>
+              </div>
+
+              <div class="field-error" th:errors="*{sex}">
+                성별 오류
               </div>
             </div>
 

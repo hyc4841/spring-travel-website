@@ -78,12 +78,13 @@
 
                         <div class="col-md-12 p-2">
                             <p class="h4">방문 방법</p>
+
                             <div th:each="type : ${visitType}" class="form-check form-check-inline">
                                 <input type="radio" th:field="*{visitType}" th:value="${type.name()}" th:errorclass="field-error"
                                        class="form-check-input" required>
                                 <label th:for="${#ids.prev('visitType')}" th:text="${type.description}">도보</label>
-
                             </div>
+
                             <div class="field-error" th:errors="*{visitType}">
                                 방문 타입 오류
                             </div>

@@ -62,6 +62,8 @@ public class ReservationController {
         return VisitType.values();
     }
 
+
+
     // get : 예약 화면
     @GetMapping("/checkout/{roomId}")
     public String reservationView(@PathVariable Long roomId, @ModelAttribute("reservation") Reservation reservation,
