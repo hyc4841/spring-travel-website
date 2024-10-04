@@ -46,7 +46,7 @@ public class MailService {
         // 이메일 전송
         mailSend(setFrom, toMail, title, content);
 
-        return Integer.toString(authNumber);
+        return Integer.toString(authNumber); // 인증 번호 반환
     }
 
     //이메일을 전송합니다.
