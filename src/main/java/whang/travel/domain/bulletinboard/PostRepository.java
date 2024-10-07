@@ -4,6 +4,7 @@ import whang.travel.web.bulletinBoard.form.SavePostForm;
 import whang.travel.web.bulletinBoard.form.UpdatePostForm;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface  PostRepository {
@@ -18,12 +19,10 @@ public interface  PostRepository {
     Optional<Post> findPostByPostId(Long postId);
 
     // 글 제목으로 검색
-    List<Post> findAll(String searchTitle);
+    List<Post> findAll(Map<String, Object> map);
 
     // 총 게시물의 갯수
     Integer countPosts(String searchTitle);
-
-//    MemberName findMemberName(Long memberId);
 
     // 글 Id로 삭제
     void deletePost(Long postId);

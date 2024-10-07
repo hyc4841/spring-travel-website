@@ -22,6 +22,7 @@ import whang.travel.web.bulletinBoard.form.SearchForm;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Controller
@@ -34,9 +35,13 @@ public class BulletinBoardController {
 
     @GetMapping("/list")
     // 게시판 목록 화면
-    public String bulletinBoardList(@ModelAttribute("searchForm") SearchForm searchForm, @AuthenticationPrincipal UserDetails user, Model model) {
-        List<DisplayPostForm> postList = postService.findAllWithMemberName(searchForm.getSearchTitle());
-        log.info("제목 검색 데이터={}", searchForm);
+    public String bulletinBoardList(@ModelAttribute("searchForm") SearchForm searchForm, @AuthenticationPrincipal UserDetails user,
+                                    @RequestParam(defaultValue = "1") int pageNum,
+                                    @RequestParam(defaultValue = "10") int pageSize,
+                                    Model model) {
+
+        Map<String, Object> postList = postService.getPostList(pageNum, pageSize, searchForm.getSearchTitle());
+
         model.addAttribute("posts", postList);
         model.addAttribute("user", user);
 
@@ -127,9 +132,6 @@ public class BulletinBoardController {
     }
 
     // 게시글 삭제하기 기능 추가하기
-    @GetMapping
-
-
 
     private Member findMember(HttpServletRequest request, @AuthenticationPrincipal UserDetails curMember) {
         String username = curMember.getUsername();

@@ -61,8 +61,8 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> findAll(String searchTitle) {
-        return postRepository.findAll(searchTitle);
+    public List<Post> findAll(Map<String, Object> map) {
+        return postRepository.findAll(map);
     }
 
     @Override
@@ -80,16 +80,16 @@ public class PostServiceImpl implements PostService {
         // Pager 클래스 사용
         Pager pager = new Pager(pageNum, totalBoard, pageSize, blockSize);
 
-        Map<String, Object> pageMap = new HashMap<String, Object>();
+        Map<String, Object> pageMap = new HashMap<>();
         pageMap.put("startRow", pager.getStartRow());
         pageMap.put("endRow", pager.getEndRow());
         pageMap.put("totalBoard", pager.getTotalBoard());
         pageMap.put("searchTitle", searchTitle);
 
-        List<Post> noticeList = postRepository.findAll(null);
+        List<Post> postList = postRepository.findAll(pageMap);
 
-        Map<String, Object> resultMap = new HashMap<String, Object>();
-        resultMap.put("noticeList", noticeList);
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("postList", postList);
         resultMap.put("pager", pager);
 
         return resultMap;

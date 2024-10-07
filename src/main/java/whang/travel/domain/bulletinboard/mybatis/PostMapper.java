@@ -7,6 +7,7 @@ import whang.travel.domain.bulletinboard.DisplayPostForm;
 import whang.travel.web.bulletinBoard.form.UpdatePostForm;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Mapper
@@ -24,11 +25,9 @@ public interface PostMapper {
     // 글 id로 단건 조회
     Optional<Post> findPostByPostId(Long postId);
 
-    List<Post> findAll(String searchTitle);
+    List<Post> findAll(Map<String, Object> map);
 
     Integer countPosts(String searchTitle);
-
-//    MemberName findMemberName(Long memberId);
 
     // 글 id로 삭제
     void deletePost(Long postId);

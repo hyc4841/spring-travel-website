@@ -11,6 +11,7 @@ import whang.travel.web.bulletinBoard.form.UpdatePostForm;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
@@ -52,8 +53,8 @@ public class MybatisPostRepository implements PostRepository {
     }
 
     @Override
-    public List<Post> findAll(String searchTitle) {
-        List<Post> postList = postMapper.findAll(searchTitle);
+    public List<Post> findAll(Map<String, Object> map) {
+        List<Post> postList = postMapper.findAll(map);
         log.info("findAll={}", postList);
         return postList;
     }
@@ -62,15 +63,6 @@ public class MybatisPostRepository implements PostRepository {
     public Integer countPosts(String searchTitle) {
         return postMapper.countPosts(searchTitle);
     }
-
-    /*
-    @Override
-    public MemberName findMemberName(Long memberId) {
-        MemberName memberName = postMapper.findMemberName(memberId);
-        log.info("작성자 이름 찾기={}", memberName);
-        return memberName;
-    }
-     */
 
     @Override
     public void deletePost(Long postId) {

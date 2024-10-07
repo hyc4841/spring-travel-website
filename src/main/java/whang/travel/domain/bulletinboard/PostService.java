@@ -20,14 +20,11 @@ public interface PostService {
     Optional<Post> findPostByPostId(Long postId);
 
     // 글 제목으로 검색
-    List<Post> findAll(String searchTitle);
+    List<Post> findAll(Map<String, Object> map);
 
     Integer countPosts(String searchTitle);
 
     Map<String, Object> getPostList(int pageNum, int pageSize, String searchTitle);
-
-
-//    MemberName findMemberName(Long memberId);
 
     void deletePost(Long postId);
 
