@@ -1,56 +1,73 @@
-구현해야할 기능들
 
-게시판 : 본인이 작성한 사람 이외에 사람이 수정하는거 막기
+<img src="https://capsule-render.vercel.app/api?type=waving&color=BDBDC8&height=150&section=header"/>
 
-게시판 : 사진 추가 및 삭제 기능
+## 🔨 SKILL
+<div>
+  <p><strong>backend</string></p>
+  <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white">
+  <img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white">
+  <img src="https://img.shields.io/badge/mybatis-000000?style=for-the-badge&logo=mybatist&logoColor=black">
+</div>
+
+<div>
+  <p><strong>frontend</strong></p>
+  <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white">
+  <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white">
+  <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
+  <img src="https://img.shields.io/badge/thymeleaf-005F0F?style=for-the-badge&logo=thymeleaf&logoColor=white">
+</div>
+
+<div>
+  <p><strong>database</strong></p>
+    <img src="https://img.shields.io/badge/h2-005F0F?style=for-the-badge&logo=h2&logoColor=white">
+</div>
+
+## 🔨 TOOL
+<div>
+    <img src="https://img.shields.io/badge/IntelliJIDEA-000000?style=for-the-badge&logo=IntelliJIDEA&logoColor=white">
+    <img src="https://img.shields.io/badge/visualstudiocode-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white"> 
+</div>
+
+<br>
+<br>
+
+## 숙소 예약 사이트
+
+<div>
+  <h3>개발 기간 : 2024/08/01 ~ 2024/10/01 (약 2개월)</h3>
+  <h3>개발 인원 : 1인</h3>
+  <h3>개발 목적 : 스프링 프레임워크 학습 목적으로 야놀자, 여기어떄와 같은 숙박 예약 사이트를 제작함으로써 하나의 웹사이트 어떻게 제작되는지 몸소 느껴보기 위함.</h3>
+
+  <br>
+  <br>
+  
+</div>
+
+<div>
+  <h3>구현기능</h3>
+  <ul>
+    <li>회원가입</li>
+    <li>로그인</li>
+    <li>게시판</li>
+    <li>숙소 예약</li>
+    <li>마이페이지</li>
+    <li>비회원 예약 확인</li>
+  </ul>
+</div>
+
+## 기능 상세 설명
+
+<div>
+  <li>회원가입</li>
+  
+</div>
 
 
-숙소 : 예약 취소, 결재 취소
 
-숙소 : 방 기간에 따라 가격 다르게 하기(성수기, 비수기, 주말, 평일)
-
-숙소 예약 기능 완성. 예약 내역에 따라 검색되는 것도 구현함. 
-
-예약 취소 기능도 만들어야함. => 마이 페이지에서 예약 내역 확인 페이지 만들어야함
-
-
-
-예약 페이지 디자인 손봐야함.
-
-게시판도 다듬어서 마무리하면 될듯.
-
-후순위
-
-숙소 : 숙소 검색 리스트에서 페이징도 구현 해야함.
-
-숙소 : 숙소 상세 페이지에서 모달로 띄우기도 시도해보자
-
-상세 보기는 모달로 띄우기
-
-오늘은 전체적으로 결재쪽 수정하는 쪽으로
-
-- 마이바티스에서 select문 객체로 가져올 때 생성자도 영향이 있으니까 조심해야함....
-엉뚱한 생성자 있으면 거기로 만들어져서 자꾸 타입 캐스팅 오류남...
-
-- html 폼에서 컨트롤러에서 데이터가 담긴 객체를 넘긴다고 그게 다음 컨트롤러로 그대로 넘어가는게 아님. input 필드로 submit 되어야 데이터가 정상적으로 넘어감. 아니면 requestParam으로 넘기던가 해야함.
+<img src="https://capsule-render.vercel.app/api?type=waving&color=BDBDC8&height=150&section=footer"/>
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=hyc4841)](https://github.com/anuraghazra/github-readme-stats)
 
