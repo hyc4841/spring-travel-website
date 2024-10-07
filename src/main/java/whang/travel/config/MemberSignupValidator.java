@@ -29,14 +29,12 @@ public class MemberSignupValidator {
 
         if (!emailVaildation) {
             fieldErrors.add(new FieldError("member", "email", "유효한 이메일 형식이 아닙니다!!"));
-            // bindingResult.addError(new FieldError("member", "email", "유효한 이메일 형식이 아닙니다!!"));
         }
 
         // 멤버 중복 검사
         Optional<Member> findMember = memberRepository.findByLoginId(member.getMemberId());
         if (!findMember.isEmpty()) {
             fieldErrors.add(new FieldError("member", "memberId", "이미 사용 중인 id입니다!!"));
-//            bindingResult.addError(new FieldError("member", "memberId", "이미 사용 중인 id입니다!!"));
         }
 
         return fieldErrors;

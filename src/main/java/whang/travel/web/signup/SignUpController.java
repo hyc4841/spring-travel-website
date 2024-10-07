@@ -38,26 +38,8 @@ public class SignUpController { // 회원 가입 컨트롤러
 
     // post : 회원 가입
     @PostMapping("/signup/add")
-    public String signup(@Validated @ModelAttribute("member") Member member,
-                         BindingResult bindingResult,
+    public String signup(@Validated @ModelAttribute("member") Member member, BindingResult bindingResult,
                          @RequestParam(defaultValue = "/home") String redirectURL)  {
-
-        /*
-        // 이메일 검증
-        boolean emailValidation = EmailValidator.getInstance().isValid(member.getEmail());
-        log.info("이메일이 유효한지 검사={}", emailValidation);
-        if (!emailValidation) {
-            bindingResult.addError(new FieldError("member", "email", "유효한 이메일 형식이 아닙니다!!"));
-        }
-
-        // 가입하려는 유저가 입력한 memberId값이 이미 다른 사람이 사용중이면 오류로 보여준.
-        Optional<Member> checkMember = memberRepository.findByLoginId(member.getMemberId());
-        if (!checkMember.isEmpty()) {
-            log.info("멤버 id 중복 발생={}", checkMember);
-            // objectName : ModelAttribute이름, field : 오류가 난 필드 이름, 메세지는 메시지
-            bindingResult.addError(new FieldError("member", "memberId", "이미 사용 중인 id입니다!"));
-        }
-         */
 
         List<FieldError> validation = memberValidator.validation(member, bindingResult);
         log.info("오류 검증 결과={}", validation);
