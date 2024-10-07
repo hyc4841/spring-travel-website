@@ -40,6 +40,13 @@
           src="../../static/script/bootstrap.bundle.min.js" defer></script>
   <script th:src="@{/script/singup-passwordCheck.js}"
           src="../../static/script/signup-passwordCheck.js" defer></script>
+  <script th:src="@{/script/signup-addr.js}"
+          src="../../static/script/signup-addr.js" defer></script>
+
+
+
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" defer></script>
+
 
   <!--아이콘 가져오기-->
   <div th:replace="~{fragment/icon :: icon}"></div>
@@ -182,15 +189,39 @@
             </div>
 
             <!-- 주소 -->
-            <div class="col-12">
-              <label for="address" class="form-label">주소</label>
-              <input type="text" class="form-control" id="address" placeholder="1234 Main St"
-                     th:field="*{address}" required>
+            <div class="col-6">
+              <label class="form-label">주소</label>
+              <div class="row">
+                <div class="col-md-6 mb-2">
+                  <input class="form-control" id="postCode" type="text" placeholder="우편번호"
+                         th:field="*{postCode}" required>
+                </div>
+                <div class="col-md-6 mb-2">
+                  <button class="btn btn-sm btn-primary" type="button" th:onclick="DaumPostcode()"
+                          onclick="DaumPostcode()"
+                          style="height: 100%;">우편번호 찾기</button>
+                </div>
+                <div class="col-12 mb-2">
+                  <input class="form-control" id="address" type="text" th:field="*{address}" placeholder="주소">
+                </div>
+                <div class="col-12">
+                  <input class="form-control" id="detailAddress" type="text" th:field="*{detailAddress}" placeholder="상세 주소">
+
+                </div>
+
+              </div>
+
+
+
+
+
 
               <div class="invalid-feedback">
                 주소를 입력해주세요.
               </div>
             </div>
+
+            
 
 
           <hr class="my-4">
