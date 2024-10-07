@@ -24,8 +24,9 @@ public interface PostMapper {
     // 글 id로 단건 조회
     Optional<Post> findPostByPostId(Long postId);
 
-
     List<Post> findAll(String searchTitle);
+
+    Integer countPosts(String searchTitle);
 
 //    MemberName findMemberName(Long memberId);
 

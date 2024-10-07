@@ -127,6 +127,8 @@ public class BulletinBoardController {
     }
 
     // 게시글 삭제하기 기능 추가하기
+    @GetMapping
+
 
 
     private Member findMember(HttpServletRequest request, @AuthenticationPrincipal UserDetails curMember) {

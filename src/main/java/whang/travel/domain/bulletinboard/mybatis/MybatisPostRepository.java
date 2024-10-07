@@ -58,6 +58,11 @@ public class MybatisPostRepository implements PostRepository {
         return postList;
     }
 
+    @Override
+    public Integer countPosts(String searchTitle) {
+        return postMapper.countPosts(searchTitle);
+    }
+
     /*
     @Override
     public MemberName findMemberName(Long memberId) {

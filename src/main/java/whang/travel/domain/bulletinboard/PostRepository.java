@@ -20,6 +20,9 @@ public interface  PostRepository {
     // 글 제목으로 검색
     List<Post> findAll(String searchTitle);
 
+    // 총 게시물의 갯수
+    Integer countPosts(String searchTitle);
+
 //    MemberName findMemberName(Long memberId);
 
     // 글 Id로 삭제

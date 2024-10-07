@@ -1,6 +1,5 @@
 // Example starter JavaScript for disabling form submissions if there are invalid fields
 
-
 (function () {
   'use strict'
 
@@ -11,33 +10,28 @@
   Array.prototype.slice.call(forms)
     .forEach(function (form) {
       form.addEventListener('submit', function (event) {
+
+        var password = document.getElementById('password').value;
+        var passwordCheck = document.getElementById('passwordCheck').value;
+
         if (!form.checkValidity()) {
           event.preventDefault()
           event.stopPropagation()
+        }
+
+        if (password != passwordCheck) {
+          event.preventDefault()
+          event.stopPropagation()
+          alert("비밀번호를 확인하세요.");
+        }
+
+        if (password.length < 7) {
+          event.preventDefault()
+          event.stopPropagation()
+          alert("비밀번호는 8자 이상으로 해주세요.");
         }
 
         form.classList.add('was-validated')
       }, false)
     })
 })()
-    
-/*
-var passwordCheck = document.getElementById('passwordcheckBtn');
-
-passwordCheck.addEventListener('click', function() {
-
-  let password1 = document.getElementById('password').value;
-  let password2 = document.getElementById('passwordcheck').value;
-
-
-  if (password1 == password2) {
-    password2.classList.remove('is-invalid');
-    password2.classList.add('is-valid');
-  }
-  else {
-    password2.classList.remove('is-valid');
-    password2.classList.add('is-invalid');
-  }
-});
-*/
-

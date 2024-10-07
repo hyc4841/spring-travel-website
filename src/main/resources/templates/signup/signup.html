@@ -34,17 +34,14 @@
 
   </head>
   <body>
-  <script th:src="@{/script/form-validation.js}" 
-          src="../../static/script/form-validation.js" defer></script>
+  <script th:src="@{/script/signup-formValidation.js}"
+          src="../../static/script/signup-formValidation.js" defer></script>
   <script th:src="@{/script/bootstrap.bundle.min.js}"
           src="../../static/script/bootstrap.bundle.min.js" defer></script>
-  <script th:src="@{/script/singup-passwordCheck.js}"
+  <script th:src="@{/script/signup-passwordCheck.js}"
           src="../../static/script/signup-passwordCheck.js" defer></script>
   <script th:src="@{/script/signup-addr.js}"
           src="../../static/script/signup-addr.js" defer></script>
-
-
-
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" defer></script>
 
 
@@ -70,20 +67,29 @@
             <!-- 성 -->
             <div class="col-sm-6">
               <label class="form-label" for="firstName"  th:text="#{member.signup.firstName}">성</label>
-              <input class="form-control" id="firstName" type="text" placeholder="홍" th:field="*{firstName}" required>
+              <input class="form-control" id="firstName" type="text" placeholder="홍" th:field="*{firstName}"
+                     th:errorclass="field-error" required>
               <div class="invalid-feedback">
                 성을 입력해주세요.
+              </div>
+
+              <div class="field-error" th:errors="*{firstName}">
+                성 오류
               </div>
             </div>
             <!-- 이름 -->
             <div class="col-sm-6">
               <label class="form-label" for="lastName"  th:text="#{member.signup.lastName}">이름</label>
-              <input class="form-control" id="lastName" type="text" placeholder="길동" th:field="*{lastName}" required>
+              <input class="form-control" id="lastName" type="text" placeholder="길동" th:field="*{lastName}"
+                     th:errorclass="field-error" required>
 
               <div class="invalid-feedback">
                 이름을 입력해주세요.
               </div>
 
+              <div class="field-error" th:errors="*{lastName}">
+                이름 오류
+              </div>
             </div>
 
             <!-- 아이디 -->
@@ -113,9 +119,9 @@
 
             <!-- 비밀번호 확인 -->
             <div class="col-sm-6">
-              <label for="passwordCheck" class="form-label" th:text="#{member.signup.passwordcheck}">비밀번호 확인</label>
+              <label class="form-label" for="passwordCheck" th:text="#{member.signup.passwordcheck}">비밀번호 확인</label>
               <div class="input-group has-validation">
-                <input type="password" class="form-control" id="passwordCheck" placeholder="" required>
+                <input class="form-control" type="password" id="passwordCheck" required>
                 <div class="valid-feedback" th:text="#{member.signup.password.match}">
                   일치합니다
                 </div>
@@ -141,7 +147,6 @@
               <div class="field-error" th:errors="*{email}">이메일 오류</div>
 
             </div>
-
 
             <!--휴대폰 번호-->
             <div class="col-md-6">
@@ -202,31 +207,22 @@
                           style="height: 100%;">우편번호 찾기</button>
                 </div>
                 <div class="col-12 mb-2">
-                  <input class="form-control" id="address" type="text" th:field="*{address}" placeholder="주소">
+                  <input class="form-control" id="address" type="text" th:field="*{address}" placeholder="주소" required>
                 </div>
                 <div class="col-12">
-                  <input class="form-control" id="detailAddress" type="text" th:field="*{detailAddress}" placeholder="상세 주소">
-
+                  <input class="form-control" id="detailAddress" type="text" th:field="*{detailAddress}" placeholder="상세 주소" required>
                 </div>
 
               </div>
-
-
-
-
-
 
               <div class="invalid-feedback">
                 주소를 입력해주세요.
               </div>
             </div>
 
-            
-
-
           <hr class="my-4">
 
-          <button class="w-100 btn btn-primary btn-lg" type="submit">확인</button>
+          <button id="checkOutBtn" class="w-100 btn btn-primary btn-lg" type="submit">확인</button>
 
           </div>
         </form>

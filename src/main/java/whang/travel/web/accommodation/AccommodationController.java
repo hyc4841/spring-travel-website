@@ -80,15 +80,6 @@ public class AccommodationController {
         // service는 값이 여러개 여서 파싱 해서 분리해줘야함.
         String[] service = parseService(accommodation.getService());
 
-        // 메인 페이지에 이미지 5개 보내기. 다른 방법을 찾아보자
-        /*
-        model.addAttribute("Image1", accommoImages.get(0));
-        model.addAttribute("Image2", accommoImages.get(1));
-        model.addAttribute("Image3", accommoImages.get(2));
-        model.addAttribute("Image4", accommoImages.get(3));
-        model.addAttribute("Image5", accommoImages.get(4));
-         */
-
         model.addAttribute("searchCond", searchCond); // 숙소 검색 조건인데. 여기에 사용자가 지정한 입실, 퇴실 날짜, 인원, 지역 등이 담겨 있음
         model.addAttribute("roomList", roomList); // 날짜 조건에 맞는 방 리스트
         model.addAttribute("serviceList", service);  // 해당 숙소의 서비스 리스트

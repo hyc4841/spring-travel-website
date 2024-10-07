@@ -3,7 +3,7 @@
 
 ## 🔨 SKILL
 <div>
-  <p><strong>backend</string></p>
+  <p><strong>backend</strong></p>
   <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white">
   <img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white">
   <img src="https://img.shields.io/badge/mybatis-000000?style=for-the-badge&logo=mybatist&logoColor=black">
@@ -36,9 +36,10 @@
 <div>
   <h3>개발 기간 : 2024/08/01 ~ 2024/10/01 (약 2개월)</h3>
   <h3>개발 인원 : 1인</h3>
-  <h3>개발 목적 : 스프링 프레임워크 학습 목적으로 야놀자, 여기어떄와 같은 숙박 예약 사이트를 제작함으로써 하나의 웹사이트 어떻게 제작되는지 몸소 느껴보기 위함.</h3>
-
-  <br>
+  <h3>개발 목적 : </h3>
+<h4>
+스프링 프레임워크 학습 목적으로 야놀자, 여기어떄와 같은 숙박 예약 사이트를 제작함으로써 하나의 웹사이트 어떻게 제작되는지 몸소 느껴보기 위함.
+</h4>
   <br>
   
 </div>
@@ -58,11 +59,71 @@
 ## 기능 상세 설명
 
 <div>
-  <li>회원가입</li>
-  
+
++ 회원가입
+    + 이메일 유효성 검사
+    + 다음 주소 api를 이용한 주소 입력
+    + 비밀번호 확인
+    + 모든 필드 공백 검사
+
+</div>
+
+<div>
+
++ 로그인
+  + 스프링 security를 이용한 자체 로그인 기능
+
 </div>
 
 
+<div>
+
++ 숙소 예약
+  + 지역, 숙박 기간, 인원 조건을 이용한 숙소 검색
+  + 포트원 api를 이용한 결제 시스템
+  + 포트원 api를 이용한 환불 시스템
+
+</div>
+
+
+
+<div>
+
++ 게시판
+    + 게시물 올리기
+    + 게시물 수정하기
+    + 사진 첨부
+    + 게시물 삭제하기
+
+</div>
+
+<div>
+
++ 마이페이지
+    + 예약내역 확인
+    + 내 정보 확인
+    + 내 게시물 확인
+    + 
+
+</div>
+
+<div>
+
++ 이 프로젝트에서 잘했다고 생각하는 점
+  + 1
+
+</div>
+
+<div>
+
++ 이 프로젝트가 부족한 점 (보완해야할 점)
+  + 리뷰를 달 수 없다.
+  + 게시판의 수준이 처참하다.
+  + 디자인이 아쉽다.
+  + 대실 예약이 불가능하다. 숙박만 가능
+  + 각종 필터링을 이용한 검색이 부족하다.
+  + 페이징 기능이 없다..?
+</div>
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=BDBDC8&height=150&section=footer"/>
 

@@ -5,6 +5,8 @@ import whang.travel.web.bulletinBoard.form.UpdatePostForm;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 public interface PostService {
@@ -19,6 +21,11 @@ public interface PostService {
 
     // 글 제목으로 검색
     List<Post> findAll(String searchTitle);
+
+    Integer countPosts(String searchTitle);
+
+    Map<String, Object> getPostList(int pageNum, int pageSize, String searchTitle);
+
 
 //    MemberName findMemberName(Long memberId);
 

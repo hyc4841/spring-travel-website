@@ -36,7 +36,7 @@
     </select>
 
     <select id="findAll" resultType="Post">
-        select post_id, member_id, title, content, category, post_date, edit_date
+        select *
         from bulletinboard
         <where>
             <if test="searchTitle != null and searchTitle != ''">
@@ -45,11 +45,16 @@
         </where>
     </select>
 
-<!--    <select id="findMemberName" resultType="MemberName">-->
-<!--        select first_name, last_name-->
-<!--        from member-->
-<!--        where member_id=#{memberId}-->
-<!--    </select>-->
+    <select id="countPosts" resultType="int">
+        select count(*)
+        from BULLETINBOARD
+        <where>
+            <if test="searchTitle != null and searchTitle != ''">
+                and title like concat('%', #{searchTitle}, '%')
+            </if>
+        </where>
+
+    </select>
 
     <delete id="deletePost">
         delete

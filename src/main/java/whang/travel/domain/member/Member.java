@@ -30,5 +30,9 @@ public class Member {
     private LocalDate birth;
     @NotBlank
     private String sex;
+    @NotNull
+    private Integer postCode;
+    @NotBlank
+    private String detailAddress;
 
 }

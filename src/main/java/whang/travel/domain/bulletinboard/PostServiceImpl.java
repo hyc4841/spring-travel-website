@@ -10,10 +10,10 @@ import whang.travel.web.bulletinBoard.form.SavePostForm;
 import whang.travel.web.bulletinBoard.form.UpdatePostForm;
 import whang.travel.web.image.form.ImageNameForm;
 import whang.travel.web.image.form.ImageSaveForm;
+import whang.travel.web.accommodation.paging.Pager;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -65,13 +65,35 @@ public class PostServiceImpl implements PostService {
         return postRepository.findAll(searchTitle);
     }
 
-    /*
     @Override
-    public MemberName findMemberName(Long memberId) {
-        return postRepository.findMemberName(memberId);
+    public Integer countPosts(String searchTitle) {
+        return postRepository.countPosts(searchTitle);
     }
 
-     */
+    @Override
+    public Map<String, Object> getPostList(int pageNum, int pageSize, String searchTitle) {
+        // 전체 공지사항 개수 조회
+        int totalBoard = postRepository.countPosts(searchTitle);
+        // 페이지 블록 크기 설정
+        int blockSize = 5;
+
+        // Pager 클래스 사용
+        Pager pager = new Pager(pageNum, totalBoard, pageSize, blockSize);
+
+        Map<String, Object> pageMap = new HashMap<String, Object>();
+        pageMap.put("startRow", pager.getStartRow());
+        pageMap.put("endRow", pager.getEndRow());
+        pageMap.put("totalBoard", pager.getTotalBoard());
+        pageMap.put("searchTitle", searchTitle);
+
+        List<Post> noticeList = postRepository.findAll(null);
+
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+        resultMap.put("noticeList", noticeList);
+        resultMap.put("pager", pager);
+
+        return resultMap;
+    }
 
     @Override
     public void deletePost(Long postId) {
