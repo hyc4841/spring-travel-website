@@ -55,7 +55,7 @@ public class SignUpController { // 회원 가입 컨트롤러
         if (!checkMember.isEmpty()) {
             log.info("멤버 id 중복 발생={}", checkMember);
             // objectName : ModelAttribute이름, field : 오류가 난 필드 이름, 메세지는 메시지
-            bindingResult.addError(new FieldError("member", "memberId", "이미 사용 중인 id입니다!!"));
+            bindingResult.addError(new FieldError("member", "memberId", "이미 사용 중인 id입니다!"));
         }
          */
 

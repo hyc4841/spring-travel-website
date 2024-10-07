@@ -10,7 +10,7 @@ import java.time.LocalDate;
 public class Member {
 
     private Long id;
-    @NotBlank
+    @NotBlank(message = "공백이면 안됩니다. 성을 제대로 입력해주세요!")
     private String firstName;
     @NotBlank
     private String lastName;
