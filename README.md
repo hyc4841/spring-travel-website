@@ -4,7 +4,6 @@
 
 [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=hyc4841)](https://github.com/anuraghazra/github-readme-stats)
 
-출처: https://hulrud.tistory.com/3 [주독야독:티스토리]
 구현해야할 기능들
 
 게시판 : 본인이 작성한 사람 이외에 사람이 수정하는거 막기
