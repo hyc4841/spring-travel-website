@@ -76,13 +76,93 @@
             </div>
         </div>
 
+
+
         <div class="col-md-9">
-            <h2>내 게시물</h2>
+            <p class="h2 mb-5">내 게시물</p>
+            <!-- 상단 검색 및 글 등록 -->
+            <form class="form-inline" th:action th:object="${criteria}" method="get" >
+                <div class="row">
+                    <div class="col">
+                        <input type="text" th:field="*{keyword}" class="form-control" placeholder="제목으로 검색"/>
+                    </div>
+                    <div class="col">
+                        <button type="submit" class="btn btn-secondary mb-2">검색</button>
+                    </div>
+                    <div class="col">
+                        <div class="col">
+                            <button class="btn btn-primary float-end"
+                                    onclick="location.href='addForm.html'"
+                                    th:onclick="|location.href='@{/bulletinBoard/add(pageNum=${criteria.pageNum}, amount=${criteria.amount}, keyword=${criteria.keyword})}'|"
+                                    type="button">글 등록하기
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <hr class="my-4">
+
+            <!-- 게시물 테이블 -->
+            <div class="">
+                <table class="table text-center">
+                    <thead>
+                    <tr>
+                        <th>글 번호</th>
+                        <th>제목</th>
+                        <th>작성자</th>
+                        <th>작성 일자</th>
+                        <th>카테고리</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="post : ${posts}">
+                        <!-- 여기로 넘겨지는 posts는 DisplayPostForm의 데이터 형태가 넘어오는 것임. 작성자 이름을 사용하기 위해서 그렇게 했음-->
+                        <td><a href="#" th:href="@{/bulletinBoard/detail/{postId}(postId=${post.postId}, pageNum=${criteria.pageNum}, amount=${criteria.amount}, keyword=${criteria.keyword})}" th:text="${post.postId}">글 번호</a></td>
+                        <td><a href="#" th:href="@{/bulletinBoard/detail/{postId}(postId=${post.postId}, pageNum=${criteria.pageNum}, amount=${criteria.amount}, keyword=${criteria.keyword})}" th:text="${post.title}">제목</a></td>
+                        <td th:text="|${post.memberId}|">작성자</td>
+                        <td th:text="${post.postDate}">작성일자</td>
+                        <td th:text="${post.category}">카테고리</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <!--페이지 네비게이션-->
+                <div class="d-flex justify-content-center mt-5">
+                    <nav>
+                        <ul class="pagination pagination flex-wrap">
+
+                            <!-- 이전 버튼 -->
+                            <li class="page-item" th:if="${pageMaker.prev}">
+                                <a class="page-link" th:href="@{/bulletinBoard/list(pageNum=${pageMaker.startPage - 1}, amount=${criteria.amount}, keyword=${criteria.keyword})}">Previous</a>
+                            </li>
+
+                            <li class="page-item" th:each="num : ${#numbers.sequence(pageMaker.startPage, pageMaker.endPage)}">
+                                <a class="page-link" th:class="${pageMaker.criteria.pageNum == num ? 'page-link active' : 'page-link' }" th:href="@{/bulletinBoard/list(pageNum=${num}, amount=${criteria.amount}, keyword=${criteria.keyword})}" th:text="${num}">1</a>
+                            </li>
+
+                            <!-- 다음 버튼 -->
+                            <li class="page-item" th:if="${pageMaker.next}">
+                                <a class="page-link" th:href="@{/bulletinBoard/list(pageNum=${pageMaker.endPage + 1}, amount=${criteria.amount}, keyword=${criteria.keyword})}">Next</a>
+                            </li>
+
+                        </ul>
+                    </nav>
+                </div>
+
+            </div>
+
+
+
+
 
         </div>
 
 
     </div>
+
+
+
 </div>
 
 

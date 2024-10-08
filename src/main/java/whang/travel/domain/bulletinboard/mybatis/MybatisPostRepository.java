@@ -3,16 +3,16 @@ package whang.travel.domain.bulletinboard.mybatis;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
-import whang.travel.domain.bulletinboard.Criteria;
+import whang.travel.domain.paging.Criteria;
 import whang.travel.domain.bulletinboard.Post;
 import whang.travel.domain.bulletinboard.PostRepository;
 import whang.travel.domain.bulletinboard.DisplayPostForm;
+import whang.travel.domain.paging.MemberPostCriteria;
 import whang.travel.web.bulletinBoard.form.SavePostForm;
 import whang.travel.web.bulletinBoard.form.UpdatePostForm;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
@@ -40,10 +40,15 @@ public class MybatisPostRepository implements PostRepository {
     }
 
     @Override
-    public List<Post> findPostByMemberId(Long memberId, String searchTitle) {
-        List<Post> postList = postMapper.findPostByMemberId(memberId, searchTitle);
+    public List<Post> findPostByMemberId(MemberPostCriteria criteria) {
+        List<Post> postList = postMapper.findPostByMemberId(criteria);
         log.info("findPostByMemberId={}", postList);
         return postList;
+    }
+
+    @Override
+    public Integer countMemberPosts(MemberPostCriteria criteria) {
+        return postMapper.countMemberPosts(criteria);
     }
 
     @Override

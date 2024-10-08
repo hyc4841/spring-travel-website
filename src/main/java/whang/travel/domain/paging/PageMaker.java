@@ -1,7 +1,6 @@
-package whang.travel.web.bulletinBoard.form;
+package whang.travel.domain.paging;
 
 import lombok.Data;
-import whang.travel.domain.bulletinboard.Criteria;
 
 @Data
 public class PageMaker {

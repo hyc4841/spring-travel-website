@@ -14,8 +14,13 @@ import org.springframework.web.bind.annotation.*;
 import whang.travel.domain.accommodation.Accommodation;
 import whang.travel.domain.accommodation.AccommodationService;
 import whang.travel.domain.accommodation.mybatis.Room;
+import whang.travel.domain.bulletinboard.Post;
+import whang.travel.domain.bulletinboard.PostService;
 import whang.travel.domain.member.Member;
 import whang.travel.domain.member.MemberRepository;
+import whang.travel.domain.paging.MemberPostCriteria;
+import whang.travel.domain.paging.PageMaker;
+import whang.travel.domain.paging.PageMakerMemberPost;
 import whang.travel.domain.reservation.Reservation;
 import whang.travel.domain.reservation.ReservationService;
 import whang.travel.domain.reservation.ReservationShow;
@@ -35,6 +40,7 @@ public class profileController {
     private final ReservationService reservationService;
     private final AccommodationService accommodationService;
     private final PasswordEncoder passwordEncoder;
+    private final PostService postService;
 
     // get : 회원 정보 화면
     @GetMapping("/info")
@@ -150,8 +156,21 @@ public class profileController {
 
     // get : 내 게시물 화면 미완성
     @GetMapping("/posts")
-    public String posts(@AuthenticationPrincipal UserDetails user, Model model) {
+    public String posts(@ModelAttribute("memberCriteria") MemberPostCriteria criteria,
+                        @AuthenticationPrincipal UserDetails user, Model model) {
+
+        Long memberId = memberRepository.findIdByLoginId(user.getUsername());
+        criteria.setMemberId(memberId); // memberId로 게시물 찾을 수 있도록 넣어준다.
+
+        List<Post> postList = postService.findPostByMemberId(criteria); // 멤버의 게시물(제목 검색도 포함됨) 리스트 가져오기
+        Integer total = postService.countMemberPosts(criteria); // 멤버의 총 게시물 개수(제목 검색 포함)
+
+        PageMakerMemberPost pageMaker = new PageMakerMemberPost(criteria, total);
+
+        model.addAttribute("pageMaker", pageMaker);
+        model.addAttribute("posts", postList);
         model.addAttribute("user", user);
+
         return "/profile/posts";
     }
 

@@ -25,23 +25,23 @@
     </div>
 
     <form class="form-inline" th:action th:object="${criteria}" method="get" >
-    <div class="row">
-        <div class="col">
-            <input type="text" th:field="*{keyword}" class="form-control" placeholder="제목으로 검색"/>
-        </div>
-        <div class="col">
-            <button type="submit" class="btn btn-secondary mb-2">검색</button>
-        </div>
-        <div class="col">
+        <div class="row">
             <div class="col">
-                <button class="btn btn-primary float-end"
-                        onclick="location.href='addForm.html'"
-                        th:onclick="|location.href='@{/bulletinBoard/add(pageNum=${criteria.pageNum}, amount=${criteria.amount}, keyword=${criteria.keyword})}'|"
-                        type="button">글 등록하기
-                </button>
+                <input type="text" th:field="*{keyword}" class="form-control" placeholder="제목으로 검색"/>
+            </div>
+            <div class="col">
+                <button type="submit" class="btn btn-secondary mb-2">검색</button>
+            </div>
+            <div class="col">
+                <div class="col">
+                    <button class="btn btn-primary float-end"
+                            onclick="location.href='addForm.html'"
+                            th:onclick="|location.href='@{/bulletinBoard/add(pageNum=${criteria.pageNum}, amount=${criteria.amount}, keyword=${criteria.keyword})}'|"
+                            type="button">글 등록하기
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
     </form>
 
     <hr class="my-4">

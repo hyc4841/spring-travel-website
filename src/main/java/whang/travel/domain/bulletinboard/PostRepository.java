@@ -1,10 +1,11 @@
 package whang.travel.domain.bulletinboard;
 
+import whang.travel.domain.paging.Criteria;
+import whang.travel.domain.paging.MemberPostCriteria;
 import whang.travel.web.bulletinBoard.form.SavePostForm;
 import whang.travel.web.bulletinBoard.form.UpdatePostForm;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 public interface  PostRepository {
@@ -14,7 +15,10 @@ public interface  PostRepository {
     // 글 수정
     void updatePost(Long postId, UpdatePostForm editForm);
     // 글 맴버로 다중 조회
-    List<Post> findPostByMemberId(Long memberId, String searchTitle);
+    List<Post> findPostByMemberId(MemberPostCriteria criteria);
+
+    Integer countMemberPosts(MemberPostCriteria criteria);
+
     // 글 id로 단일 조회
     Optional<Post> findPostByPostId(Long postId);
 

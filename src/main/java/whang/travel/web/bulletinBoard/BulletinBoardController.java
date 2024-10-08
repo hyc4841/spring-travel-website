@@ -1,6 +1,5 @@
 package whang.travel.web.bulletinBoard;
 
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -11,20 +10,17 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import whang.travel.domain.bulletinboard.Criteria;
+import whang.travel.domain.paging.Criteria;
 import whang.travel.domain.bulletinboard.Post;
 import whang.travel.domain.bulletinboard.PostService;
-import whang.travel.domain.bulletinboard.DisplayPostForm;
 import whang.travel.domain.member.Member;
 import whang.travel.domain.member.MemberRepository;
-import whang.travel.web.bulletinBoard.form.PageMaker;
+import whang.travel.domain.paging.PageMaker;
 import whang.travel.web.bulletinBoard.form.SavePostForm;
 import whang.travel.web.bulletinBoard.form.UpdatePostForm;
-import whang.travel.web.bulletinBoard.form.SearchForm;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 @Slf4j
 @Controller

@@ -4,11 +4,11 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import whang.travel.domain.bulletinboard.Post;
 import whang.travel.domain.bulletinboard.DisplayPostForm;
-import whang.travel.domain.bulletinboard.Criteria;
+import whang.travel.domain.paging.Criteria;
+import whang.travel.domain.paging.MemberPostCriteria;
 import whang.travel.web.bulletinBoard.form.UpdatePostForm;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Mapper
@@ -21,7 +21,9 @@ public interface PostMapper {
     void update(@Param("postId") Long postId,@Param("updatePost") UpdatePostForm editForm);
 
     // 멤버 id로 글 다중 검색
-    List<Post> findPostByMemberId(@Param("memberId") Long memberId,@Param("searchTitle") String searchTitle);
+    List<Post> findPostByMemberId(MemberPostCriteria criteria);
+
+    Integer countMemberPosts(MemberPostCriteria criteria);
 
     // 글 id로 단건 조회
     Optional<Post> findPostByPostId(Long postId);

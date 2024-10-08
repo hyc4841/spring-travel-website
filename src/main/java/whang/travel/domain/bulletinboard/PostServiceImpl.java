@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import whang.travel.domain.image.Image;
 import whang.travel.domain.image.ImageRepository;
 import whang.travel.domain.image.ImageStore;
+import whang.travel.domain.paging.Criteria;
+import whang.travel.domain.paging.MemberPostCriteria;
 import whang.travel.web.bulletinBoard.form.SavePostForm;
 import whang.travel.web.bulletinBoard.form.UpdatePostForm;
 import whang.travel.web.image.form.ImageNameForm;
@@ -42,8 +44,13 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> findPostByMemberId(Long memberId, String searchTitle) {
-        return postRepository.findPostByMemberId(memberId, searchTitle);
+    public List<Post> findPostByMemberId(MemberPostCriteria criteria) {
+        return postRepository.findPostByMemberId(criteria);
+    }
+
+    @Override
+    public Integer countMemberPosts(MemberPostCriteria criteria) {
+        return postRepository.countMemberPosts(criteria);
     }
 
     // 게시물 상세 보기

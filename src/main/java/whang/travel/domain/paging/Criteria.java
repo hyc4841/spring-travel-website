@@ -1,4 +1,4 @@
-package whang.travel.domain.bulletinboard;
+package whang.travel.domain.paging;
 
 import lombok.Data;
 
