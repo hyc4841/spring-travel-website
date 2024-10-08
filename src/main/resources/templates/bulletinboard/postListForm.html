@@ -25,8 +25,6 @@
     </div>
 
     <form class="form-inline" th:action th:object="${criteria}" method="get" >
-        <input type="hidden" th:field="*{pageNum}">
-        <input type="hidden" th:field="*{amount}">
     <div class="row">
         <div class="col">
             <input type="text" th:field="*{keyword}" class="form-control" placeholder="제목으로 검색"/>
@@ -63,8 +61,8 @@
             <tbody>
             <tr th:each="post : ${posts}">
                 <!-- 여기로 넘겨지는 posts는 DisplayPostForm의 데이터 형태가 넘어오는 것임. 작성자 이름을 사용하기 위해서 그렇게 했음-->
-                <td><a href="#" th:href="@{/bulletinBoard/detail/{postId}(postId=${post.postId})}" th:text="${post.postId}">글 번호</a></td>
-                <td><a href="#" th:href="@{|/bulletinBoard/detail/${post.postId}|}" th:text="${post.title}">제목</a></td>
+                <td><a href="#" th:href="@{/bulletinBoard/detail/{postId}(postId=${post.postId}, pageNum=${criteria.pageNum}, amount=${criteria.amount}, keyword=${criteria.keyword})}" th:text="${post.postId}">글 번호</a></td>
+                <td><a href="#" th:href="@{|/bulletinBoard/detail/${post.postId}?pageNum=${criteria.pageNum}&amount=${criteria.amount}&keyword=${criteria.keyword}|}" th:text="${post.title}">제목</a></td>
                 <td th:text="|${post.memberId}|">작성자</td>
                 <td th:text="${post.postDate}">작성일자</td>
                 <td th:text="${post.category}">카테고리</td>
@@ -79,18 +77,16 @@
 
                     <!-- 이전 버튼 -->
                     <li class="page-item" th:if="${pageMaker.prev}">
-                        <a class="page-link" th:href="@{/bulletinBoard/list(pageNum = ${pageMaker.startPage - 1}, amount = ${criteria.amount})}">Previous</a>
+                        <a class="page-link" th:href="@{/bulletinBoard/list(pageNum=${pageMaker.startPage - 1}, amount=${criteria.amount}, keyword=${criteria.keyword})}">Previous</a>
                     </li>
 
-
-
                     <li class="page-item" th:each="num : ${#numbers.sequence(pageMaker.startPage, pageMaker.endPage)}">
-                        <a class="page-link" th:class="${pageMaker.criteria.pageNum == num ? 'page-link active' : 'page-link' }" th:href="@{/bulletinBoard/list(pageNum = ${num}, amount = ${criteria.amount})}" th:text="${num}">1</a>
+                        <a class="page-link" th:class="${pageMaker.criteria.pageNum == num ? 'page-link active' : 'page-link' }" th:href="@{/bulletinBoard/list(pageNum=${num}, amount=${criteria.amount}, keyword=${criteria.keyword})}" th:text="${num}">1</a>
                     </li>
 
                     <!-- 다음 버튼 -->
                     <li class="page-item" th:if="${pageMaker.next}">
-                        <a class="page-link" th:href="@{/bulletinBoard/list(pageNum = ${pageMaker.endPage + 1}, amount = ${criteria.amount})}">Next</a>
+                        <a class="page-link" th:href="@{/bulletinBoard/list(pageNum=${pageMaker.endPage + 1}, amount=${criteria.amount}, keyword=${criteria.keyword})}">Next</a>
                     </li>
 
                 </ul>

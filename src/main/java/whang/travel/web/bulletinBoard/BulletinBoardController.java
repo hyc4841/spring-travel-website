@@ -88,7 +88,8 @@ public class BulletinBoardController {
 
     // 게시판 글 보여줄 화면
     @GetMapping("/detail/{postId}")
-    public String showPost(@PathVariable Long postId, @AuthenticationPrincipal UserDetails user, Model model) {
+    public String showPost(@PathVariable Long postId, @ModelAttribute("criteria") Criteria criteria,
+                           @AuthenticationPrincipal UserDetails user, Model model) {
         // 게시물을 가져온다.
         Post post = postService.findPostByPostId(postId).get(); // 서비스 단계에서 이미지도 찾아온다
 
@@ -105,7 +106,8 @@ public class BulletinBoardController {
 
     // 글 수정 화면
     @GetMapping("/edit/{postId}")
-    public String updatePostForm(@PathVariable Long postId, @AuthenticationPrincipal UserDetails user, Model model) {
+    public String updatePostForm(@PathVariable Long postId, @ModelAttribute("criteria") Criteria criteria,
+                                 @AuthenticationPrincipal UserDetails user, Model model) {
 
         Post post = postService.findPostByPostId(postId).get();
         Member member = memberRepository.findById(post.getMemberId()).get();

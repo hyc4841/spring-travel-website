@@ -79,13 +79,13 @@
             <div class="col">
                 <button class="w-100 btn btn-primary btn-lg"
                         onclick="location.href='#'"
-                        th:onclick="|location.href='@{/bulletinBoard/edit/{postId}(postId=${post.postId})}'|"
+                        th:onclick="|location.href='@{/bulletinBoard/edit/{postId}(postId=${post.postId}, pageNum=${criteria.pageNum}, amount=${criteria.amount}, keyword=${criteria.keyword})}'|"
                         type="button">글 수정</button>
             </div>
             <div class="col">
                 <button class="w-100 btn btn-secondary btn-lg"
                         onclick="location.href='#'"
-                        th:onclick="|location.href='@{/bulletinBoard/list}'|"
+                        th:onclick="|location.href='@{/bulletinBoard/list(pageNum=${criteria.pageNum}, amount=${criteria.amount}, keyword=${criteria.keyword})}'|"
                         type="button">돌아가기</button>
             </div>
         </div>

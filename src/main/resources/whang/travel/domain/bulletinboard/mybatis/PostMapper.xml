@@ -52,6 +52,11 @@
     <select id="findAllByPaging" resultType="Post">
         select post_id, member_id, title, content, post_date, category, edit_date
         from BULLETINBOARD
+        <where>
+            <if test="keyword != null and keyword != ''">
+                and title like concat('%', #{keyword}, '%')
+            </if>
+        </where>
         limit #{skip}, #{amount}
     </select>
 
@@ -60,11 +65,11 @@
         select count(*)
         from BULLETINBOARD
 
-<!--        <where>-->
-<!--            <if test="searchTitle != null and searchTitle != ''">-->
-<!--                and title like concat('%', #{searchTitle}, '%')-->
-<!--            </if>-->
-<!--        </where>-->
+        <where>
+            <if test="keyword != null and keyword != ''">
+                and title like concat('%', #{keyword}, '%')
+            </if>
+        </where>
 
     </select>
 
