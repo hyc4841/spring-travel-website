@@ -76,7 +76,7 @@
         <hr class="my-4">
 
         <div class="row mb-5">
-            <div class="col">
+            <div th:if="${user.username == post.memberLoginId}" class="col">
                 <button class="w-100 btn btn-primary btn-lg"
                         onclick="location.href='#'"
                         th:onclick="|location.href='@{/bulletinBoard/edit/{postId}(postId=${post.postId}, pageNum=${criteria.pageNum}, amount=${criteria.amount}, keyword=${criteria.keyword})}'|"
@@ -91,7 +91,8 @@
         </div>
     </form>
 
-    <form id="delForm" th:action="@{/bulletinBoard/{postId}(postId=${post.postId}, pageNum=${criteria.pageNum}, amount=${criteria.amount}, keyword=${criteria.keyword})}" th:method="delete"
+    <form th:if="${user.username == post.memberLoginId}"
+            id="delForm" th:action="@{/bulletinBoard/{postId}(postId=${post.postId}, pageNum=${criteria.pageNum}, amount=${criteria.amount}, keyword=${criteria.keyword})}" th:method="delete"
         class="d-flex justify-content-center mb-5">
         <button id="delBtn" class="btn btn-lg btn-danger" type="submit">삭제하기</button>
     </form>
@@ -99,7 +100,6 @@
 </div> <!-- /container -->
 
 <script>
-
     document.getElementById('delForm').addEventListener('submit', function(event) {
         event.preventDefault();
         var con = confirm("게시물을 삭제 하시겠습니까?");
@@ -107,7 +107,6 @@
         if (con) {
             document.getElementById('delForm').submit();
         }
-
     });
 
 </script>
