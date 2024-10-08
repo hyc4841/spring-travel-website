@@ -155,6 +155,7 @@ public class BulletinBoardController {
     @DeleteMapping("/{postId}")
     public String deletePost(@PathVariable Long postId, @ModelAttribute("criteria") Criteria criteria,
                              RedirectAttributes redirectAttributes) {
+
         postService.deletePost(postId);
 
         // 파라미터

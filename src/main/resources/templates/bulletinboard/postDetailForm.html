@@ -75,7 +75,7 @@
 
         <hr class="my-4">
 
-        <div class="row">
+        <div class="row mb-5">
             <div class="col">
                 <button class="w-100 btn btn-primary btn-lg"
                         onclick="location.href='#'"
@@ -89,10 +89,28 @@
                         type="button">돌아가기</button>
             </div>
         </div>
+    </form>
 
+    <form id="delForm" th:action="@{/bulletinBoard/{postId}(postId=${post.postId}, pageNum=${criteria.pageNum}, amount=${criteria.amount}, keyword=${criteria.keyword})}" th:method="delete"
+        class="d-flex justify-content-center mb-5">
+        <button id="delBtn" class="btn btn-lg btn-danger" type="submit">삭제하기</button>
     </form>
 
 </div> <!-- /container -->
+
+<script>
+
+    document.getElementById('delForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        var con = confirm("게시물을 삭제 하시겠습니까?");
+        
+        if (con) {
+            document.getElementById('delForm').submit();
+        }
+
+    });
+
+</script>
 
 <script src="../../static/script/textarea-control.js" th:src="@{/script/textarea-control.js}"></script>
 <script th:src="@{/script/bootstrap.bundle.min.js}"
