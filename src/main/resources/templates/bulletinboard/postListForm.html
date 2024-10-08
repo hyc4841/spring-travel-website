@@ -36,7 +36,7 @@
             <div class="col">
                 <button class="btn btn-primary float-end"
                         onclick="location.href='addForm.html'"
-                        th:onclick="|location.href='@{/bulletinBoard/add}'|"
+                        th:onclick="|location.href='@{/bulletinBoard/add(pageNum=${criteria.pageNum}, amount=${criteria.amount}, keyword=${criteria.keyword})}'|"
                         type="button">글 등록하기
                 </button>
             </div>
@@ -62,7 +62,7 @@
             <tr th:each="post : ${posts}">
                 <!-- 여기로 넘겨지는 posts는 DisplayPostForm의 데이터 형태가 넘어오는 것임. 작성자 이름을 사용하기 위해서 그렇게 했음-->
                 <td><a href="#" th:href="@{/bulletinBoard/detail/{postId}(postId=${post.postId}, pageNum=${criteria.pageNum}, amount=${criteria.amount}, keyword=${criteria.keyword})}" th:text="${post.postId}">글 번호</a></td>
-                <td><a href="#" th:href="@{|/bulletinBoard/detail/${post.postId}?pageNum=${criteria.pageNum}&amount=${criteria.amount}&keyword=${criteria.keyword}|}" th:text="${post.title}">제목</a></td>
+                <td><a href="#" th:href="@{/bulletinBoard/detail/{postId}(postId=${post.postId}, pageNum=${criteria.pageNum}, amount=${criteria.amount}, keyword=${criteria.keyword})}" th:text="${post.title}">제목</a></td>
                 <td th:text="|${post.memberId}|">작성자</td>
                 <td th:text="${post.postDate}">작성일자</td>
                 <td th:text="${post.category}">카테고리</td>

@@ -42,7 +42,7 @@ public class BulletinBoardController {
 
         List<Post> postList = postService.findAllByPaging(criteria);
 
-        Integer total = postService.countPosts();
+        Integer total = postService.countPosts(criteria);
 
         PageMaker pageMaker = new PageMaker(criteria, total);
 
@@ -54,11 +54,12 @@ public class BulletinBoardController {
     }
 
     @GetMapping("/add") // 글 작성 화면으로
-    public String postAddForm(@ModelAttribute("post") SavePostForm post, @AuthenticationPrincipal UserDetails user,
-                              HttpServletRequest request, Model model) {
+    public String postAddForm(@ModelAttribute("post") SavePostForm post, @ModelAttribute("criteria") Criteria criteria,
+                              @AuthenticationPrincipal UserDetails user,
+                              Model model) {
 
         // 현재 로그인한 사용자 찾기
-        Member member = findMember(request, user);
+        Member member = findMember(user);
         post.setMemberLoginId(member.getMemberId());
 
         model.addAttribute("user", user);
@@ -71,6 +72,7 @@ public class BulletinBoardController {
 
     @PostMapping("/add")
     public String postAdd(@Validated @ModelAttribute("post") SavePostForm post, BindingResult bindingResult,
+                          @ModelAttribute("criteria") Criteria criteria,
                           RedirectAttributes redirectAttributes) throws IOException {
         if (bindingResult.hasErrors()) {
             log.info("오류 발생={}", bindingResult);
@@ -81,6 +83,10 @@ public class BulletinBoardController {
         Long id = memberRepository.findIdByLoginId(post.getMemberLoginId());
         post.setMemberId(id);
         postService.save(post);
+
+        redirectAttributes.addAttribute("pageNum", criteria.getPageNum());
+        redirectAttributes.addAttribute("amount", criteria.getAmount());
+        redirectAttributes.addAttribute("keyword", criteria.getKeyword());
 
         return "redirect:/bulletinBoard/list";
     }
@@ -123,6 +129,7 @@ public class BulletinBoardController {
 
     @PostMapping("/edit/{postId}")
     public String updatePost(@Validated @ModelAttribute("updatePost") UpdatePostForm updatePost, BindingResult bindingResult,
+                             @ModelAttribute("criteria") Criteria criteria,
                              RedirectAttributes redirectAttributes, @PathVariable Long postId) {
 
         if (bindingResult.hasErrors()) {
@@ -135,12 +142,30 @@ public class BulletinBoardController {
         postService.update(postId, updatePost);
 
         redirectAttributes.addAttribute("postId", postId);
+
+        // url 파라미터로 보내려면 이렇게 해야한다고 함.
+        redirectAttributes.addAttribute("pageNum", criteria.getPageNum());
+        redirectAttributes.addAttribute("amount", criteria.getAmount());
+        redirectAttributes.addAttribute("keyword", criteria.getKeyword());
+
         return "redirect:/bulletinBoard/detail/{postId}";
     }
 
     // 게시글 삭제하기 기능 추가하기
+    @DeleteMapping("/{postId}")
+    public String deletePost(@PathVariable Long postId, @ModelAttribute("criteria") Criteria criteria,
+                             RedirectAttributes redirectAttributes) {
+        postService.deletePost(postId);
 
-    private Member findMember(HttpServletRequest request, @AuthenticationPrincipal UserDetails curMember) {
+        // 파라미터
+        redirectAttributes.addAttribute("pageNum", criteria.getPageNum());
+        redirectAttributes.addAttribute("amount", criteria.getAmount());
+        redirectAttributes.addAttribute("keyword", criteria.getKeyword());
+
+        return "redirect:/bulletinBoard/list";
+    }
+
+    private Member findMember(@AuthenticationPrincipal UserDetails curMember) {
         String username = curMember.getUsername();
         Member member = memberRepository.findByLoginId(username).get();
         return member;

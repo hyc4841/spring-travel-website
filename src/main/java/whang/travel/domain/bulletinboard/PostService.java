@@ -19,12 +19,9 @@ public interface PostService {
 
     Optional<Post> findPostByPostId(Long postId);
 
-    // 글 제목으로 검색
-    List<Post> findAll(Map<String, Object> map);
-
     List<Post> findAllByPaging(Criteria criteria);
 
-    Integer countPosts();
+    Integer countPosts(Criteria criteria);
 
     Map<String, Object> getPostList(int pageNum, int pageSize, String searchTitle);
 

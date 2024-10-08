@@ -10,7 +10,6 @@ import whang.travel.web.bulletinBoard.form.SavePostForm;
 import whang.travel.web.bulletinBoard.form.UpdatePostForm;
 import whang.travel.web.image.form.ImageNameForm;
 import whang.travel.web.image.form.ImageSaveForm;
-import whang.travel.web.accommodation.paging.Pager;
 
 import java.io.IOException;
 import java.util.*;
@@ -61,43 +60,18 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> findAll(Map<String, Object> map) {
-        return postRepository.findAll(map);
-    }
-
-    @Override
     public List<Post> findAllByPaging(Criteria criteria) {
         return postRepository.findAllByPaging(criteria);
     }
 
     @Override
-    public Integer countPosts() {
-        return postRepository.countPosts();
+    public Integer countPosts(Criteria criteria) {
+        return postRepository.countPosts(criteria);
     }
 
     @Override
     public Map<String, Object> getPostList(int pageNum, int pageSize, String searchTitle) {
-        // 전체 공지사항 개수 조회
-        int totalBoard = postRepository.countPosts();
-        // 페이지 블록 크기 설정
-        int blockSize = 5;
-
-        // Pager 클래스 사용
-        Pager pager = new Pager(pageNum, totalBoard, pageSize, blockSize);
-
-        Map<String, Object> pageMap = new HashMap<>();
-        pageMap.put("startRow", pager.getStartRow());
-        pageMap.put("endRow", pager.getEndRow());
-        pageMap.put("totalBoard", pager.getTotalBoard());
-        pageMap.put("searchTitle", searchTitle);
-
-        List<Post> postList = postRepository.findAll(pageMap);
-
-        Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put("postList", postList);
-        resultMap.put("pager", pager);
-
-        return resultMap;
+        return null;
     }
 
     @Override

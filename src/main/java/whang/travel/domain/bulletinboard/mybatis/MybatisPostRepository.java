@@ -54,20 +54,13 @@ public class MybatisPostRepository implements PostRepository {
     }
 
     @Override
-    public List<Post> findAll(Map<String, Object> map) {
-        List<Post> postList = postMapper.findAll(map);
-        log.info("findAll={}", postList);
-        return postList;
-    }
-
-    @Override
     public List<Post> findAllByPaging(Criteria criteria) {
         return postMapper.findAllByPaging(criteria);
     }
 
     @Override
-    public Integer countPosts() {
-        return postMapper.countPosts();
+    public Integer countPosts(Criteria criteria) {
+        return postMapper.countPosts(criteria);
     }
 
     @Override

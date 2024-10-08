@@ -26,11 +26,9 @@ public interface PostMapper {
     // 글 id로 단건 조회
     Optional<Post> findPostByPostId(Long postId);
 
-    List<Post> findAll(Map<String, Object> map);
-
     List<Post> findAllByPaging(Criteria criteria);
 
-    Integer countPosts();
+    Integer countPosts(Criteria criteria);
 
     // 글 id로 삭제
     void deletePost(Long postId);

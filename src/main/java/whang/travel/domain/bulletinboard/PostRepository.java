@@ -18,13 +18,11 @@ public interface  PostRepository {
     // 글 id로 단일 조회
     Optional<Post> findPostByPostId(Long postId);
 
-    // 글 제목으로 검색
-    List<Post> findAll(Map<String, Object> map);
-
+    // 페이징 게시물 검색
     List<Post> findAllByPaging(Criteria criteria);
 
     // 총 게시물의 갯수
-    Integer countPosts();
+    Integer countPosts(Criteria criteria);
 
     // 글 Id로 삭제
     void deletePost(Long postId);
