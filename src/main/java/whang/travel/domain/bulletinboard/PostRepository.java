@@ -21,8 +21,10 @@ public interface  PostRepository {
     // 글 제목으로 검색
     List<Post> findAll(Map<String, Object> map);
 
+    List<Post> findAllByPaging(Criteria criteria);
+
     // 총 게시물의 갯수
-    Integer countPosts(String searchTitle);
+    Integer countPosts();
 
     // 글 Id로 삭제
     void deletePost(Long postId);

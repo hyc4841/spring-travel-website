@@ -22,7 +22,9 @@ public interface PostService {
     // 글 제목으로 검색
     List<Post> findAll(Map<String, Object> map);
 
-    Integer countPosts(String searchTitle);
+    List<Post> findAllByPaging(Criteria criteria);
+
+    Integer countPosts();
 
     Map<String, Object> getPostList(int pageNum, int pageSize, String searchTitle);
 

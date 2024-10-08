@@ -11,11 +11,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import whang.travel.domain.bulletinboard.Criteria;
 import whang.travel.domain.bulletinboard.Post;
 import whang.travel.domain.bulletinboard.PostService;
 import whang.travel.domain.bulletinboard.DisplayPostForm;
 import whang.travel.domain.member.Member;
 import whang.travel.domain.member.MemberRepository;
+import whang.travel.web.bulletinBoard.form.PageMaker;
 import whang.travel.web.bulletinBoard.form.SavePostForm;
 import whang.travel.web.bulletinBoard.form.UpdatePostForm;
 import whang.travel.web.bulletinBoard.form.SearchForm;
@@ -35,13 +37,16 @@ public class BulletinBoardController {
 
     @GetMapping("/list")
     // 게시판 목록 화면
-    public String bulletinBoardList(@ModelAttribute("searchForm") SearchForm searchForm, @AuthenticationPrincipal UserDetails user,
-                                    @RequestParam(defaultValue = "1") int pageNum,
-                                    @RequestParam(defaultValue = "10") int pageSize,
+    public String bulletinBoardList(@ModelAttribute("criteria") Criteria criteria, @AuthenticationPrincipal UserDetails user,
                                     Model model) {
 
-        Map<String, Object> postList = postService.getPostList(pageNum, pageSize, searchForm.getSearchTitle());
+        List<Post> postList = postService.findAllByPaging(criteria);
 
+        Integer total = postService.countPosts();
+
+        PageMaker pageMaker = new PageMaker(criteria, total);
+
+        model.addAttribute("pageMaker", pageMaker);
         model.addAttribute("posts", postList);
         model.addAttribute("user", user);
 

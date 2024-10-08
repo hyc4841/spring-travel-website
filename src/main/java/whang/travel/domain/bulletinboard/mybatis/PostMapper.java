@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import whang.travel.domain.bulletinboard.Post;
 import whang.travel.domain.bulletinboard.DisplayPostForm;
+import whang.travel.domain.bulletinboard.Criteria;
 import whang.travel.web.bulletinBoard.form.UpdatePostForm;
 
 import java.util.List;
@@ -27,7 +28,9 @@ public interface PostMapper {
 
     List<Post> findAll(Map<String, Object> map);
 
-    Integer countPosts(String searchTitle);
+    List<Post> findAllByPaging(Criteria criteria);
+
+    Integer countPosts();
 
     // 글 id로 삭제
     void deletePost(Long postId);

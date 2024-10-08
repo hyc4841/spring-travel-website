@@ -3,6 +3,7 @@ package whang.travel.domain.bulletinboard.mybatis;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
+import whang.travel.domain.bulletinboard.Criteria;
 import whang.travel.domain.bulletinboard.Post;
 import whang.travel.domain.bulletinboard.PostRepository;
 import whang.travel.domain.bulletinboard.DisplayPostForm;
@@ -60,8 +61,13 @@ public class MybatisPostRepository implements PostRepository {
     }
 
     @Override
-    public Integer countPosts(String searchTitle) {
-        return postMapper.countPosts(searchTitle);
+    public List<Post> findAllByPaging(Criteria criteria) {
+        return postMapper.findAllByPaging(criteria);
+    }
+
+    @Override
+    public Integer countPosts() {
+        return postMapper.countPosts();
     }
 
     @Override

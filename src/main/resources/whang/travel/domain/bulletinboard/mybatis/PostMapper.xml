@@ -49,15 +49,22 @@
         limit #{startRow}, #{endRow - startRow}
     </select>
 
+    <select id="findAllByPaging" resultType="Post">
+        select post_id, member_id, title, content, post_date, category, edit_date
+        from BULLETINBOARD
+        limit #{skip}, #{amount}
+    </select>
+
     <!-- 페이징. 조건 검색한 게시물의 총 갯수 -->
     <select id="countPosts" resultType="int">
         select count(*)
         from BULLETINBOARD
-        <where>
-            <if test="searchTitle != null and searchTitle != ''">
-                and title like concat('%', #{searchTitle}, '%')
-            </if>
-        </where>
+
+<!--        <where>-->
+<!--            <if test="searchTitle != null and searchTitle != ''">-->
+<!--                and title like concat('%', #{searchTitle}, '%')-->
+<!--            </if>-->
+<!--        </where>-->
 
     </select>
 

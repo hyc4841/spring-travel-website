@@ -66,14 +66,19 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Integer countPosts(String searchTitle) {
-        return postRepository.countPosts(searchTitle);
+    public List<Post> findAllByPaging(Criteria criteria) {
+        return postRepository.findAllByPaging(criteria);
+    }
+
+    @Override
+    public Integer countPosts() {
+        return postRepository.countPosts();
     }
 
     @Override
     public Map<String, Object> getPostList(int pageNum, int pageSize, String searchTitle) {
         // 전체 공지사항 개수 조회
-        int totalBoard = postRepository.countPosts(searchTitle);
+        int totalBoard = postRepository.countPosts();
         // 페이지 블록 크기 설정
         int blockSize = 5;
 
