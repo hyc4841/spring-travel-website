@@ -41,9 +41,7 @@ public class MybatisPostRepository implements PostRepository {
 
     @Override
     public List<Post> findPostByMemberId(MemberPostCriteria criteria) {
-        List<Post> postList = postMapper.findPostByMemberId(criteria);
-        log.info("findPostByMemberId={}", postList);
-        return postList;
+        return postMapper.findPostByMemberId(criteria);
     }
 
     @Override

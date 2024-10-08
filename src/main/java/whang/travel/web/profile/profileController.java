@@ -156,7 +156,7 @@ public class profileController {
 
     // get : 내 게시물 화면 미완성
     @GetMapping("/posts")
-    public String posts(@ModelAttribute("memberCriteria") MemberPostCriteria criteria,
+    public String posts(@ModelAttribute("criteria") MemberPostCriteria criteria,
                         @AuthenticationPrincipal UserDetails user, Model model) {
 
         Long memberId = memberRepository.findIdByLoginId(user.getUsername());

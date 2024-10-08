@@ -134,16 +134,16 @@
 
                             <!-- 이전 버튼 -->
                             <li class="page-item" th:if="${pageMaker.prev}">
-                                <a class="page-link" th:href="@{/bulletinBoard/list(pageNum=${pageMaker.startPage - 1}, amount=${criteria.amount}, keyword=${criteria.keyword})}">Previous</a>
+                                <a class="page-link" th:href="@{/profile/posts(pageNum=${pageMaker.startPage - 1}, amount=${criteria.amount}, keyword=${criteria.keyword})}">Previous</a>
                             </li>
 
                             <li class="page-item" th:each="num : ${#numbers.sequence(pageMaker.startPage, pageMaker.endPage)}">
-                                <a class="page-link" th:class="${pageMaker.criteria.pageNum == num ? 'page-link active' : 'page-link' }" th:href="@{/bulletinBoard/list(pageNum=${num}, amount=${criteria.amount}, keyword=${criteria.keyword})}" th:text="${num}">1</a>
+                                <a class="page-link" th:class="${pageMaker.criteria.pageNum == num ? 'page-link active' : 'page-link' }" th:href="@{/profile/posts(pageNum=${num}, amount=${criteria.amount}, keyword=${criteria.keyword})}" th:text="${num}">1</a>
                             </li>
 
                             <!-- 다음 버튼 -->
                             <li class="page-item" th:if="${pageMaker.next}">
-                                <a class="page-link" th:href="@{/bulletinBoard/list(pageNum=${pageMaker.endPage + 1}, amount=${criteria.amount}, keyword=${criteria.keyword})}">Next</a>
+                                <a class="page-link" th:href="@{/profile/posts(pageNum=${pageMaker.endPage + 1}, amount=${criteria.amount}, keyword=${criteria.keyword})}">Next</a>
                             </li>
 
                         </ul>

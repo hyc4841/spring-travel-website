@@ -32,8 +32,8 @@
     </select>
 
 
-    <select id="countMemberPosts" resultType="Post">
-        select post_id, member_id, title, content, post_date, category, edit_date
+    <select id="countMemberPosts" resultType="int">
+        select count(*)
         from bulletinboard
         <where>
             member_id=#{memberId}
