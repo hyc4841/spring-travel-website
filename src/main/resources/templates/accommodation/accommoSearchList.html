@@ -113,7 +113,8 @@
 
             <!--아이템 카드-->
             <div th:each="accommo : ${accommoList}" class="col-md-8 border-bottom mb-4">
-                <a th:href="@{/accommodation/detail/{accommoId}(accommoId=${accommo.accommodationId}, checkIn=${searchCond.checkIn}, checkOut=${searchCond.checkOut}, personnel=${searchCond.personnel})}" href="#">
+                <a th:href="@{/accommodation/detail/{accommoId}(accommoId=${accommo.accommodationId},
+                pageNum=${criteria.pageNum}, amount=${criteria.amount}, checkIn=${criteria.checkIn}, checkOut=${criteria.checkOut}, personnel=${criteria.personnel})}" href="#">
                     <div class="row g-0 border rounded flex-md-row mb-4 shadow-sm h-md-250 position-relative">
 
                         <div class="col-auto d-none d-lg-block rounded">
@@ -141,32 +142,30 @@
                     </div>
                 </a>
             </div>
-
-
-
-
-        <!--페이지 네비게이션-->
-        <div class="col-md-auto">
-                <nav class="">
-                    <ul class="pagination pagination-lg flex-wrap">
-                        <li class="page-item disabled">
-                            <a class="page-link">Previous</a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item active" aria-current="page">
-                            <a class="page-link" href="#">2</a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-
-
         </div>
 
+        <!--페이지 네비게이션-->
+        <div class="d-flex justify-content-center mt-4">
+            <nav>
+                <ul class="pagination pagination flex-wrap">
+
+                    <!-- 이전 버튼 -->
+                    <li class="page-item" th:if="${pageMaker.prev}">
+                        <a class="page-link" th:href="@{/accommodation/list(pageNum=${pageMaker.startPage - 1}, amount=${criteria.amount}, region=${criteria.region}, checkIn=${criteria.checkIn}, checkOut=${criteria.checkOut}, personnel=${criteria.personnel})}">Previous</a>
+                    </li>
+
+                    <li class="page-item" th:each="num : ${#numbers.sequence(pageMaker.startPage, pageMaker.endPage)}">
+                        <a class="page-link" th:class="${pageMaker.criteria.pageNum == num ? 'page-link active' : 'page-link' }" th:href="@{/accommodation/list(pageNum=${num}, amount=${criteria.amount}, region=${criteria.region}, checkIn=${criteria.checkIn}, checkOut=${criteria.checkOut}, personnel=${criteria.personnel})}" th:text="${num}">1</a>
+                    </li>
+
+                    <!-- 다음 버튼 -->
+                    <li class="page-item" th:if="${pageMaker.next}">
+                        <a class="page-link" th:href="@{/accommodation/list(pageNum=${pageMaker.endPage + 1}, amount=${criteria.amount}, region=${criteria.region}, checkIn=${criteria.checkIn}, checkOut=${criteria.checkOut}, personnel=${criteria.personnel})}">Next</a>
+                    </li>
+
+                </ul>
+            </nav>
+        </div>
 
 
     </div>

@@ -1,5 +1,6 @@
 package whang.travel.web.profile;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -18,9 +19,8 @@ import whang.travel.domain.bulletinboard.Post;
 import whang.travel.domain.bulletinboard.PostService;
 import whang.travel.domain.member.Member;
 import whang.travel.domain.member.MemberRepository;
-import whang.travel.domain.paging.MemberPostCriteria;
-import whang.travel.domain.paging.PageMaker;
-import whang.travel.domain.paging.PageMakerMemberPost;
+import whang.travel.domain.paging.profilePost.MemberPostCriteria;
+import whang.travel.domain.paging.profilePost.PageMakerMemberPost;
 import whang.travel.domain.reservation.Reservation;
 import whang.travel.domain.reservation.ReservationService;
 import whang.travel.domain.reservation.ReservationShow;
@@ -157,7 +157,7 @@ public class profileController {
     // get : 내 게시물 화면 미완성
     @GetMapping("/posts")
     public String posts(@ModelAttribute("criteria") MemberPostCriteria criteria,
-                        @AuthenticationPrincipal UserDetails user, Model model) {
+                        @AuthenticationPrincipal UserDetails user, Model model, HttpServletResponse response) {
 
         Long memberId = memberRepository.findIdByLoginId(user.getUsername());
         criteria.setMemberId(memberId); // memberId로 게시물 찾을 수 있도록 넣어준다.

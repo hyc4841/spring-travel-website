@@ -4,8 +4,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import whang.travel.domain.bulletinboard.Post;
 import whang.travel.domain.bulletinboard.DisplayPostForm;
-import whang.travel.domain.paging.Criteria;
-import whang.travel.domain.paging.MemberPostCriteria;
+import whang.travel.domain.paging.bulletinboard.Criteria;
+import whang.travel.domain.paging.profilePost.MemberPostCriteria;
 import whang.travel.web.bulletinBoard.form.UpdatePostForm;
 
 import java.util.List;

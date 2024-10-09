@@ -40,6 +40,7 @@
     </select>
 
     <!-- 사용자가 지역, 날짜, 인원을 넣고 검색을 눌렀을 때 숙소 리스트 뽑아줄 때 사용. -->
+    <!-- order by문으로 정렬 우선순위를 정할 수 있다 -->
     <select id="findAccommoList" resultType="Accommodation">
         SELECT DISTINCT accommodation_id, a.name, location, category, introduction, service, information, a.seller, a.region
         FROM accommodation a
@@ -51,6 +52,28 @@
         WHERE s.room IS NULL
         AND a.region = #{region}
         AND (r.personnel &lt;= #{personnel} AND r.max_personnel &gt;= #{personnel})
+
+        order by accommodation_id desc
+        limit #{skip}, #{amount}
+    </select>
+
+    <!-- 조건 검색한 숙소의 총 개수 -->
+    <select id="countAccommo" resultType="int">
+        SELECT count(*)
+        FROM (
+            select a.name, location, category, introduction, service, information, a.seller, a.region
+            from accommodation a
+            JOIN room r ON a.accommodation_id = r.accommodation
+            LEFT JOIN reservation s ON r.room_id = s.room
+            AND (
+            (s.check_in &lt; #{checkOut} AND s.check_out > #{checkIn})
+            )
+            WHERE s.room IS NULL
+            AND a.region = #{region}
+            AND (r.personnel &lt;= #{personnel} AND r.max_personnel &gt;= #{personnel})
+            group by a.name, location, category, introduction, service, information, a.seller, a.region
+        )
+
     </select>
 
     <!--    < &lt;    -->

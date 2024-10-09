@@ -10,13 +10,16 @@
     <link th:href="@{/css/bootstrap.min.css}"
           href="../../static/css/bootstrap.css" rel="stylesheet">
     <style>
-        a {
+        .list-group-item a {
             text-decoration-line: none;
 			white-space: nowrap;
 			color: rgb(83, 83, 83);
-
 			font-size: large;
 			font-weight: 600;
+        }
+
+        a {
+            text-decoration-line: none;
         }
     </style>
 
@@ -35,43 +38,36 @@
         <div class="col-md-3">
             <div id="navCard">
                 <ul class="list-group" style="border-radius: 15px;">
-
                     <li class="list-group-item p-3">
                         <a th:href="@{/profile/reservations}" class="d-flex justify-content-between">
                             <span>예약 내역</span>
                             <span>-></span>
                         </a>
                     </li>
-
                     <li class="list-group-item p-3">
                         <a th:href="@{/profile/info}" class="d-flex justify-content-between">
                             <span>내 정보</span>
                             <span>-></span>
                         </a>
                     </li>
-
                     <li class="list-group-item p-3">
                         <a th:href="@{/profile/posts}" class="d-flex justify-content-between" style="color: rgb(0, 128, 255);">
                             <span>내 게시물</span>
                             <span>-></span>
                         </a>
                     </li>
-
                     <li class="list-group-item p-3">
                         <a th:href="@{/profile/coupon}" class="d-flex justify-content-between">
                             <span>쿠폰</span>
                             <span>-></span>
                         </a>
                     </li>
-
                     <li class="list-group-item p-3">
                         <a th:href="@{/profile/settings}" class="d-flex justify-content-between">
                             <span>설정</span>
                             <span>-></span>
                         </a>
                     </li>
-
-
                 </ul>
             </div>
         </div>

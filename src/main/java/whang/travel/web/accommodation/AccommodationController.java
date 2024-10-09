@@ -14,6 +14,8 @@ import whang.travel.domain.accommodation.AccommodationService;
 import whang.travel.domain.accommodation.mybatis.Room;
 import whang.travel.domain.image.Image;
 import whang.travel.domain.image.ImageRepository;
+import whang.travel.domain.paging.accommodation.AccommoCriteria;
+import whang.travel.domain.paging.accommodation.PageMakerAccommo;
 import whang.travel.web.accommodation.form.AccommoSearchCond;
 
 import java.util.List;
@@ -24,33 +26,29 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AccommodationController {
 
-    // 숙소 검색
-    // 숙소 검색은 지역 이름이 들어오면 지역 기반으로, 숙소 이름으로 들어오면 이름 기반으로 지역인지 숙소 이름인지는 간단함. 지역명 ex) 부산, 서울, 강릉 이 들어오면
-    // 지역명이 들어온 것으로 인식하고 지역 기반 검색으로 하면 됨.
-
     private final AccommodationService accommoService;
     private final ImageRepository imageRepository;
 
-    // img test
-
     @GetMapping("/list")
-    public String AccommoList(@Validated @ModelAttribute("searchCond") AccommoSearchCond searchCond,
+    public String AccommoList(@Validated @ModelAttribute("criteria") AccommoCriteria criteria,
                               BindingResult bindingResult, Model model, @AuthenticationPrincipal UserDetails user) {
 
         if (bindingResult.hasErrors()) {
             log.info("에러 발생={}", bindingResult);
             return "/home/homepage";
         }
+        List<Accommodation> accommoList = accommoService.findAccommoList(criteria);
+        Integer total = accommoService.countAccommo(criteria);
 
-        // 넘겨야할 데이터 : 숙소 분류(category), 숙소 이름, 숙소 지역, 리뷰 개수, 별점, 썸네일 이미지
+        log.info("total 값={}", total);
+        log.info("pageNum 값={}", criteria.getPageNum());
+        log.info("amount 값={}", criteria.getAmount());
+        // 숙소 찾아주는 sql을 수정해야함. 지금 방의 갯수 세주는 sql문임 순전히 숙소만 검색되도록 만들어야하는데..
 
-        List<Accommodation> accommoList = accommoService.findAccommoList(searchCond);
+        PageMakerAccommo pageMaker = new PageMakerAccommo(criteria, total);
 
-        log.info("조건 ={}", searchCond);
-        log.info("그래서 나온 숙소 리스트={}", accommoList);
-
-        
-        model.addAttribute("searchCond", searchCond);
+        model.addAttribute("criteria", criteria);
+        model.addAttribute("pageMaker", pageMaker);
         model.addAttribute("user", user);
         model.addAttribute("accommoList", accommoList);
 

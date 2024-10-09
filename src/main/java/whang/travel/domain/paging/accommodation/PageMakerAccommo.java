@@ -1,17 +1,20 @@
-package whang.travel.domain.paging;
+package whang.travel.domain.paging.accommodation;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
+import whang.travel.domain.paging.bulletinboard.Criteria;
 
+@Slf4j
 @Data
-public class PageMaker {
+public class PageMakerAccommo {
 
     private int startPage;
     private int endPage;
     private boolean prev, next;
     private int total;
-    private Criteria criteria;
+    private AccommoCriteria criteria;
 
-    public PageMaker(Criteria criteria, int total) {
+    public PageMakerAccommo(AccommoCriteria criteria, int total) {
         this.criteria = criteria;
         this.total = total;
 
@@ -23,6 +26,12 @@ public class PageMaker {
         if (realEnd < this.endPage) {
             this.endPage = realEnd;
         }
+
+        log.info("startPage={}", startPage);
+        log.info("endPage={}", endPage);
+        log.info("prev={}", prev);
+        log.info("next={}", next);
+        log.info("total={}", total);
 
         this.prev = this.startPage > 1;
         this.next = this.endPage < realEnd;

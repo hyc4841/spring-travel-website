@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 import whang.travel.domain.accommodation.Accommodation;
 import whang.travel.domain.accommodation.AccommodationRepository;
+import whang.travel.domain.paging.accommodation.AccommoCriteria;
 import whang.travel.web.accommodation.form.AccommoSearchCond;
 
 import java.util.List;
@@ -38,10 +39,15 @@ public class MybatisAccommoRepository implements AccommodationRepository {
     }
 
     @Override
-    public List<Accommodation> findAccommoList(AccommoSearchCond accommoSearchCond) {
-        List<Accommodation> accommoList = accommodationMapper.findAccommoList(accommoSearchCond);
+    public List<Accommodation> findAccommoList(AccommoCriteria criteria) {
+        List<Accommodation> accommoList = accommodationMapper.findAccommoList(criteria);
         log.info("조건으로 숙소 검색하기={}", accommoList);
         return accommoList;
+    }
+
+    @Override
+    public Integer countAccommo(AccommoCriteria criteria) {
+        return accommodationMapper.countAccommo(criteria);
     }
 
     @Override

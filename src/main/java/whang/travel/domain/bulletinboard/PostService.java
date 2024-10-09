@@ -1,7 +1,7 @@
 package whang.travel.domain.bulletinboard;
 
-import whang.travel.domain.paging.Criteria;
-import whang.travel.domain.paging.MemberPostCriteria;
+import whang.travel.domain.paging.bulletinboard.Criteria;
+import whang.travel.domain.paging.profilePost.MemberPostCriteria;
 import whang.travel.web.bulletinBoard.form.SavePostForm;
 import whang.travel.web.bulletinBoard.form.UpdatePostForm;
 

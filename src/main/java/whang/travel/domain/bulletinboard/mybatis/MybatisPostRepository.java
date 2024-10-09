@@ -3,11 +3,11 @@ package whang.travel.domain.bulletinboard.mybatis;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
-import whang.travel.domain.paging.Criteria;
+import whang.travel.domain.paging.bulletinboard.Criteria;
 import whang.travel.domain.bulletinboard.Post;
 import whang.travel.domain.bulletinboard.PostRepository;
 import whang.travel.domain.bulletinboard.DisplayPostForm;
-import whang.travel.domain.paging.MemberPostCriteria;
+import whang.travel.domain.paging.profilePost.MemberPostCriteria;
 import whang.travel.web.bulletinBoard.form.SavePostForm;
 import whang.travel.web.bulletinBoard.form.UpdatePostForm;
 

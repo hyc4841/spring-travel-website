@@ -1,4 +1,4 @@
-package whang.travel.domain.paging;
+package whang.travel.domain.paging.profilePost;
 
 import lombok.Data;
 

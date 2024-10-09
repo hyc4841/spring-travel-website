@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import whang.travel.domain.member.Member;
+import whang.travel.domain.paging.accommodation.AccommoCriteria;
 import whang.travel.web.SessionConst;
 import whang.travel.web.accommodation.form.AccommoSearchCond;
 
@@ -28,7 +29,8 @@ public class HomeController {
     }
 
     @GetMapping("/home")
-    public String LoggedInHome(@ModelAttribute("searchCond") AccommoSearchCond accommoSearchCond, HttpServletRequest request, Model model, @AuthenticationPrincipal UserDetails user) {
+    public String LoggedInHome(@ModelAttribute("criteria") AccommoCriteria criteria, Model model,
+                               @AuthenticationPrincipal UserDetails user) {
 
         model.addAttribute("user", user);
 
@@ -42,6 +44,8 @@ public class HomeController {
         // 로그인 되어 있으면
         model.addAttribute("member", loginMember);
          */
+
+
         return "home/homepage";
     }
 

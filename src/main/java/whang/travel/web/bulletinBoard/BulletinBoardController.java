@@ -1,5 +1,6 @@
 package whang.travel.web.bulletinBoard;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -10,12 +11,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import whang.travel.domain.paging.Criteria;
+import whang.travel.domain.paging.bulletinboard.Criteria;
 import whang.travel.domain.bulletinboard.Post;
 import whang.travel.domain.bulletinboard.PostService;
 import whang.travel.domain.member.Member;
 import whang.travel.domain.member.MemberRepository;
-import whang.travel.domain.paging.PageMaker;
+import whang.travel.domain.paging.bulletinboard.PageMaker;
 import whang.travel.web.bulletinBoard.form.SavePostForm;
 import whang.travel.web.bulletinBoard.form.UpdatePostForm;
 
@@ -91,7 +92,7 @@ public class BulletinBoardController {
     // 게시판 글 보여줄 화면
     @GetMapping("/detail/{postId}")
     public String showPost(@PathVariable Long postId, @ModelAttribute("criteria") Criteria criteria,
-                           @AuthenticationPrincipal UserDetails user, Model model) {
+                           @AuthenticationPrincipal UserDetails user, Model model, HttpServletRequest request) {
         // 게시물을 가져온다.
         Post post = postService.findPostByPostId(postId).get(); // 서비스 단계에서 이미지도 찾아온다
 

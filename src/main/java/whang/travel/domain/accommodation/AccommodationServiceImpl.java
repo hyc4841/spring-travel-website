@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import whang.travel.domain.accommodation.mybatis.Room;
+import whang.travel.domain.paging.accommodation.AccommoCriteria;
 import whang.travel.web.accommodation.form.AccommoSearchCond;
 
 import java.util.List;
@@ -23,13 +24,18 @@ public class AccommodationServiceImpl implements AccommodationService {
     }
 
     @Override
-    public List<Accommodation> findAccommoList(AccommoSearchCond accommoSearchCond) {
-        return accommoRepository.findAccommoList(accommoSearchCond);
+    public List<Accommodation> findAccommoList(AccommoCriteria criteria) {
+        return accommoRepository.findAccommoList(criteria);
     }
 
     @Override
     public List<Room> findRoomList(Long accommoId, AccommoSearchCond searchCond) {
         return accommoRepository.findRoomList(accommoId, searchCond);
+    }
+
+    @Override
+    public Integer countAccommo(AccommoCriteria criteria) {
+        return accommoRepository.countAccommo(criteria);
     }
 
     @Override
