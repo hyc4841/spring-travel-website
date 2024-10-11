@@ -21,6 +21,7 @@ import whang.travel.web.bulletinBoard.form.SavePostForm;
 import whang.travel.web.bulletinBoard.form.UpdatePostForm;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Slf4j
@@ -38,9 +39,7 @@ public class BulletinBoardController {
                                     Model model) {
 
         List<Post> postList = postService.findAllByPaging(criteria);
-
         Integer total = postService.countPosts(criteria);
-
         PageMaker pageMaker = new PageMaker(criteria, total);
 
         model.addAttribute("pageMaker", pageMaker);
@@ -95,6 +94,10 @@ public class BulletinBoardController {
                            @AuthenticationPrincipal UserDetails user, Model model, HttpServletRequest request) {
         // 게시물을 가져온다.
         Post post = postService.findPostByPostId(postId).get(); // 서비스 단계에서 이미지도 찾아온다
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//        Date format = (Date) sdf.format(post.getPostDate());
+//        post.setPostDate(format);
 
         // 작성자를 멤버 로그인 id로 보여주기.
         Member member = memberRepository.findById(post.getMemberId()).get();

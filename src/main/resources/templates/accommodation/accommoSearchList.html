@@ -48,14 +48,14 @@
         <div class="flex-shrink-0 p-3 bg-white" style="width: 280px;">
             <a href="#" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
                 <svg class="bi me-2" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
-                <span class="fs-5 fw-semibold">Collapsible</span>
+                <span class="fs-5 fw-semibold">필터</span>
             </a>
             <ul class="list-unstyled ps-0">
                 <li class="mb-1">
-                    <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
-                        Home
+                    <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
+                        숙소 유형
                     </button>
-                    <div class="collapse show" id="home-collapse">
+                    <div class="collapse" id="home-collapse">
                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                             <li><a href="#" class="link-dark rounded">Overview</a></li>
                             <li><a href="#" class="link-dark rounded">Updates</a></li>
@@ -65,7 +65,7 @@
                 </li>
                 <li class="mb-1">
                     <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
-                        Dashboard
+                        가격
                     </button>
                     <div class="collapse" id="dashboard-collapse">
                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
@@ -78,7 +78,7 @@
                 </li>
                 <li class="mb-1">
                     <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
-                        Orders
+                        시설
                     </button>
                     <div class="collapse" id="orders-collapse">
                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
@@ -92,7 +92,7 @@
                 <li class="border-top my-3"></li>
                 <li class="mb-1">
                     <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
-                        Account
+                        기타시설
                     </button>
                     <div class="collapse" id="account-collapse">
                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
@@ -108,7 +108,7 @@
 
     <!--메인 컨텐츠-->
     <div class="flex-grow-1 p-3">
-        <h1>'[[${param.region}]]' 검색 결과 [[${#lists.size(accommoList)}]]건</h1>
+        <p class="h1 mb-4">'[[${param.region}]]' 검색 결과 [[${#lists.size(accommoList)}]]건</p>
         <div class="row justify-content-md-center">
 
             <!--아이템 카드-->
@@ -118,13 +118,12 @@
                     <div class="row g-0 border rounded flex-md-row mb-4 shadow-sm h-md-250 position-relative">
 
                         <div class="col-auto d-none d-lg-block rounded">
-                            <svg class="bd-placeholder-img" width="300" height="200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                            <svg class="bd-placeholder-img" width="250" height="200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
                         </div>
 
                         <div class="col p-4 d-flex flex-column position-static">
                             <strong class="d-inline-block mb-1 text-success" th:text="${accommo.category}">숙소 분류(펜션, 호텔, 모텔)</strong>
                             <h3 class="mb-0" th:text="${accommo.name}">숙소 이름</h3>
-
 
                             <div class="mb-1 text-muted">숙소 지역</div>
 
