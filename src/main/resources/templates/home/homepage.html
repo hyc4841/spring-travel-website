@@ -86,8 +86,6 @@
     <div class="container" th:insert="~{fragment/header :: header}"></div>
 
     <div class="container">
-        <!-- <img class="rounded" src="aaa.png" width="100%" height="512" alt="검색창 배경 사진">-->
-
         <div class="row row-gap-3">
 
             <!--숙소 검색-->
@@ -202,7 +200,7 @@
                     <div class="carousel-inner">
                         <div class="carousel-item active">
 
-                            <img class="bd-placeholder-img rounded" width="100%" height="100%" src="seoul.png" alt="남산 타워">
+                            <img class="bd-placeholder-img rounded" width="100%" height="100%" th:src="@{/img/seoul.png}" src="../../static/img/seoul.png" alt="남산 타워">
 
                             <div class="container">
                                 <div class="carousel-caption text-end">
@@ -214,7 +212,7 @@
                         </div>
 
                         <div class="carousel-item">
-                            <img class="bd-placeholder-img rounded" width="100%" height="100%" src="busan.png" alt="남산 타워">
+                            <img class="bd-placeholder-img rounded" width="100%" height="100%" th:src="@{/img/busan.png}" src="../../static/img/busan.png" alt="남산 타워">
 
                             <div class="container">
                                 <div class="carousel-caption">
@@ -226,7 +224,7 @@
                         </div>
 
                         <div class="carousel-item">
-                            <img class="bd-placeholder-img rounded" width="100%" height="100%" src="winter.png" alt="남산 타워">
+                            <img class="bd-placeholder-img rounded" width="100%" height="100%" th:src="@{/img/winter.png}" src="../../static/img/winter.png" alt="남산 타워">
 
                             <div class="container">
                                 <div class="carousel-caption text-start">
@@ -251,68 +249,86 @@
 
             <!-- 지역 슬라이드 -->
             <div class="col-12">
-                <p class="h4">인기 여행지</p>
+                <p class="h4" style="margin:0;">인기 여행지</p>
                 <div class="swiper mySwiper" style="height: 300px">
                     <div class="swiper-wrapper">
 
                         <div class="swiper-slide">
                             <a href="#">
-                                <img src="서울1.png" class="ratio ratio-1x1" alt="서울">
+                                <img th:src="@{/img/Seoul1.png}" src="../../static/img/Seoul1.png" class="ratio ratio-1x1" alt="서울">
                                 서울
                             </a>
                         </div>
                         <div class="swiper-slide">
                             <a href="#">
-                                <img src="가평1.png" class="ratio ratio-1x1" alt="가평">
+                                <img th:src="@{/img/Gapyeong.png}" src="../../static/img/Gapyeong.png" class="ratio ratio-1x1" alt="가평">
                                 가평
                             </a>
                         </div>
                         <div class="swiper-slide">
                             <a href="#">
-                                <img src="강릉1.png" class="ratio ratio-1x1" alt="강릉">
+                                <img th:src="@{/img/Gangneung.png}" src="../../static/img/Gangneung.png" class="ratio ratio-1x1" alt="강릉">
                                 강릉
                             </a>
                         </div>
                         <div class="swiper-slide">
                             <a href="#">
-                                <img src="강화도1.png" class="ratio ratio-1x1" alt="강화도">
+                                <img th:src="@{/img/Ganghwado.png}" src="../../static/img/Ganghwado.png" class="ratio ratio-1x1" alt="강화도">
                                 강화도
                             </a>
                         </div>
                         <div class="swiper-slide">
                             <a href="#">
-                                <img src="경주1.png" class="ratio ratio-1x1" alt="경주">
+                                <img th:src="@{/img/Gyeongju.png}" src="../../static/img/Gyeongju.png" class="ratio ratio-1x1" alt="경주">
                                 경주
                             </a>
                         </div>
                         <div class="swiper-slide">
                             <a href="#">
-                                <img src="부산1.png" class="ratio ratio-1x1" alt="부산">
+                                <img th:src="@{/img/Busan1.png}" src="../../static/img/Busan1.png" class="ratio ratio-1x1" alt="부산">
                                 부산
                             </a>
                         </div>
                         <div class="swiper-slide">
                             <a href="#">
-                                <img src="속초1.png" class="ratio ratio-1x1" alt="속초">
+                                <img th:src="@{/img/Sokcho.png}" src="../../static/img/Sokcho.png" class="ratio ratio-1x1" alt="속초">
                                 속초
                             </a>
                         </div>
                         <div class="swiper-slide">
                             <a href="#">
-                                <img src="여수1.png" class="ratio ratio-1x1" alt="여수">
+                                <img th:src="@{/img/Yeosu.png}" src="../../static/img/Yeosu.png" class="ratio ratio-1x1" alt="여수">
                                 여수
                             </a>
                         </div>
                         <div class="swiper-slide">
                             <a href="#">
-                                <img src="인천1.png" class="ratio ratio-1x1" alt="인천">
+                                <img th:src="@{/img/Incheon.png}" src="../../static/img/Incheon.png" class="ratio ratio-1x1" alt="인천">
                                 인천
                             </a>
                         </div>
                         <div class="swiper-slide">
                             <a href="#">
-                                <img src="전주1.png" class="ratio ratio-1x1" alt="전주">
+                                <img th:src="@{/img/Jeonju.png}" src="../../static/img/Jeonju.png" class="ratio ratio-1x1" alt="전주">
                                 전주
+                            </a>
+                        </div>
+                        <div class="swiper-slide">
+                            <a href="#">
+                                <img th:src="@{/img/Jeju.png}" src="../../static/img/Jeju.png" class="ratio ratio-1x1" alt="제주도">
+                                제주도
+                            </a>
+                        </div>
+                        <div class="swiper-slide">
+                            <a href="#">
+                                <img th:src="@{/img/Taean.png}" src="../../static/img/Taean.png" class="ratio ratio-1x1" alt="태안">
+                                태안
+                            </a>
+                        </div>
+                        <div class="swiper-slide">
+                            <a href="#">
+                                <img th:src="@{/img/Haeundae.png}" src="../../static/img/Haeundae.png" class="ratio ratio-1x1" alt="해운대">
+                                해운대
                             </a>
                         </div>
 

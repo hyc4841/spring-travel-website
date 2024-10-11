@@ -24,13 +24,9 @@
       .bd-mode-toggle .dropdown-menu .active .bi {
         display: block !important;
       }
-
-
-    /* /img/aaa.png */
-    /* ../../static/img/aaa.png 로컬에서 돌릴때 */
-    /*
+    
       #searchSection {
-        background-image: url(/img/aaa.png);
+        background-image: url(/img/searchSection.png);
         background-position: center;
         background-size: cover;
         background-repeat: no-repeat;
@@ -40,11 +36,10 @@
         flex-direction: column;
         justify-content: flex-end;
       }
-      */
 
       #searchWindow {
         height: 50%;
-        width: 95%;
+
         margin-bottom: 30px;
       }
 
