@@ -28,6 +28,7 @@
 
     /* /img/aaa.png */
     /* ../../static/img/aaa.png 로컬에서 돌릴때 */
+    /*
       #searchSection {
         background-image: url(/img/aaa.png);
         background-position: center;
@@ -38,8 +39,8 @@
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
-
       }
+      */
 
       #searchWindow {
         height: 50%;
@@ -51,16 +52,7 @@
         height: 45px;
       }
 
-      .slide-track{
-      display:flex;
-      width: calc(300px * 12);
-      animation: scroll 40s linear infinite;
-      }
-
-    .slide-track:hover{
-      animation-play-state:paused;
-    }
-
+   
     @keyframes scroll{
       0% {
         transform: translateX(0);
@@ -68,27 +60,6 @@
       100%{
         transform: translateX(calc(-300px * 6));
       }
-    }
-
-    /* Slider container */
-    .slider {
-    position: relative;
-    width: 100%;
-    margin: auto;
-    overflow: hidden;
-    background-color: #5a23c8;
-    }
-
-    /* Slides container */
-    .slides {
-    display: flex;
-    transition: transform 0.5s ease;
-    }
-
-    /* Individual slide */
-    .slide {
-    min-width: 35%;
-    box-sizing: border-box;
     }
 
     .card-grid {
@@ -133,3 +104,5 @@
     a {
         text-decoration-line: none;
     }
+
+    

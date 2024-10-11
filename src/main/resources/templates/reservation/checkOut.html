@@ -53,7 +53,7 @@
                     <div class="needs-validation">
                         <div class="row g-3">
                             <div class="col-sm-6">
-                                <label for="customer" class="form-label">에약자 이름</label>
+                                <label for="customer" class="form-label">예약자 이름</label>
                                 <input type="text" class="form-control" id="customer" th:field="*{customer}" th:errorclass="field-error"
                                        placeholder="홍길동" required>
 
@@ -183,12 +183,17 @@
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-<script th:src="@{/script/portone.js}"></script>
-
 <script>
     localStorage.clear();
     localStorage.setItem('roomId', [[${room.roomId}]]);
+
+    var roomName = "[[${accommodation.name}]] [[${room.name}]]";
+
 </script>
+
+<script th:src="@{/script/portone.js}"></script>
+
+
 
 </body>
 </html>
