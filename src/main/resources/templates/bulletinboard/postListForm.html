@@ -48,11 +48,10 @@
 
     <!-- 게시물 테이블 -->
     <div class="">
-        <div class="d-flex justify-content-center" th:if="${postList == null}">
+        <div class="d-flex justify-content-center" th:if="${#lists.isEmpty(posts)}">
             <p class="h4">작성된 게시물이 없습니다. 게시물을 작성해 보세요</p>
         </div>
-
-        <table class="table text-center" th:if="${postList != null}">
+        <table class="table text-center" th:if="${!#lists.isEmpty(posts)}">
             <thead>
                 <tr>
                     <th>글 번호</th>
@@ -79,7 +78,7 @@
         <!--페이지 네비게이션-->
         <div class="d-flex justify-content-center mt-5">
             <nav>
-                <ul class="pagination pagination flex-wrap" th:if="${postList != null}">
+                <ul class="pagination pagination flex-wrap" th:if="${!#lists.isEmpty(posts)}">
 
                     <!-- 이전 버튼 -->
                     <li class="page-item" th:if="${pageMaker.prev}">
