@@ -65,8 +65,8 @@ public class AccommodationController {
         log.info("방찾기={}", roomList);
 
         // 숙소 소개용 사진 이름을 보내줘야함
-        List<Image> accommoImages = imageRepository.findImages("accommodation", accommoId);
-        log.info("이미지 찾기={}", accommoImages);
+        List<Image> images = imageRepository.findImages("accommodation", accommoId);
+        log.info("이미지 찾기={}", images);
 
         Accommodation accommodation = accommoService.findAccommoById(accommoId).get();
         log.info("숙소 검색={}", accommodation);
@@ -74,6 +74,7 @@ public class AccommodationController {
         // service는 값이 여러개 여서 파싱 해서 분리해줘야함.
         String[] service = parseService(accommodation.getService());
 
+        model.addAttribute("images", images);
         model.addAttribute("searchCond", searchCond); // 숙소 검색 조건인데. 여기에 사용자가 지정한 입실, 퇴실 날짜, 인원, 지역 등이 담겨 있음
         model.addAttribute("roomList", roomList); // 날짜 조건에 맞는 방 리스트
         model.addAttribute("serviceList", service);  // 해당 숙소의 서비스 리스트
@@ -105,6 +106,6 @@ public class AccommodationController {
         return "redirect:/accommodation/addd";
     }
 
-    
+
 }
 

@@ -86,7 +86,7 @@
                             <p class="h4">방문 방법</p>
                             <div th:each="type : ${visitType}" class="form-check form-check-inline">
                                 <input type="radio" th:field="*{visitType}" th:value="${type.name()}" th:errorclass="field-error"
-                                class="form-check-input">
+                                class="form-check-input" required>
                                 <label th:for="${#ids.prev('visitType')}" th:text="${type.description}">도보</label>
 
                             </div>
@@ -96,14 +96,13 @@
                         </div>
 
                         <hr class="my-4">
+                        <!-- 결재 수단 추후 업데이트 -->
+<!--                        <div class="col-md-12 p-2">-->
+<!--                            <p class="h4 mb-3">결제 수단</p>-->
+<!--                        </div>-->
+<!--                        <hr class="my-4">-->
 
-                        <div class="col-md-12 p-2">
-                            <p class="h4 mb-3">결제 수단</p>
 
-
-                        </div>
-
-                        <hr class="my-4">
                     </div>
                 </div>
 
@@ -121,7 +120,7 @@
                                 <p class="h5"><strong th:text="${room.name}">객실</strong></p>
                             </div>
 
-                            <div class="col-sm-12 mb-2">
+                            <div class="col-sm-12">
                                 <span class="h6" style="margin-right: 10px;">일정</span>
                                 <span id="checkIn" class="h6" th:text="${reservationNonMember.checkIn}">2024-09-24</span>
                                 <span class="h6">-</span>
@@ -143,7 +142,7 @@
                                     <h5>결제 정보</h5>
                                 </div>
                                 <div class="col">
-                                    <p id="price" class="h5">결재 가격 : [[${room.basePrice}]]</p>
+                                    <p id="price" class="h5">결재 가격 : [[${#numbers.formatInteger(room.basePrice, 3, 'COMMA') + '원'}]]</p>
                                     </div>
 
                                 <div class="col-12">
@@ -183,6 +182,8 @@
 <script>
     localStorage.clear();
     localStorage.setItem('roomId', [[${room.roomId}]]);
+
+     var roomName = "[[${accommodation.name}]] [[${room.name}]]";
 </script>
 
 </body>

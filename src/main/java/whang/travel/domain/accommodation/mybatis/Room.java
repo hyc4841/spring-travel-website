@@ -16,6 +16,7 @@ public class Room {
     private LocalTime checkIn;
     private LocalTime checkOut;
     private Long accommodation;     // foreign key accommodation
+    private String thumbNail;
 
 }
 

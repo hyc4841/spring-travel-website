@@ -92,24 +92,8 @@
 
                         <hr class="my-4">
 
-                        <h4 class="mb-3">결제 수단</h4>
-
-                        <div class="my-3">
-                            <div class="form-check">
-<!--                                <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked required>-->
-<!--                                <label class="form-check-label" for="credit">Credit card</label>-->
-                            </div>
-                            <div class="form-check">
-<!--                                <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required>-->
-<!--                                <label class="form-check-label" for="debit">Debit card</label>-->
-                            </div>
-                            <div class="form-check">
-<!--                                <input id="paypal" name="paymentMethod" type="radio" class="form-check-input" required>-->
-<!--                                <label class="form-check-label" for="paypal">PayPal</label>-->
-                            </div>
-                        </div>
-
-                        <hr class="my-4">
+<!--                        <h4 class="mb-3">결제 수단</h4>-->
+<!--                        <hr class="my-4">-->
                     </div>
                 </div>
 
@@ -131,7 +115,7 @@
                                 <span class="h6" style="margin-right: 10px;">일정</span>
                                 <span id="checkIn" class="h6" th:text="${reservation.checkIn}">2024-09-24</span>
                                 <span class="h6">-</span>
-                               <span id="checkOut" class="h6" th:text="${reservation.checkOut}">2024-09-25</span>
+                                <span id="checkOut" class="h6" th:text="${reservation.checkOut}">2024-09-25</span>
                             </div>
 
                             <div class="col-sm-12">
@@ -148,7 +132,8 @@
                                     <h5>결제 정보</h5>
                                 </div>
                                 <div class="col">
-                                    <p id="price" class="h5">결재 가격 : [[${room.basePrice}]]</p>
+                                    <p id="price" class="h5">결재 가격 : [[${#numbers.formatInteger(room.basePrice, 3, 'COMMA') + '원'}]]</p>
+
                                     </div>
 
                                 <div class="col-12">

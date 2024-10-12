@@ -80,7 +80,7 @@
     <!--    > &gt;    -->
 
     <select id="findRoomList" resultType="Room">
-        select room_id, r.name, r.personnel, max_personnel, r.accommodation, r.room_type, r.base_price, r.check_in, r.check_out
+        select room_id, r.name, r.personnel, max_personnel, r.accommodation, r.room_type, r.base_price, r.check_in, r.check_out, r.thumb_nail
         from room r
         left join reservation s on r.room_id = s.room
         AND (
