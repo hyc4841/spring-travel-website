@@ -22,6 +22,7 @@ public class ReservationShow {
     private Integer maxPersonnel;
     private LocalTime checkInTime;
     private LocalTime checkOutTime;
+    private String thumbNail;
 
     // accommodation
     private String accommoName;

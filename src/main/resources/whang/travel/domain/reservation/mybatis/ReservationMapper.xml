@@ -56,7 +56,7 @@
     <!-- 예약 내역 리스트-->
     <select id="findReservationListByMemberId" resultMap="ReservationShowMap">
         select a.reservation_id, a.r_date, a.check_in, a.check_out, a.visit_type,
-        b.name as room_name, b.personnel, b.max_personnel, b.check_in as check_in_time,
+        b.name as room_name, b.personnel, b.max_personnel, b.check_in as check_in_time, b.thumb_nail,
         b.check_out as check_out_time, c.name as accommo_name
         from RESERVATION a
         left join room b on a.room = b.room_id
@@ -68,7 +68,7 @@
     <!-- 예약 상세 페이지 -->
     <select id="findReservationListByReservationId" resultMap="ReservationShowMap">
         select a.reservation_id, a.r_date, a.check_in, a.check_out, a.visit_type,
-        b.name as room_name, b.personnel, b.max_personnel, b.check_in as check_in_time,
+        b.name as room_name, b.personnel, b.max_personnel, b.check_in as check_in_time, b.thumb_nail,
         b.check_out as check_out_time, c.name as accommo_name
         from RESERVATION a
         left join room b on a.room = b.room_id
