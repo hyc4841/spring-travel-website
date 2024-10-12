@@ -3,6 +3,7 @@ package whang.travel.domain.bulletinboard;
 import whang.travel.domain.paging.bulletinboard.Criteria;
 import whang.travel.domain.paging.profilePost.MemberPostCriteria;
 import whang.travel.web.bulletinBoard.form.SavePostForm;
+import whang.travel.web.bulletinBoard.form.ShowPostForm;
 import whang.travel.web.bulletinBoard.form.UpdatePostForm;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public interface  PostRepository {
     Optional<Post> findPostByPostId(Long postId);
 
     // 페이징 게시물 검색
-    List<Post> findAllByPaging(Criteria criteria);
+    List<ShowPostForm> findAllByPaging(Criteria criteria);
 
     // 총 게시물의 갯수
     Integer countPosts(Criteria criteria);

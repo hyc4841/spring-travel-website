@@ -5,6 +5,7 @@ import lombok.Getter;
 import org.springframework.web.multipart.MultipartFile;
 import whang.travel.domain.image.Image;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -24,13 +25,13 @@ public class Post {
     // 카테고리
     private String category;
     // 작성 일자
-    private Date postDate;
+    private LocalDateTime postDate;
     // 최종 수정 일자
-    private Date postEditDate;
+    private LocalDateTime postEditDate;
     // 이미지
     private List<Image> images;
 
-    public Post(Long memberId, String title, String content, String category, Date postDate) {
+    public Post(Long memberId, String title, String content, String category, LocalDateTime postDate) {
         this.memberId = memberId;
         this.title = title;
         this.content = content;

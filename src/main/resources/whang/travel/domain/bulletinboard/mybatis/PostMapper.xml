@@ -51,9 +51,10 @@
     </select>
 
     <!-- 페이징. 제목으로 검색. 최신 글부터 보이게 내림차순으로 정렬 -->
-    <select id="findAllByPaging" resultType="Post">
-        select post_id, member_id, title, content, post_date, category, edit_date
-        from BULLETINBOARD
+    <select id="findAllByPaging" resultType="whang.travel.web.bulletinBoard.form.ShowPostForm">
+        select a.post_id, b.member_id, a.title, a.category, a.post_date
+        from BULLETINBOARD a
+        join member b on a.member_id = b.id
         <where>
             <if test="keyword != null and keyword != ''">
                 and title like concat('%', #{keyword}, '%')

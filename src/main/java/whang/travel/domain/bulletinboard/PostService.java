@@ -3,6 +3,7 @@ package whang.travel.domain.bulletinboard;
 import whang.travel.domain.paging.bulletinboard.Criteria;
 import whang.travel.domain.paging.profilePost.MemberPostCriteria;
 import whang.travel.web.bulletinBoard.form.SavePostForm;
+import whang.travel.web.bulletinBoard.form.ShowPostForm;
 import whang.travel.web.bulletinBoard.form.UpdatePostForm;
 
 import java.io.IOException;
@@ -23,7 +24,7 @@ public interface PostService {
 
     Optional<Post> findPostByPostId(Long postId);
 
-    List<Post> findAllByPaging(Criteria criteria);
+    List<ShowPostForm> findAllByPaging(Criteria criteria);
 
     Integer countPosts(Criteria criteria);
 

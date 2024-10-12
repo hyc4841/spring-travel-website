@@ -48,32 +48,38 @@
 
     <!-- 게시물 테이블 -->
     <div class="">
-        <table class="table text-center">
+        <div class="d-flex justify-content-center" th:if="${postList == null}">
+            <p class="h4">작성된 게시물이 없습니다. 게시물을 작성해 보세요</p>
+        </div>
+
+        <table class="table text-center" th:if="${postList != null}">
             <thead>
-            <tr>
-                <th>글 번호</th>
-                <th>제목</th>
-                <th>작성자</th>
-                <th>작성 일자</th>
-                <th>카테고리</th>
-            </tr>
+                <tr>
+                    <th>글 번호</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>작성 일자</th>
+                    <th>카테고리</th>
+                </tr>
             </thead>
             <tbody>
-            <tr th:each="post : ${posts}">
-                <!-- 여기로 넘겨지는 posts는 DisplayPostForm의 데이터 형태가 넘어오는 것임. 작성자 이름을 사용하기 위해서 그렇게 했음-->
-                <td><a href="#" th:href="@{/bulletinBoard/detail/{postId}(postId=${post.postId}, pageNum=${criteria.pageNum}, amount=${criteria.amount}, keyword=${criteria.keyword})}" th:text="${post.postId}">글 번호</a></td>
-                <td><a href="#" th:href="@{/bulletinBoard/detail/{postId}(postId=${post.postId}, pageNum=${criteria.pageNum}, amount=${criteria.amount}, keyword=${criteria.keyword})}" th:text="${post.title}">제목</a></td>
-                <td th:text="|${post.memberId}|">작성자</td>
-                <td th:text="${post.postDate}">작성일자</td>
-                <td th:text="${post.category}">카테고리</td>
-            </tr>
+                <tr th:each="post : ${posts}">
+                    <!-- 여기로 넘겨지는 posts는 DisplayPostForm의 데이터 형태가 넘어오는 것임. 작성자 이름을 사용하기 위해서 그렇게 했음-->
+                    <td><a href="#" th:href="@{/bulletinBoard/detail/{postId}(postId=${post.postId}, pageNum=${criteria.pageNum}, amount=${criteria.amount}, keyword=${criteria.keyword})}" th:text="${post.postId}">글 번호</a></td>
+                    <td><a href="#" th:href="@{/bulletinBoard/detail/{postId}(postId=${post.postId}, pageNum=${criteria.pageNum}, amount=${criteria.amount}, keyword=${criteria.keyword})}" th:text="${post.title}">제목</a></td>
+                    <td th:text="|${post.memberId}|">작성자</td>
+                    <td th:text="${post.postDate.toLocalDate()}">작성일자</td>
+                    <td th:text="${post.category}">카테고리</td>
+                </tr>
             </tbody>
         </table>
+
+
 
         <!--페이지 네비게이션-->
         <div class="d-flex justify-content-center mt-5">
             <nav>
-                <ul class="pagination pagination flex-wrap">
+                <ul class="pagination pagination flex-wrap" th:if="${postList != null}">
 
                     <!-- 이전 버튼 -->
                     <li class="page-item" th:if="${pageMaker.prev}">

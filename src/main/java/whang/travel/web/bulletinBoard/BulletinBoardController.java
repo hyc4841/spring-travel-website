@@ -18,6 +18,7 @@ import whang.travel.domain.member.Member;
 import whang.travel.domain.member.MemberRepository;
 import whang.travel.domain.paging.bulletinboard.PageMaker;
 import whang.travel.web.bulletinBoard.form.SavePostForm;
+import whang.travel.web.bulletinBoard.form.ShowPostForm;
 import whang.travel.web.bulletinBoard.form.UpdatePostForm;
 
 import java.io.IOException;
@@ -38,9 +39,11 @@ public class BulletinBoardController {
     public String bulletinBoardList(@ModelAttribute("criteria") Criteria criteria, @AuthenticationPrincipal UserDetails user,
                                     Model model) {
 
-        List<Post> postList = postService.findAllByPaging(criteria);
+        List<ShowPostForm> postList = postService.findAllByPaging(criteria);
         Integer total = postService.countPosts(criteria);
         PageMaker pageMaker = new PageMaker(criteria, total);
+
+        log.info("검색된 게시물 리스트={}", postList);
 
         model.addAttribute("pageMaker", pageMaker);
         model.addAttribute("posts", postList);

@@ -9,6 +9,7 @@ import whang.travel.domain.image.ImageStore;
 import whang.travel.domain.paging.bulletinboard.Criteria;
 import whang.travel.domain.paging.profilePost.MemberPostCriteria;
 import whang.travel.web.bulletinBoard.form.SavePostForm;
+import whang.travel.web.bulletinBoard.form.ShowPostForm;
 import whang.travel.web.bulletinBoard.form.UpdatePostForm;
 import whang.travel.web.image.form.ImageNameForm;
 import whang.travel.web.image.form.ImageSaveForm;
@@ -67,7 +68,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> findAllByPaging(Criteria criteria) {
+    public List<ShowPostForm> findAllByPaging(Criteria criteria) {
         return postRepository.findAllByPaging(criteria);
     }
 

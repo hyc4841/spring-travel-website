@@ -6,6 +6,7 @@ import whang.travel.domain.bulletinboard.Post;
 import whang.travel.domain.bulletinboard.DisplayPostForm;
 import whang.travel.domain.paging.bulletinboard.Criteria;
 import whang.travel.domain.paging.profilePost.MemberPostCriteria;
+import whang.travel.web.bulletinBoard.form.ShowPostForm;
 import whang.travel.web.bulletinBoard.form.UpdatePostForm;
 
 import java.util.List;
@@ -28,7 +29,7 @@ public interface PostMapper {
     // 글 id로 단건 조회
     Optional<Post> findPostByPostId(Long postId);
 
-    List<Post> findAllByPaging(Criteria criteria);
+    List<ShowPostForm> findAllByPaging(Criteria criteria);
 
     Integer countPosts(Criteria criteria);
 

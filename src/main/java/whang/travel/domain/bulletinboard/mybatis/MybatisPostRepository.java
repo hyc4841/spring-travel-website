@@ -9,8 +9,10 @@ import whang.travel.domain.bulletinboard.PostRepository;
 import whang.travel.domain.bulletinboard.DisplayPostForm;
 import whang.travel.domain.paging.profilePost.MemberPostCriteria;
 import whang.travel.web.bulletinBoard.form.SavePostForm;
+import whang.travel.web.bulletinBoard.form.ShowPostForm;
 import whang.travel.web.bulletinBoard.form.UpdatePostForm;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -24,7 +26,8 @@ public class MybatisPostRepository implements PostRepository {
 
     @Override
     public Post save(SavePostForm savePost) {
-        Post post = new Post(savePost.getMemberId(), savePost.getTitle(), savePost.getContent(), savePost.getCategory(), new Date());
+        Post post = new Post(savePost.getMemberId(), savePost.getTitle(), savePost.getContent(),
+                savePost.getCategory(), LocalDateTime.now().withNano(0));
         postMapper.save(post);
         return post;
     }
@@ -57,7 +60,7 @@ public class MybatisPostRepository implements PostRepository {
     }
 
     @Override
-    public List<Post> findAllByPaging(Criteria criteria) {
+    public List<ShowPostForm> findAllByPaging(Criteria criteria) {
         return postMapper.findAllByPaging(criteria);
     }
 
