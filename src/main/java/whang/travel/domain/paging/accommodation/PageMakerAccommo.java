@@ -27,12 +27,6 @@ public class PageMakerAccommo {
             this.endPage = realEnd;
         }
 
-        log.info("startPage={}", startPage);
-        log.info("endPage={}", endPage);
-        log.info("prev={}", prev);
-        log.info("next={}", next);
-        log.info("total={}", total);
-
         this.prev = this.startPage > 1;
         this.next = this.endPage < realEnd;
     }

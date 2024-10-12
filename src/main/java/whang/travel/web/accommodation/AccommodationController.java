@@ -40,9 +40,6 @@ public class AccommodationController {
         List<Accommodation> accommoList = accommoService.findAccommoList(criteria);
         Integer total = accommoService.countAccommo(criteria);
 
-        log.info("total 값={}", total);
-        log.info("pageNum 값={}", criteria.getPageNum());
-        log.info("amount 값={}", criteria.getAmount());
         // 숙소 찾아주는 sql을 수정해야함. 지금 방의 갯수 세주는 sql문임 순전히 숙소만 검색되도록 만들어야하는데..
 
         PageMakerAccommo pageMaker = new PageMakerAccommo(criteria, total);
@@ -60,7 +57,6 @@ public class AccommodationController {
                                 @AuthenticationPrincipal UserDetails user, Model model) {
 
         // 방 가격 만약에 데이터베이스 조회해서 설정해둔 가격이 따로 있으면 그에 맞는 가격 보여줘야함.
-
 
         // 이용 가능한 방 리스트 보여줘야함. 만약에 날짜 선택 안하고 왔으면 숙소가 가지고 있는 모든방 보여주고
         // 예약 버튼 누를 때 날짜 선택하도록 만듬.
@@ -105,14 +101,10 @@ public class AccommodationController {
             log.info("에러발생={}", bindingResult);
             return "/accommodation/addAccommo";
         }
-        
         accommoService.save(accommodation);
         return "redirect:/accommodation/addd";
     }
 
-
-
-
-
+    
 }
 
