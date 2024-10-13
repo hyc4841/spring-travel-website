@@ -15,6 +15,7 @@ import java.util.Random;
 @RequiredArgsConstructor
 public class MailService {
 
+    /*
     private final JavaMailSender mailSender;
     private int authNumber;
 
@@ -66,6 +67,8 @@ public class MailService {
             e.printStackTrace();   //e.printStackTrace()는 예외를 기본 오류 스트림에 출력하는 메서드
         }
     }
+
+     */
 
 
 }

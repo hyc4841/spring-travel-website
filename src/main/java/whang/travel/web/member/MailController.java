@@ -13,6 +13,7 @@ import whang.travel.web.member.form.MemberEmailRequest;
 @RequiredArgsConstructor
 public class MailController {
 
+    /*
     private final MailService mailService;
     @PostMapping("/mailSend")
     public String mailSend(@RequestBody @Valid MemberEmailRequest emailDto){
@@ -21,5 +22,7 @@ public class MailController {
         log.info("인증 번호={}", authNum);
         return authNum;
     }
+
+     */
 
 }
