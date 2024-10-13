@@ -110,9 +110,14 @@
 
 <div>
 
-<h3>✔회원가입</h3>
+<h3>✔ 메인 화면</h3>
+
+![메인 화면](https://github.com/user-attachments/assets/32ba6796-142c-4cb5-92e6-365dde1496e4)
+
+<h3>✔ 회원가입</h3>
 
 ![회원가입](https://github.com/user-attachments/assets/38117bc6-d57e-4cd3-bb16-f86885691461)
+
 <h3>✔ 로그인</h3>
 
 ![로그인](https://github.com/user-attachments/assets/9e4a0157-0c47-4f61-a940-26b05c2f0f03)
